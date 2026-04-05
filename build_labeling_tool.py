@@ -2,13 +2,50 @@
 """Generate a standalone HTML labeling tool for unknown surnames."""
 import csv
 import json
+from collections import Counter
 
-# Read data
-rows = []
-with open('archives/unknown_real_surnames.csv') as f:
-    reader = csv.DictReader(f)
+# Build fresh unknown list from current APCRDA data + mapping
+with open('data/caste_surname_map.json') as f:
+    data = json.load(f)
+surname_map = data['surnames']
+indicator_map = data['name_indicators']
+not_surnames = set(data['not_surnames'])
+
+unknown = Counter()
+with open('data/apcrda_lps_data.csv', 'r', encoding='utf-8') as f:
+    reader = csv.reader(f)
+    header = next(reader)
+    col = {h: i for i, h in enumerate(header)}
     for row in reader:
-        rows.append([row['surname'], int(row['frequency'])])
+        farmer = row[col['farmer_n']].strip()
+        if not farmer: continue
+        for name in farmer.split(','):
+            name = name.strip().lstrip('-').replace('.', ' ')
+            if not name: continue
+            upper = name.upper()
+            if any(kw in upper for kw in ['LIMITED','PRIVATE','LTD','TECHNOLOGIES','VIJAYAWADA','APCRDA']): continue
+            if upper.startswith('('): continue
+            parts = name.split()
+            if not parts: continue
+            found = False
+            for p in parts[1:]:
+                if p.upper() in indicator_map:
+                    found = True; break
+            if found: continue
+            surname = None
+            for p in parts:
+                u = p.upper().strip('.')
+                if u and u not in not_surnames and len(u) > 1:
+                    surname = u; break
+            if not surname:
+                if len(parts) > 1: surname = parts[1].upper()
+                else: continue
+            if surname not in surname_map:
+                if len(parts) > 1 and parts[1].upper() in surname_map: continue
+                unknown[surname] += 1
+
+rows = [[s, c] for s, c in unknown.most_common()]
+print(f"Unclassified surnames: {len(rows)} ({sum(c for _, c in rows)} instances)")
 
 data_json = json.dumps(rows)
 

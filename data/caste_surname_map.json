@@ -1902,7 +1902,437 @@
     "FATHER",
     "MOTHER",
     "MAINER",
-    "GARDIAN"
+    "GARDIAN",
+    "BY",
+    "RESIDENTIAL",
+    "13)",
+    "CO",
+    "ASSISI",
+    "SUBRAHMANYAM",
+    "RAMANAIAH",
+    "BHUSHAIAH",
+    "MARIYAMMA",
+    "MURALIKRISHNA",
+    "SUDESHNAMMA",
+    "RATHNAM",
+    "SAMBRAJYAM",
+    "SIVAPARVATHI",
+    "SARASWATHI",
+    "GROUP",
+    "CHINNA",
+    "VEENA",
+    "SAMRAJYAM",
+    "GANGAMMA",
+    "BEHALF",
+    "BAGESWARARAO",
+    "MAHALAKSHMI",
+    "NIRMALA",
+    "SAIDURGA",
+    "KEYS)",
+    "BALASWAMY",
+    "RAMANAMMA",
+    "VEERANJANEYULU",
+    "BOMIRASIPETA",
+    "SRINIVASULU",
+    "SAMRAJAYAM",
+    "INFRA",
+    "TAGORENADH",
+    "KANTI",
+    "SITARAMIREDDY",
+    "BALAMMA",
+    "GAYATRI",
+    "NENI",
+    "DURGAPRASAD",
+    "SUSEELA",
+    "USHARANI",
+    "SARVIREDDY",
+    "BEGUM",
+    "BHANUMATHI",
+    "KETAN",
+    "SHESHA",
+    "VEERARAGHAVAIAH",
+    "GOPIDI",
+    "CHINNAMMAI",
+    "COMMUNITY",
+    "SANTHA",
+    "DAS",
+    "SAMBAIAH",
+    "KULSUM",
+    "AHAMED",
+    "ALEEM",
+    "KUTUMBARAO",
+    "SOVAMMA",
+    "VEERAIAH",
+    "VIDYASAGAR",
+    "VAJAYA",
+    "BOSU",
+    "RADHAKRISHNAN",
+    "VEERASWAMY",
+    "ROY",
+    "MAHALAXMIYA",
+    "KEDARESWARA",
+    "SATYASAI",
+    "GOPIKRISHNA",
+    "SANDIP",
+    "KAVYA",
+    "VENKATESWARAMMA",
+    "SMITHA",
+    "YESUPADAM",
+    "SWARNALATHA",
+    "NAGENDRAM",
+    "EDUKONDALU",
+    "AL",
+    "RACHANA",
+    "URAF",
+    "PUBLIC",
+    "SHREEMAHA",
+    "PARTY",
+    "NON",
+    "ASSOCIATION(STATE",
+    "APPAJI",
+    "CHIRANJEEVI",
+    "RAMANJAMMA",
+    "SERVICES",
+    "NAGAVENKATARAMAMARUTHIKISHORE",
+    "ANJAIAH",
+    "SIVARAO",
+    "MAHESWARI",
+    "KAMAL",
+    "CHANDRASEKHARAN",
+    "JAGANMOHANRAO",
+    "NARENDAR",
+    "OFFICER",
+    "RATNAJI",
+    "AAHAAR",
+    "SHARMILA",
+    "NIKHILESH",
+    "RAMULA",
+    "ANNAPURNADEVI",
+    "ALAYAM",
+    "VENKATARATHNAM",
+    "SUMAT",
+    "DEGREE",
+    "EDUCATION",
+    "LALALAJAPATI",
+    "BENEFICIARY",
+    "APARNA",
+    "SAMBAYYA",
+    "TEJASWI",
+    "VEENAPANI",
+    "AATHUPALAYAM",
+    "NYMISHA",
+    "JALAMITRA",
+    "RAVICHANDRA",
+    "DEVASTANAM",
+    "NAGESWAR",
+    "SIVAKRISHNA",
+    "NAGESHWAR",
+    "CHANDRARAO",
+    "VAIBHAV",
+    "DIRECTOR",
+    "CHANDRESH",
+    "SRUJANA",
+    "LAKSHMIPATHI",
+    "SESHAGIRAMMA",
+    "HORSES",
+    "PARVATHAMMA",
+    "BHRAT",
+    "MANGESH",
+    "PERAIAH",
+    "VENKATASWAMI",
+    "PREMAIAH",
+    "SUMITHRA",
+    "TEJESWINI",
+    "PAVITHRA",
+    "BEE",
+    "TANUJA",
+    "GANGABHAVANI",
+    "NARMADA",
+    "ANKINEEDU",
+    "LIPI",
+    "SHESHAYYA",
+    "FINANCE",
+    "(PHASE-1=100+",
+    "BARODA",
+    "ADAMU",
+    "PUSTAKA",
+    "SARATH",
+    "VASUDHA",
+    "FATHIMA",
+    "DESAMMA",
+    "JAGADESH",
+    "KARUNANITHI",
+    "SIVANI",
+    "BAPUJI",
+    "THIRUMALA",
+    "CO-OPERATIVE",
+    "BRAHMANANDAM",
+    "PERUMAL",
+    "OBAIAH",
+    "EMELAMMA",
+    "SAKUNTHALA",
+    "RAJAVARDHAN",
+    "COMMANDER",
+    "ALIVELU",
+    "CHALLAP",
+    "ITS",
+    "SINDHU",
+    "NANCHARAMMA",
+    "PRATHIMA",
+    "BAYAMMA",
+    "SHUNMUGAM",
+    "BALARAMAKRISHNAMURTHY",
+    "KISHAN",
+    "MARADAPA",
+    "CHITANAYA",
+    "PRAKASAM",
+    "GENESIS",
+    "YADAGIRI",
+    "HARISESHU",
+    "YANAMADALAVENKATA",
+    "SANKSHEMA",
+    "HUSSAIAN",
+    "MALLIKHARJUNA",
+    "SHESHU",
+    "HIM",
+    "ASWANI",
+    "BHERULAL",
+    "SATYANARAYANI",
+    "KOCHAR",
+    "SRINIVASAS",
+    "PADMARAJIAJ",
+    "TAX",
+    "JYOTHIRMAI",
+    "KEERTHAN",
+    "THEJA",
+    "KOUSALYA",
+    "VENKAYYA",
+    "DHEERAJ",
+    "LEKHA",
+    "SURVEY",
+    "DEFERNE",
+    "LAKSHMAMMA",
+    "SPANDAN",
+    "PURNANAND",
+    "CHANDRAVANI",
+    "BENIL",
+    "RAJAKUMARI",
+    "DANAMMA",
+    "KONADALARAO",
+    "BOMBAY",
+    "ROHIT",
+    "VENKATASUBBAMMA",
+    "BEGAM",
+    "MANEESH",
+    "KRRISHNA",
+    "TARAPUNA",
+    "RAMALAKSHMMA",
+    "SAKKUBAI",
+    "FORWARDERS",
+    "MATHEW'S",
+    "NILAKANTA",
+    "NAGASRI",
+    "SIVANARAYANA",
+    "ADI",
+    "MANGAMMA",
+    "HARITHA",
+    "RAMALINGESWARARAO",
+    "BAPAMMA",
+    "AUDITOR",
+    "RAJASHEKAR",
+    "AROKIADAS",
+    "SUBBANI",
+    "SIVARAMAKRISHNAIAH",
+    "CHAKRAPANI",
+    "ZEERINA",
+    "SREELAKSHMI",
+    "DEVADAS",
+    "SAIBABU",
+    "SAITEJA",
+    "SANDYA",
+    "BHARAGAVI",
+    "USE",
+    "NANDINI",
+    "INSTITUTE",
+    "ACADEMY",
+    "TIRUPATI",
+    "BASAVAIAH",
+    "KUMARASWAMY",
+    "SUBHAKAR",
+    "PROTECTION",
+    "METEOROLOGICAL",
+    "LAWRENCE",
+    "INTELLIGENCE",
+    "ARMY",
+    "BOW",
+    "SUJATA",
+    "KHANA",
+    "TRINADHA",
+    "VENKATRAO",
+    "NAGAJYOTHI",
+    "ACHUTHA",
+    "RAGAYYA",
+    "KANTAMMA",
+    "SRINIVASABABU",
+    "NAGAMALLESWER",
+    "MUNTHAJ",
+    "BABA",
+    "RUTHAMMA",
+    "W/O",
+    "THIRUPATHIRAO",
+    "SUNDARA",
+    "SUMALATHA",
+    "SANKARANARAYANA",
+    "RATHAIAH",
+    "SARANYA",
+    "VEERLANKAIAH",
+    "SINDHUSHA",
+    "BALAYOGI",
+    "SAIDULU",
+    "PRABHUDASU",
+    "RAGHUNANDAN",
+    "MOOLAYIL",
+    "HARINAD",
+    "SHIVANAGARAJU",
+    "BRAHMAIAH",
+    "NARSIMHARAO",
+    "GANGADHARA",
+    "MANJUNATH",
+    "VENI",
+    "SWAMULU",
+    "KRUPA",
+    "TARINI",
+    "INVESTMENT",
+    "NATARAJAN",
+    "MAHESWARA",
+    "CHALAPATHI",
+    "VINEEL",
+    "KEERTHI",
+    "SUJAN",
+    "KALESWARARAO",
+    "CHANTIBABU",
+    "LALSANGHVI",
+    "VINODH",
+    "PRAKASA",
+    "VANDANAM",
+    "LOKESH",
+    "SEETHARAMAN",
+    "PURNACHANDRA",
+    "PREMALATHA",
+    "RAMGOPAL",
+    "VENKATARAMANAN",
+    "KAMESHWARA",
+    "SAMUDRA",
+    "SITAMAHALAKSHMI",
+    "FRUITS",
+    "SANTOSH",
+    "HEMAVATHI",
+    "FARHEEN",
+    "THAHSEEN",
+    "KOTESWARARAO",
+    "ROJARAO",
+    "SIDDHARTHA",
+    "RATNAKAR",
+    "SRINATH",
+    "MADHULATHA",
+    "BULLI",
+    "JANAKIRAM",
+    "MANUKOUSHIK",
+    "RAJARAO",
+    "SESHAMMA",
+    "PARDHASARADHI",
+    "AYESHA",
+    "KATARIYA",
+    "SIVANANDA",
+    "SATYARAO",
+    "GANGARATNAM",
+    "SMALL",
+    "HRUSHI",
+    "JALAMMA",
+    "NARSIMHA",
+    "SOWRI",
+    "GODAVARI",
+    "DEV",
+    "RANJANI",
+    "SRIVANI",
+    "GOVIND",
+    "ASHWANI",
+    "PULLAYYA",
+    "LATIFPUN",
+    "KISHOR",
+    "BI",
+    "WAQF",
+    "VILLAGE",
+    "MANDAL",
+    "SUBHAS",
+    "SIVAJI",
+    "PUNNAIAH",
+    "SRIJHA",
+    "MOTORMERCHANTS",
+    "GUNTAIAH",
+    "NARAYANARAO",
+    "NAGATRINADHA",
+    "POORNACHANDRA",
+    "DHANUMJAYA",
+    "HANUMA",
+    "SA",
+    "RAMAYYA",
+    "SEETAMMA",
+    "BHASHA",
+    "RATHNAMMA",
+    "(PHASE-1=150+PHASE-2=50",
+    "GLOBAL",
+    "LEGAL",
+    "ANGLO",
+    "CRICKET",
+    "IMMIGRATION",
+    "GRAMEENA",
+    "WOOD",
+    "INVESTIGATION",
+    "(PHASE",
+    "RED",
+    "CHINMAYA",
+    "FORENSIC",
+    "RESEARCH",
+    "FOR",
+    "PRADESH",
+    "RAGA",
+    "RAVINDARA",
+    "(BOI)",
+    "(UBI)",
+    "(SBI)",
+    "BANNK",
+    "AMMAJI",
+    "KALAM",
+    "DASARADHA",
+    "HARINATH",
+    "THARUNA",
+    "VELORE",
+    "INSTITUTION",
+    "MOKKLA",
+    "GRESAMMA",
+    "PALAYANURU",
+    "PYNDA",
+    "VENKATESWARI",
+    "PERSIS",
+    "SEYARASU",
+    "SANKARARAO",
+    "JOGARAO",
+    "JAYAMMA",
+    "JAYARAMA",
+    "PRASADRAO",
+    "VALLI",
+    "PAPARAO",
+    "MG",
+    "SHOBHARANI",
+    "KANAKARAO",
+    "MABHU",
+    "BIKSHAM",
+    "SHAHEEDA",
+    "AVINASH",
+    "PALLAVI",
+    "MAQBOOL",
+    "LIFT"
   ],
   "surnames": {
     "AALA": {
@@ -23370,6 +23800,1962 @@
       "confidence": "medium"
     },
     "PEDAPROLU": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "PATEL": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "CHODA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SAGI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MEHTA": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "CHALAGALLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KONDAPAVULURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "JAMBULADINNE": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GORREMUTCHU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "AAMUDALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KURUKUMALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "EARIGINABOYINA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHITIPOTU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MALKAPURAM": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GURAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "TULLURI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "AALLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "THONTEPU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KATTIPOGU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "DHAMULURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DODDIPATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VASANTHAPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MATHUKUMILLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SANGEPU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "RUTHULA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "IDPULAPATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PUTIGAMAPU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "GATTIGUNDLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "MEREGA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "VALLAMKONDA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "YALAGALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KANAJAM": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "ONGOLU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MALLAVARPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PONUGUMATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SINGUPURAM": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "VISSAKOTI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VALLABHAPURAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHILLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "CHARAKA": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "POTTURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "BURRI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "ETHAKOTA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "ARUMILLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KUNKALAGUNTLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PANASAKAYALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KONDIPARTI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SUNKAVELLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MENDRU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "YAKKANTI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MUCHARLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GAGGARA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PENUMARTI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "MADADHAPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "TIRIVEEDI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "JAMALAPURAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KOPURU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "NAYANI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KOMARAVALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KOTTALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KURICHETI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "PEDARLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "NANNURI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "PONNAKANTTI": {
+      "caste": "Kamma",
+      "confidence": "low"
+    },
+    "MADHIPATLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GETTINI": {
+      "caste": "SC",
+      "confidence": "low"
+    },
+    "KALIVELU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KOTTAKOTA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "RATAKONDA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "TRIPURAMALLU": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "VITHANALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KORRA": {
+      "caste": "ST",
+      "confidence": "high"
+    },
+    "GURUGUBELLI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PUNDLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "AKKENA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VETSA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHUCHIKONDA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "TIRUVIDULA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ARAKATLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PRODDUTURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PANDIPATI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PINGALI": {
+      "caste": "Brahmin",
+      "confidence": "high"
+    },
+    "NARIPEDDI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PULUGUJJU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "DABBAKUTI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "PICHIKA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VINJAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "TALATOTI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MUTLURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PALAPARTHY": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MUNAGAPATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GUDDANTI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SINGANA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VENPATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "THOLLIKONDA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GUDLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BARATAM": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SINGHVI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "TADEKORU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VANIPENTA": {
+      "caste": "Reddy",
+      "confidence": "medium"
+    },
+    "REDAPANGU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "DAADI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MOLUGU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GANGAVALLI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "CHIRATANAGALLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "DUNNA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PENUMATHSA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "ENTURI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SAMMANGI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GODUGULURI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PRATTHIPATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KANAKANCHI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YANDLURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHIDIPOTHU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BATCHALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "EELAPROLU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KUNCHAKARLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "BACHALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PEERLA": {
+      "caste": "Muslim",
+      "confidence": "medium"
+    },
+    "DEEKOLLU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SOMINANI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MAREEDU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "YERRAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VUDDAGIRI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SILAPARAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PATCHALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "ZADDU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MURIKINATI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "CHOLLANGI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PUTCHAKAYALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "UYYALA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BOMMADEVARA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "BHANDARI": {
+      "caste": "Vysya",
+      "confidence": "medium"
+    },
+    "DHOPPALA": {
+      "caste": "Christian",
+      "confidence": "medium"
+    },
+    "YELLALACHERUVU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KOVURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GOSIPATHA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "VUPPALAPANCHU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NUGALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "EMMILA": {
+      "caste": "Christian",
+      "confidence": "medium"
+    },
+    "VANDANAPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KANATHARUPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "YALAMARTHY": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GAMANI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "UMMANABOINA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KUNADHARAJU": {
+      "caste": "Kshatriya",
+      "confidence": "medium"
+    },
+    "KAPILAVAI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KACHALLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "POTURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHITTANURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ANAGANI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YARAGANI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KANIJAM": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "DEGALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PABBATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VADDEPATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KOLLAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SURAGANI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NEELURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PIDAPARTHI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KORLEPARA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MALYADRI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SHETH": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "RATHI": {
+      "caste": "Vysya",
+      "confidence": "medium"
+    },
+    "YEDUKODALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ENUMULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SITARAMARAJU": {
+      "caste": "Kshatriya",
+      "confidence": "medium"
+    },
+    "BONTHAGORLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GONAMANDA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GOGU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "PERUMALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "CHINTARALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KOKKU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "GADAGATTU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PODILA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VALLEM": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "THALASILA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ANNABATHUNI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "AAKULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VUPPUTURI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SALIVENDRAM": {
+      "caste": "Christian",
+      "confidence": "medium"
+    },
+    "PARASARAM": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "CHAMARTHY": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "GORINTLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "CHATTALA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KURALLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "POTU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "VELUGULETI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KATABATHUNI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "YARRABOTHULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "METTU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KONIJETI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "YAKASIRI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KAGITHAPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VELLATURI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KONA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MALLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "PILLALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MACCHA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "ARAVETI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "YARRARAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KOTU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "CHENNA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KAJJAYAM": {
+      "caste": "Kapu",
+      "confidence": "low"
+    },
+    "MUSYAM": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "MATTAPARTHI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NALLAPATTI": {
+      "caste": "Kamma",
+      "confidence": "low"
+    },
+    "NUKA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MIDATANI": {
+      "caste": "Kapu",
+      "confidence": "low"
+    },
+    "KATTAMURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "THOUTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VUYYURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "RANGARAJU": {
+      "caste": "Kshatriya",
+      "confidence": "medium"
+    },
+    "DEVALARAJU": {
+      "caste": "Kshatriya",
+      "confidence": "medium"
+    },
+    "SANAKKAYALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GOVINDAIAH": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "VEGUNTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "TULLURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ADAM": {
+      "caste": "Christian",
+      "confidence": "medium"
+    },
+    "KOMMI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SRIVATSA": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "MALAKONDAIAH": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NAGUMOTHU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YEDUKONDALU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BRAMHAREDDY": {
+      "caste": "Reddy",
+      "confidence": "high"
+    },
+    "JABEEN": {
+      "caste": "Muslim",
+      "confidence": "high"
+    },
+    "KONATALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PAUL": {
+      "caste": "Christian",
+      "confidence": "medium"
+    },
+    "ARAJA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KOLLERU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SARUPURI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "NAYUNIGARI": {
+      "caste": "Reddy",
+      "confidence": "medium"
+    },
+    "GADIGATLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "POTUGUNTLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PULAVARTHY": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "BIRUDUKOTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KAVARTHAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KALVAKOLLU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "BIRUDURAJU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YARRAKULA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KANAKAMALLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KARASALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHEEMAKURTHI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "RAJANALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ALLADA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NENALAPURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ARETI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "ANGADALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KUMBHAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MOPIDEVI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "ELLURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GANDAMALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NALLAMOLU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PATNAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ARMALLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ILAPURAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MARTI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KUNDU": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "JONNAVITTULA": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "ELLANTI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DHANARAJU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MANUBOTHULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VELURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MISHRA": {
+      "caste": "Brahmin",
+      "confidence": "high"
+    },
+    "BATHHINI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BADUGU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "GUDIPIDI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MUPPIRI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KOTTAMASU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ZAGABATHUNI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KATTIKOLU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BATHULLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BACHHALA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BONKUR": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "MAHANKALI": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "MATAM": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "GUBBALA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "UMMADISINGU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "THIRUVEEDULA": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "DAKINEDI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MARADANI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "DEORA": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "KALISETI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "NAGIRI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "THANGELLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "PALLERLA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BACHANA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "NUTHANGI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KURMA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "PARAKAL": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "MELLAM": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BADIGANCHULA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KARKATI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "TALACHERU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "SAYYAPARAJU": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "PERALI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PALCHURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ANDUGULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SIRIGIRI": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "YANDURI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "SATYAVARAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "HANUMANULA": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "CHENNAGIRI": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "PEDAPARIMI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "TUTA": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "KADUPU": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "KATREDDI": {
+      "caste": "Reddy",
+      "confidence": "medium"
+    },
+    "PYDIPAMALA": {
+      "caste": "Christian",
+      "confidence": "medium"
+    },
+    "PULIKANTI": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "BENARJI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "PADMANABHAN": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "NALLAMOTU": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "GUNTA": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "ALAMANDHA": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "KAKOLLU": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "DAGGUPATA": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "KOTIREDDY": {
+      "caste": "Reddy",
+      "confidence": "high"
+    },
+    "HASSAN": {
+      "caste": "Muslim",
+      "confidence": "high"
+    },
+    "AYYANAR": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "DANTULURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PASAGADA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MANDHA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PORWAL": {
+      "caste": "Vysya",
+      "confidence": "medium"
+    },
+    "BHRUGUMALLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PONGURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHIRIMALLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VARIGALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "REDDYBATTINA": {
+      "caste": "Reddy",
+      "confidence": "high"
+    },
+    "PENIMARTHI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "RAJANNA": {
+      "caste": "Reddy",
+      "confidence": "medium"
+    },
+    "SRIVADA": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "PARIKH": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "BAYYAVARAPU": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "PATODIA": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "SOLANKI": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "UDAYARKAR": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "CHARYULU": {
+      "caste": "Brahmin",
+      "confidence": "high"
+    },
+    "REDDIVALAM": {
+      "caste": "Reddy",
+      "confidence": "medium"
+    },
+    "YEDUKONDALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SHARIFF": {
+      "caste": "Muslim",
+      "confidence": "high"
+    },
+    "DASAKA": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "VADAKOPPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ANKAMARAJU": {
+      "caste": "Kshatriya",
+      "confidence": "medium"
+    },
+    "BEERAM": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "SABBINANI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "THALAPANENI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "SAMUEL": {
+      "caste": "Christian",
+      "confidence": "high"
+    },
+    "MARKU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "GODAVARTHY": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "MADEPALLI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "HASAN": {
+      "caste": "Muslim",
+      "confidence": "high"
+    },
+    "ZAHEER": {
+      "caste": "Muslim",
+      "confidence": "high"
+    },
+    "NALABOTU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KASIMBI": {
+      "caste": "Muslim",
+      "confidence": "medium"
+    },
+    "SULTANA": {
+      "caste": "Muslim",
+      "confidence": "high"
+    },
+    "KAPAVARAPU": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "VOONNA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MOSALI": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "MUDIGARLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHINNABATHUNI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BYRAVARASU": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "MAVULURURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MALAKAPAURAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VARAPARLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "NANDIKOLLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VASKULA": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "MANDAVILLI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "KALATHOTI": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "SIDDABATHINA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GONDELA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "METTELA": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "ANAMALAMURI": {
+      "caste": "Muslim",
+      "confidence": "medium"
+    },
+    "MANDURU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KASIMALA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "VALLALA": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "UPASARAPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "REPALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KOLIKONDA": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "BARRELA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "KOTHAKOTA": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "PERNA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "DAVULURU": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "MANDLEM": {
+      "caste": "Other",
+      "confidence": "low"
+    },
+    "YALAMNCHILI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "RAMANADAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PEDASINGU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "AMULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KUNDULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MOGALLAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MARUNEELLA": {
+      "caste": "Kapu",
+      "confidence": "low"
+    },
+    "NEKKARAGANTI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MOTHRAPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "JAMMI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "BEVARA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "JARUGULLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BHUDDARAJU": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "KUNAPARAJU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KROVIDI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KALLAKURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GOALLA": {
+      "caste": "Yadava",
+      "confidence": "medium"
+    },
+    "KOTHAPALLY": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "RACHARLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MASIMUKKALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VALASAPALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YERRAMNENI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "NALUKURTI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MITTISALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "ANUMULU": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "KONEDANA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GULLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KONAKALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PRAGADA": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "VELPULA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SATHAMBEDU": {
+      "caste": "Kapu",
+      "confidence": "low"
+    },
+    "SIDDA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "VADAMI": {
+      "caste": "Kapu",
+      "confidence": "low"
+    },
+    "TUPILI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "PUTCHA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MUTTAVARUPU": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "YARRAGUNDA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MUNDLAMURI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "NARKEDMILLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PENJERTHI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GANDURI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "AMBANTI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "CHIKKALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "AETUKURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SUDHALAGUNTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "JEMUNIGANI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SONTI": {
+      "caste": "Brahmin",
+      "confidence": "medium"
+    },
+    "CHENGALVALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "CHENNUBOINA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KATUPILLA": {
+      "caste": "Kapu",
+      "confidence": "low"
+    },
+    "GOLLAVELLI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MONDITHOKA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MENIKONDA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "THATIKONDA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NAPPALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PATNAYAK": {
+      "caste": "Kshatriya",
+      "confidence": "medium"
+    },
+    "SHETTI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "YARAMURI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GUNTIPALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "RAJANAIK": {
+      "caste": "ST",
+      "confidence": "medium"
+    },
+    "SINGHAL": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "BUBNA": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "AREPU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PARNAMITTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PRUDHIVI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PODDAR": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "AHMED": {
+      "caste": "Muslim",
+      "confidence": "high"
+    },
+    "VEMU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "AGRAWAL": {
+      "caste": "Other",
+      "confidence": "high"
+    },
+    "CHANDRAPATLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DONTHAGANI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GARNEPUDI": {
+      "caste": "Kamma",
+      "confidence": "high"
+    },
+    "VADAGANA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MOTIPALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DEEVENAPALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "TRIMURTHULU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PINNIKA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "THANDRA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "NIDUMUKKULA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ATCHI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "TALATAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PULABOLU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NANDEPATI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DUTHULURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DHAMACHARLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PENUMACHU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "JALLIGAMPALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KORE": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "AMBALA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "MUNTA": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "MANDEM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VANKADARA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NEKKINTI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "BETHAMCHERLA": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "MOTHKURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GANJUKUNTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MACHHALA": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "BALUGURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KALLE": {
+      "caste": "Other",
+      "confidence": "medium"
+    },
+    "MAINEEDI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MOGILIPUVVU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "VUPPAALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ANAM": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GONTUMUKKULA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "BALLU": {
+      "caste": "SC",
+      "confidence": "medium"
+    },
+    "SINGAM": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PATHIBANDLA": {
       "caste": "Kamma",
       "confidence": "high"
     }

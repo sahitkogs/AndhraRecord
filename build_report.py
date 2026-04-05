@@ -377,10 +377,29 @@ tr:hover td {{ background: #1e293b; }}
 .footer p {{ font-size: 0.8em; color: #64748b; line-height: 1.6; }}
 
 @media (max-width: 768px) {{
+    body {{ font-size: 16px; }}
     .chart-row {{ grid-template-columns: 1fr; }}
     .stats-grid {{ grid-template-columns: repeat(2, 1fr); }}
-    .header h1 {{ font-size: 1.2em; }}
-    table {{ font-size: 0.7em; }}
+    .header h1 {{ font-size: 1.3em; }}
+    .header p {{ font-size: 1em; }}
+    .info-section p, .info-section li {{ font-size: 1em; }}
+    .info-section h2 {{ font-size: 1.2em; }}
+    .disclaimer {{ font-size: 0.9em; }}
+    .tab-btn {{ font-size: 1em; padding: 12px 16px; }}
+    .stat-card .label {{ font-size: 0.85em; }}
+    .stat-card .value {{ font-size: 1.6em; }}
+    .stat-card .sub {{ font-size: 0.85em; }}
+    .flow-step .step-title {{ font-size: 0.95em; }}
+    .flow-step .step-desc {{ font-size: 0.85em; }}
+    table {{ font-size: 0.85em; }}
+    th {{ font-size: 0.85em; padding: 10px 6px; }}
+    td {{ padding: 8px 6px; }}
+    .table-controls input, .table-controls select {{ font-size: 1em; padding: 10px 12px; }}
+    .table-controls .result-count {{ font-size: 0.9em; }}
+    .caste-badge {{ font-size: 0.85em; }}
+    .pagination button {{ font-size: 0.9em; padding: 8px 14px; }}
+    .pagination span {{ font-size: 0.9em; }}
+    .footer p {{ font-size: 0.9em; }}
 }}
 </style>
 </head>
@@ -394,7 +413,7 @@ tr:hover td {{ background: #1e293b; }}
 <!-- ═══ DATA SOURCE ═══ -->
 <div class="info-section">
     <h2>Where does this data come from?</h2>
-    <p>The land plot data used in this analysis was obtained from the <strong>APCRDA (Andhra Pradesh Capital Region Development Authority)</strong> official LPS (Land Pooling Scheme) records. This is publicly available government data that lists:</p>
+    <p>The land plot data used in this analysis was obtained from the <strong>APCRDA (Andhra Pradesh Capital Region Development Authority)</strong> official LPS (Land Pooling Scheme) portal at <a href="https://gis.apcrda.org/lps/index.html" target="_blank" style="color:#93c5fd;">gis.apcrda.org/lps/index.html</a>. This is publicly available government data that lists:</p>
     <ul>
         <li>Every plot allocated under the Amaravati capital city plan</li>
         <li>The names of the farmers/landowners who received each plot</li>
@@ -453,6 +472,7 @@ tr:hover td {{ background: #1e293b; }}
     <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
     <button class="tab-btn" onclick="showTab('village')">Village Analysis</button>
     <button class="tab-btn" onclick="showTab('zone')">Zone Analysis</button>
+    <button class="tab-btn" onclick="showTab('source')">Data Source & Process</button>
     <button class="tab-btn" onclick="showTab('data')">Search the Data</button>
 </div>
 
@@ -513,6 +533,57 @@ tr:hover td {{ background: #1e293b; }}
     </div>
     <div class="chart-row">
         <div class="chart-box"><h3>Residential vs Commercial: Who Got What?</h3><div id="zone-res-com"></div></div>
+    </div>
+</div>
+
+<!-- ═══ DATA SOURCE & PROCESS TAB ═══ -->
+<div id="tab-source" class="tab-content">
+    <div class="info-section" style="margin:0 0 16px;">
+        <h2>Data Source</h2>
+        <p>All data in this report comes from the <strong>APCRDA Land Pooling Scheme (LPS) Portal</strong>, an official government website maintained by the Andhra Pradesh Capital Region Development Authority.</p>
+        <p style="margin-top:10px;"><strong>URL:</strong> <a href="https://gis.apcrda.org/lps/index.html" target="_blank" style="color:#93c5fd;">https://gis.apcrda.org/lps/index.html</a></p>
+        <p style="margin-top:6px;">This portal is publicly accessible, requires no login, and publishes details of every plot allocated under the Amaravati capital city plan. The data includes plot codes, village names, zone types (residential, commercial, etc.), plot areas, and the names of farmers/landowners who received each plot.</p>
+        <p style="margin-top:10px;"><strong>Total records scraped:</strong> 95,645 plot records<br>
+        <strong>Records with farmer names:</strong> 85,504<br>
+        <strong>After filtering govt/company entries:</strong> {stats['total_plots']:,} individually-owned plots analysed</p>
+    </div>
+
+    <div class="info-section" style="margin:0 0 16px;">
+        <h2>How Was This Analysis Done?</h2>
+        <p style="margin-bottom:14px;">Here is the step-by-step process used to estimate the caste of each land beneficiary:</p>
+
+        <div style="display:grid; gap:12px;">
+            <div style="background:#334155; border-radius:8px; padding:14px; border-left:4px solid #3b82f6;">
+                <div style="font-size:0.8em; color:#93c5fd; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Step 1 &mdash; Data Collection</div>
+                <p style="font-size:0.9em;">The raw plot data was scraped from the APCRDA LPS portal. This captured 95,645 records including plot code, village, zone type, area, and farmer names. This is public government data &mdash; anyone can access it.</p>
+            </div>
+            <div style="background:#334155; border-radius:8px; padding:14px; border-left:4px solid #3b82f6;">
+                <div style="font-size:0.8em; color:#93c5fd; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Step 2 &mdash; Cleaning the Data</div>
+                <p style="font-size:0.9em;">Government and institutional entries (APCRDA reserved plots, officers' quarters, company-owned land) were removed. Plots with no farmer name were excluded. Village name spelling variations were corrected. This left {stats['total_plots']:,} individually-owned plots.</p>
+            </div>
+            <div style="background:#334155; border-radius:8px; padding:14px; border-left:4px solid #3b82f6;">
+                <div style="font-size:0.8em; color:#93c5fd; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Step 3 &mdash; Extracting Surnames</div>
+                <p style="font-size:0.9em;">In Telugu names, the first word is typically the surname (family name). For example, in "Aluri Venkata Rao", "Aluri" is the surname. The surname was extracted from each beneficiary name listed in the government records.</p>
+            </div>
+            <div style="background:#334155; border-radius:8px; padding:14px; border-left:4px solid #3b82f6;">
+                <div style="font-size:0.8em; color:#93c5fd; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Step 4 &mdash; Matching Surnames to Castes</div>
+                <p style="font-size:0.9em;">A database of <strong>1,000+</strong> Telugu surnames was compiled, mapping each to its commonly associated caste in the Krishna-Guntur region. This is a well-known cultural association in AP &mdash; for instance, surnames like Kommineni, Yarlagadda are associated with Kamma; Thota, Battula with Kapu; Shaik with Muslim community. Words like "Reddy" or "Naidu" appearing in a person's name were also used as indicators.</p>
+            </div>
+            <div style="background:#334155; border-radius:8px; padding:14px; border-left:4px solid #3b82f6;">
+                <div style="font-size:0.8em; color:#93c5fd; font-weight:600; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Step 5 &mdash; Assigning Caste to Each Plot</div>
+                <p style="font-size:0.9em;">For single-owner plots, the owner's caste was assigned to the plot. For plots with multiple owners from different castes, the majority caste was used. Ties were marked "Mixed". Names that couldn't be classified were marked "Unknown" (~19% of names).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-section" style="margin:0;">
+        <h2>Limitations</h2>
+        <ul>
+            <li><strong>This is an estimate, not a census.</strong> Caste is inferred from surnames, not from self-declaration or official records.</li>
+            <li><strong>Some surnames are shared across castes.</strong> In ambiguous cases, the caste most commonly associated with that surname in the Krishna-Guntur region was used.</li>
+            <li><strong>About 19% of names could not be classified</strong> because the surnames were too rare or ambiguous.</li>
+            <li><strong>This is not an official government document.</strong> It is independent research based on publicly available data.</li>
+        </ul>
     </div>
 </div>
 

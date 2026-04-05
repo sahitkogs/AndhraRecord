@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Amaravati Record — Special Investigation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-body: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+      --font-sans: -apple-system, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+      --paper: #faf8f4; --paper-tinted: #f0ece4;
+      --ink: #1a1715; --ink-mid: #4a4540; --ink-light: #8a8580;
+      --rule: #1a1715; --rule-mid: #9a9590; --rule-light: #d4cfc8;
+      --red: #8b1a1a; --green: #2d5f2d; --blue: #1a3a5f; --amber: #8b6914;
+      --red-bg: #f0ddd8; --green-bg: #dce8dc; --blue-bg: #d8e0ea; --amber-bg: #ede4d0;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #1a1815; --paper-tinted: #242018;
+        --ink: #e8e4dd; --ink-mid: #a8a49d; --ink-light: #706c65;
+        --rule: #706c65; --rule-mid: #504c45; --rule-light: #3a3630;
+        --red: #d4605a; --green: #6aaa6a; --blue: #6a9ad4; --amber: #d4a44a;
+        --red-bg: #3a2220; --green-bg: #203020; --blue-bg: #1a2a3a; --amber-bg: #3a3020;
+      }
+    }
+    body { font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--ink); background: var(--paper); -webkit-font-smoothing: antialiased; }
+    code { font-family: var(--font-mono); font-size: 0.88em; background: var(--paper-tinted); padding: 1px 4px; }
+    .broadsheet { max-width: 1000px; margin: 0 auto; padding: 20px 40px 40px; }
+    .masthead { text-align: center; border-top: 3px solid var(--rule); padding-top: 10px; }
+    .masthead__meta { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-sans); font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-mid); padding-bottom: 6px; }
+    .masthead__title { font-family: var(--font-display); font-size: clamp(48px, 8vw, 72px); font-weight: 900; line-height: 1; letter-spacing: -1px; padding: 6px 0; border-top: 1px solid var(--rule); }
+    .masthead__tagline { font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--ink-mid); padding: 4px 0 10px; border-bottom: 3px solid var(--rule); }
+    .ticker { background: var(--ink); color: var(--paper); padding: 7px 0; font-family: var(--font-sans); font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; overflow: hidden; white-space: nowrap; margin-bottom: 20px; }
+    .ticker__track { display: inline-flex; align-items: center; animation: ticker-scroll 40s linear infinite; }
+    .ticker:hover .ticker__track { animation-play-state: paused; }
+    @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker__item { flex-shrink: 0; }
+    .ticker__sep { flex-shrink: 0; color: var(--red); margin: 0 16px; font-size: 8px; }
+    @media (prefers-color-scheme: dark) { .ticker { background: var(--paper-tinted); color: var(--ink); border: 1px solid var(--rule-light); } }
+    .category { font-family: var(--font-sans); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-mid); margin-bottom: 6px; }
+    .badge { display: inline-block; font-family: var(--font-sans); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 2px 8px; margin-bottom: 10px; }
+    .badge--progress { background: var(--red); color: #fff; }
+    .badge--review { background: var(--blue); color: #fff; }
+    .badge--nominal { background: var(--green); color: #fff; }
+    .badge--advisory { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber); }
+    .badge--response { background: transparent; color: var(--red); border: 1px solid var(--red); }
+    .byline { font-family: var(--font-sans); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); margin-bottom: 14px; }
+    .front-page { display: grid; grid-template-columns: 1fr 300px; border-bottom: 1px solid var(--rule-light); margin-bottom: 20px; padding-bottom: 20px; }
+    .lead { padding-right: 24px; border-right: 1px solid var(--rule-light); }
+    .lead__headline { font-family: var(--font-display); font-size: clamp(28px, 5vw, 40px); font-weight: 900; line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .lead__deck { font-family: var(--font-display); font-size: 16px; font-weight: 400; line-height: 1.4; color: var(--ink-mid); margin-bottom: 6px; }
+    .lead__body { line-height: 1.65; }
+    .lead__body p { margin-bottom: 12px; }
+    .drop-cap::first-letter { float: left; font-family: var(--font-display); font-size: 4.2em; line-height: 0.82; font-weight: 900; padding-right: 6px; padding-top: 4px; }
+    .inset-box { float: right; width: 210px; margin: 0 0 16px 20px; padding: 14px; border: 1.5px solid var(--rule); }
+    .inset-box__title { font-family: var(--font-sans); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .inset-box__detail { font-size: 12.5px; line-height: 1.5; color: var(--ink-mid); }
+    .progress-bar { margin: 10px 0 6px; height: 10px; background: var(--paper); border: 1px solid var(--rule); }
+    .progress-bar__fill { height: 100%; background: repeating-linear-gradient(-45deg, var(--ink) 0px, var(--ink) 3px, transparent 3px, transparent 6px); }
+    .progress-bar__label { display: flex; justify-content: space-between; font-family: var(--font-sans); font-size: 8.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-mid); }
+    .pull-quote { font-family: var(--font-display); font-style: italic; font-size: 16px; line-height: 1.45; border-top: 2px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 14px 0; margin: 20px 0; clear: right; }
+    .column-text { column-count: 2; column-gap: 24px; column-rule: 1px solid var(--rule-light); }
+    .column-text p { margin-bottom: 12px; }
+    .sidebar { padding-left: 24px; }
+    .sidebar__widget { border: 1px solid var(--rule-light); padding: 14px; margin-bottom: 16px; }
+    .widget__label { font-family: var(--font-sans); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-mid); margin-bottom: 10px; }
+    .widget__body { font-size: 13px; line-height: 1.5; }
+    .agents-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+    .agents-table td { padding: 3px 0; vertical-align: top; }
+    .agents-table td:first-child { white-space: nowrap; padding-right: 8px; }
+    .agents-table td:last-child { text-align: right; font-family: var(--font-mono); font-size: 11px; color: var(--ink-light); }
+    .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+    .dot--active { background: var(--green); }
+    .dot--busy { background: var(--amber); }
+    .dot--idle { background: var(--ink-light); }
+    .sidebar__article { padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--rule-light); }
+    .sidebar__article .category { margin-bottom: 4px; }
+    .sidebar__headline { font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+    .sidebar__body { font-size: 13px; line-height: 1.55; }
+    .stories-row { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--rule-light); margin-bottom: 20px; padding-bottom: 20px; }
+    .story { padding: 0 20px; border-left: 1px solid var(--rule-light); }
+    .story:first-child { padding-left: 0; border-left: none; }
+    .story:last-child { padding-right: 0; }
+    .story__headline { font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
+    .story__body { font-size: 13.5px; line-height: 1.55; }
+    .lower-fold { display: grid; grid-template-columns: 1fr 320px; border-top: 3px solid var(--rule); padding-top: 20px; margin-bottom: 20px; }
+    .letters { padding-right: 24px; border-right: 1px solid var(--rule-light); }
+    .letters__super { font-family: var(--font-sans); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--ink-mid); margin-bottom: 4px; }
+    .letters__title { font-family: var(--font-display); font-style: italic; font-size: 20px; font-weight: 700; border-bottom: 1.5px solid var(--rule); padding-bottom: 12px; margin-bottom: 16px; }
+    .letter { margin-bottom: 18px; }
+    .letter__from { font-family: var(--font-sans); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-mid); margin-bottom: 4px; }
+    .letter__body { font-size: 14px; line-height: 1.6; }
+    .letter--question .letter__body { font-style: italic; }
+    .dispatch-board { padding-left: 24px; }
+    .dispatch-board__title { font-family: var(--font-sans); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; text-align: center; margin-bottom: 16px; }
+    .dispatch-card { border: 1px solid var(--rule-light); padding: 12px; margin-bottom: 12px; }
+    .dispatch-card__label { font-family: var(--font-sans); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .dispatch-card__label--wanted { color: var(--red); }
+    .dispatch-card__label--notice { color: var(--blue); }
+    .dispatch-card__label--review { color: var(--amber); }
+    .dispatch-card__label--recovery { color: var(--green); }
+    .colophon { display: flex; justify-content: space-between; font-family: var(--font-sans); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); border-top: 3px solid var(--rule); padding-top: 10px; }
+    @media (max-width: 800px) {
+      body { font-size: 16px; }
+      .broadsheet { padding: 16px 20px 32px; }
+      .masthead__meta { font-size: 11px; letter-spacing: 1px; }
+      .masthead__tagline { font-size: 14px; }
+      .front-page { grid-template-columns: 1fr; }
+      .lead { padding-right: 0; border-right: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 20px; margin-bottom: 20px; }
+      .lead__deck { font-size: 17px; }
+      .sidebar { padding-left: 0; }
+      .sidebar__body { font-size: 15px; }
+      .sidebar__headline { font-size: 19px; }
+      .stories-row { grid-template-columns: 1fr; gap: 20px; }
+      .story { padding: 0; border-left: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 20px; }
+      .story:last-child { border-bottom: none; padding-bottom: 0; }
+      .story__headline { font-size: 20px; }
+      .story__body { font-size: 15px; }
+      .lower-fold { grid-template-columns: 1fr; }
+      .letters { padding-right: 0; border-right: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 20px; margin-bottom: 20px; }
+      .letter__from { font-size: 12px; }
+      .letter__body { font-size: 15px; }
+      .dispatch-board { padding-left: 0; }
+      .dispatch-board__title { font-size: 14px; }
+      .dispatch-card__label { font-size: 11px; }
+      .dispatch-card__body { font-size: 14px; }
+      .column-text { column-count: 1; }
+      .inset-box { float: none; width: 100%; margin: 0 0 16px 0; }
+      .inset-box__title { font-size: 12px; }
+      .inset-box__detail { font-size: 14px; }
+      .category { font-size: 11px; }
+      .badge { font-size: 11px; }
+      .byline { font-size: 11px; }
+      .ticker { font-size: 11px; }
+      .widget__label { font-size: 11px; }
+      .widget__body { font-size: 15px; }
+      .agents-table { font-size: 14px; }
+      .agents-table td:last-child { font-size: 13px; }
+      .colophon { flex-direction: column; gap: 4px; text-align: center; font-size: 11px; }
+      .progress-bar__label { font-size: 10px; }
+    }
+    @media print {
+      body { background: #fff; color: #000; }
+      .broadsheet { max-width: 100%; padding: 0; }
+      .ticker { background: #eee; color: #333; border: 1px solid #ccc; }
+      .badge { border: 1px solid #999; background: #eee; color: #333; }
+    }
+  </style>
+</head>
+<body>
+  <div class="broadsheet">
+
+    <!-- ===== MASTHEAD ===== -->
+    <header class="masthead">
+      <div class="masthead__meta">
+        <span>SPECIAL INVESTIGATION</span>
+        <span>FRIDAY, APRIL 4, 2026</span>
+        <span>25 VILLAGES &middot; 72,094 PLOTS EXAMINED</span>
+      </div>
+      <h1 class="masthead__title">The Amaravati Record</h1>
+      <p class="masthead__tagline">"Who got the land?" &mdash; A data-driven investigation into the capital city's land allocation &mdash; Andhra Pradesh</p>
+    </header>
+
+    <!-- ===== TICKER ===== -->
+    <div class="ticker">
+      <div class="ticker__track">
+        <span class="ticker__item">ANALYSIS OF 72,094 PLOTS ACROSS 25 VILLAGES IN AMARAVATI CAPITAL REGION</span>
+        <span class="ticker__sep">&#9670;</span>
+        <span class="ticker__item">KAMMA CASTE HOLDS 50.1% OF ALLOCATED PLOTS &mdash; 36,139 OUT OF 72,094</span>
+        <span class="ticker__sep">&#9670;</span>
+        <span class="ticker__item">KAPU COMMUNITY SECOND AT 14.7% &mdash; SC AT 3.8% &mdash; REDDY AT 2.9%</span>
+        <span class="ticker__sep">&#9670;</span>
+        <span class="ticker__item">DATA SOURCE: OFFICIAL APCRDA LAND POOLING SCHEME RECORDS</span>
+        <span class="ticker__sep">&#9670;</span>
+        <span class="ticker__item">ANALYSIS OF 72,094 PLOTS ACROSS 25 VILLAGES IN AMARAVATI CAPITAL REGION</span>
+        <span class="ticker__sep">&#9670;</span>
+        <span class="ticker__item">KAMMA CASTE HOLDS 50.1% OF ALLOCATED PLOTS &mdash; 36,139 OUT OF 72,094</span>
+        <span class="ticker__sep">&#9670;</span>
+        <span class="ticker__item">KAPU COMMUNITY SECOND AT 14.7% &mdash; SC AT 3.8% &mdash; REDDY AT 2.9%</span>
+        <span class="ticker__sep">&#9670;</span>
+        <span class="ticker__item">DATA SOURCE: OFFICIAL APCRDA LAND POOLING SCHEME RECORDS</span>
+        <span class="ticker__sep">&#9670;</span>
+      </div>
+    </div>
+
+    <!-- ===== FRONT PAGE ===== -->
+    <main class="front-page">
+
+      <!-- LEAD STORY -->
+      <article class="lead">
+        <div class="category">LAND ALLOCATION INVESTIGATION</div>
+        <span class="badge badge--progress">SPECIAL REPORT</span>
+        <h2 class="lead__headline">Half of All Amaravati Plots Allocated to a Single Caste Community</h2>
+        <p class="lead__deck">Surname-based analysis of 72,094 government land records reveals stark concentration; pattern holds across residential and commercial zones in all 25 villages of the capital region</p>
+        <p class="byline">BY DATA INVESTIGATIONS DESK &ensp;|&ensp; APRIL 4, 2026 &ensp;|&ensp; AMARAVATI, ANDHRA PRADESH</p>
+
+        <div class="lead__body">
+          <div class="inset-box">
+            <div class="inset-box__title">CASTE SHARE OF PLOTS</div>
+            <div class="progress-bar">
+              <div class="progress-bar__fill" style="width: 50.1%"></div>
+            </div>
+            <div class="progress-bar__label">
+              <span>0%</span>
+              <span>KAMMA: 50.1%</span>
+              <span>100%</span>
+            </div>
+            <div class="inset-box__detail" style="margin-top: 10px;">
+              36,139 of 72,094 individually-owned plots in the Amaravati Capital Region have been assigned to beneficiaries identified as belonging to the Kamma community. The next largest group, Kapu, accounts for 14.7%.
+            </div>
+          </div>
+
+          <p class="drop-cap">An analysis of official land records from the Andhra Pradesh Capital Region Development Authority reveals that a single caste community &mdash; Kamma &mdash; holds roughly half of all individually-owned plots allocated under the Amaravati Land Pooling Scheme. The finding, drawn from a surname-based classification of 72,094 plot records across 25 villages, lends substantial weight to a long-standing public allegation that the capital city project disproportionately benefits one community.</p>
+
+          <blockquote class="pull-quote">"In the Telugu-speaking regions of Andhra Pradesh, a person's surname is one of the most reliable indicators of their caste community. It is a cultural fact, widely understood by everyone in the region."</blockquote>
+
+          <div class="column-text">
+            <p>The data was obtained from the APCRDA's official Land Pooling Scheme portal, a public web application that catalogues every plot allocated under the capital city plan. Each record contains the plot code, the village, the zone type (residential, commercial, institutional, etc.), the plot area, and &mdash; crucially &mdash; the names of the farmers or landowners who received the plot.</p>
+
+            <p>To estimate caste, the investigation built a database of over 1,000 Telugu surnames commonly associated with specific caste communities in the Krishna-Guntur region. Each beneficiary name was matched against this database. The method is not a census &mdash; individual assignments may be incorrect &mdash; but the aggregate pattern is unmistakable. Even accounting for the roughly 19% of names that could not be classified, the concentration is striking.</p>
+
+            <p>The pattern is consistent across zones. In residential areas, which account for the bulk of the allocations, the Kamma share remains near 50%. In commercial zones &mdash; more valuable land designated for shops and businesses &mdash; the share is comparable. No village departs significantly from this overall pattern.</p>
+
+            <p>Kapu, the second-largest group at 14.7%, and Scheduled Castes at 3.8%, together account for less than a fifth of plots. Muslim beneficiaries hold 1.7%, Brahmin families 1.3%, and all other identified communities make up the remaining fraction.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+
+        <div class="sidebar__widget">
+          <div class="widget__label">ALLOCATION AT A GLANCE</div>
+          <table class="agents-table">
+            <tr>
+              <td><span class="dot dot--active"></span>Kamma</td>
+              <td>36,139 &middot; 50.1%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--busy"></span>Kapu</td>
+              <td>10,578 &middot; 14.7%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--idle"></span>Unknown</td>
+              <td>13,935 &middot; 19.3%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--idle"></span>SC</td>
+              <td>2,761 &middot; 3.8%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--idle"></span>Reddy</td>
+              <td>2,084 &middot; 2.9%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--idle"></span>Muslim</td>
+              <td>1,238 &middot; 1.7%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--idle"></span>Brahmin</td>
+              <td>959 &middot; 1.3%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--idle"></span>Vysya</td>
+              <td>731 &middot; 1.0%</td>
+            </tr>
+            <tr>
+              <td><span class="dot dot--idle"></span>Others</td>
+              <td>3,669 &middot; 5.1%</td>
+            </tr>
+          </table>
+        </div>
+
+        <article class="sidebar__article">
+          <div class="category">DATA SOURCE</div>
+          <span class="badge badge--nominal">VERIFIED</span>
+          <h3 class="sidebar__headline">Records Drawn From Official APCRDA Portal</h3>
+          <p class="byline">SOURCE VERIFICATION &ensp;|&ensp; APRIL 2026</p>
+          <p class="sidebar__body">All plot data originates from the APCRDA Land Pooling Scheme web portal at <code>gis.apcrda.org/lps</code>. The portal is maintained by the Andhra Pradesh Capital Region Development Authority and is publicly accessible. The dataset contains 95,645 total plot records, of which 85,504 carry farmer names. After filtering government and institutional entries, 72,094 individually-owned plots remained for analysis.</p>
+        </article>
+
+        <article class="sidebar__article">
+          <div class="category">METHODOLOGY NOTE</div>
+          <span class="badge badge--advisory">ESTIMATE</span>
+          <h3 class="sidebar__headline">Caste Identified by Surname, Not Self-Declaration</h3>
+          <p class="byline">EDITORIAL NOTE</p>
+          <p class="sidebar__body">This analysis assigns caste based on surname patterns, a method well-understood in the Telugu cultural context but not infallible. About 19% of names could not be classified. Some surnames are shared across communities. The figures should be read as strong indicators of a trend, not precise census data.</p>
+        </article>
+
+      </aside>
+    </main>
+
+    <!-- ===== SECONDARY STORIES ===== -->
+    <section class="stories-row">
+
+      <article class="story">
+        <div class="category">VILLAGE BREAKDOWN</div>
+        <h3 class="story__headline">Pattern Holds Across All 25 Villages Without Exception</h3>
+        <p class="byline">BY DATA DESK &ensp;|&ensp; VILLAGE-WISE ANALYSIS</p>
+        <p class="story__body">From Nowlur (9,021 plots) to Undavalli (377 plots), every village in the Amaravati capital region shows a similar pattern of caste distribution. Nowlur, the largest village by plot count, mirrors the overall 50% Kamma share. Smaller villages like Velagapudi and Mandadam show comparable ratios. No village departs meaningfully from the aggregate finding, suggesting the pattern is systemic rather than localised to any particular area.</p>
+      </article>
+
+      <article class="story">
+        <div class="category">COMMERCIAL PLOTS</div>
+        <h3 class="story__headline">Valuable Commercial Land Follows the Same Distribution</h3>
+        <p class="byline">BY DATA DESK &ensp;|&ensp; ZONE ANALYSIS</p>
+        <p class="story__body">Commercial plots &mdash; land zoned for shops, offices, and business activity, and typically more valuable than residential plots &mdash; show a caste distribution nearly identical to residential land. This means the concentration is not limited to lower-value residential allotments. The most commercially valuable land in the new capital also follows the same pattern of allocation.</p>
+      </article>
+
+      <article class="story">
+        <div class="category">THE NUMBERS</div>
+        <h3 class="story__headline">About 1,131 Acres of Capital Land Covered in This Analysis</h3>
+        <p class="byline">BY DATA DESK &ensp;|&ensp; AREA ANALYSIS</p>
+        <p class="story__body">The 72,094 plots analysed cover approximately 1,131 acres of land (49.3 million square feet). When measured by total land area rather than plot count, the caste distribution remains largely consistent with the plot-count figures, meaning the Kamma community's share is not inflated by receiving many small plots &mdash; the plots themselves are of comparable size across communities.</p>
+      </article>
+
+    </section>
+
+    <!-- ===== LOWER FOLD ===== -->
+    <section class="lower-fold">
+
+      <!-- HOW THE DATA WAS PROCESSED -->
+      <div class="letters">
+        <div class="letters__super">DATA SOURCE &amp; PROCESS</div>
+        <h3 class="letters__title">How This Investigation Was Conducted</h3>
+
+        <div class="letter">
+          <div class="letter__from">STEP 1 &mdash; DATA COLLECTION</div>
+          <p class="letter__body">The raw data was scraped from the APCRDA Land Pooling Scheme portal (<code>gis.apcrda.org/lps/index.html</code>), an official government website that publishes details of every plot allocated under the Amaravati capital city plan. The portal is publicly accessible and requires no special permissions. The scraping captured 95,645 plot records with fields including plot code, village name, zone type, plot area, and farmer/landowner names.</p>
+        </div>
+
+        <div class="letter">
+          <div class="letter__from">STEP 2 &mdash; DATA CLEANING</div>
+          <p class="letter__body">Government and institutional entries (APCRDA allocations, AIS officers' plots, company-owned plots) were filtered out, leaving 72,094 individually-owned plots for analysis. Plots with no farmer name were excluded. Village name spelling variations (e.g. "Nowluru" vs "Nowlur") were normalised.</p>
+        </div>
+
+        <div class="letter">
+          <div class="letter__from">STEP 3 &mdash; SURNAME EXTRACTION</div>
+          <p class="letter__body">In Telugu naming convention, the first word of a person's name is typically their surname (family name). For each beneficiary, the surname was extracted from their name as listed in the government records. Common prefixes and first names appearing in the surname position were identified and handled. For plots with multiple owners, each name was processed individually.</p>
+        </div>
+
+        <div class="letter">
+          <div class="letter__from">STEP 4 &mdash; CASTE CLASSIFICATION</div>
+          <p class="letter__body">A database of over 1,000 Telugu surnames was compiled, mapping each surname to its commonly associated caste community in the Krishna-Guntur region. This is a widely understood cultural association in the Telugu-speaking regions &mdash; surnames like Aluri, Kommineni, Yarlagadda are associated with the Kamma community; Thota, Battula, Borra with the Kapu community; Shaik, Mulla with the Muslim community; and so on. Each beneficiary's surname was looked up in this database. Name parts like "Reddy", "Naidu", or "Setty" were also used as indicators.</p>
+        </div>
+
+        <div class="letter">
+          <div class="letter__from">STEP 5 &mdash; PLOT-LEVEL ASSIGNMENT</div>
+          <p class="letter__body">For plots with a single owner, the owner's caste became the plot's caste. For plots with multiple owners, the majority caste among the co-owners was assigned to the plot. In cases of a tie, the plot was marked "Mixed". Approximately 19% of names could not be classified and were marked "Unknown".</p>
+        </div>
+      </div>
+
+      <!-- DISPATCH BOARD -->
+      <aside class="dispatch-board">
+        <h3 class="dispatch-board__title">&#9670; KEY FACTS &#9670;</h3>
+
+        <div class="dispatch-card">
+          <div class="dispatch-card__label dispatch-card__label--wanted">DATA SOURCE</div>
+          <p class="dispatch-card__body"><strong>APCRDA LPS Portal</strong><br><code>gis.apcrda.org/lps/index.html</code><br>Official government data. Publicly accessible. No login required. Maintained by the AP Capital Region Development Authority.</p>
+        </div>
+
+        <div class="dispatch-card">
+          <div class="dispatch-card__label dispatch-card__label--notice">SCOPE</div>
+          <p class="dispatch-card__body"><strong>95,645</strong> total plot records scraped. <strong>72,094</strong> individually-owned plots analysed after filtering. <strong>25 villages</strong> covered across Guntur and Krishna districts.</p>
+        </div>
+
+        <div class="dispatch-card">
+          <div class="dispatch-card__label dispatch-card__label--review">LIMITATIONS</div>
+          <p class="dispatch-card__body"><strong>~19%</strong> of names could not be classified. Surname-based caste assignment is an estimate, not a census. Some surnames are shared across communities. Individual entries may be misclassified.</p>
+        </div>
+
+        <div class="dispatch-card">
+          <div class="dispatch-card__label dispatch-card__label--recovery">INTERACTIVE REPORT</div>
+          <p class="dispatch-card__body">A full interactive report with searchable data tables and Plotly charts is available as a companion file: <code>amaravati_caste_report.html</code>. Open it in any web browser to explore village-wise and zone-wise breakdowns, or search for individual names.</p>
+        </div>
+      </aside>
+
+    </section>
+
+    <!-- ===== COLOPHON ===== -->
+    <footer class="colophon">
+      <span>THE AMARAVATI RECORD &middot; Special Investigation &middot; April 4, 2026</span>
+      <span>Source: APCRDA LPS Portal &middot; 72,094 plots &middot; 25 villages &middot; 1,000+ surnames mapped</span>
+      <span>Public Interest Research &middot; Not an official government document</span>
+    </footer>
+
+  </div>
+</body>
+</html>

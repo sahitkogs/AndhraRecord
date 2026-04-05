@@ -395,7 +395,22 @@
     "CHAKRAVARTHI",
     "GUPTA",
     "(500",
-    "(600"
+    "(600",
+    "SQ",
+    "PARTNER",
+    "REALTORS",
+    "CONSTRUCTIONS",
+    "LITTLE",
+    "DEVASTHANAM",
+    "VARI",
+    "THE",
+    "CH",
+    "RAMUDU",
+    "SAGAR",
+    "KAMARAJ",
+    "VYDEHI",
+    "PRASADAM",
+    "MADU"
   ],
   "surnames": {
     "AALA": {
@@ -7069,6 +7084,266 @@
     "KOKA": {
       "caste": "Muslim",
       "confidence": "low"
+    },
+    "KONDABALA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YERRAMASU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KONDURU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KALUVAKOLLU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MALADI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KADIVENDI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PATCHIPULUSU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PENUMUCCHU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "AARI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YELLAMILLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NALABOLU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NELAKURTHI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KONDRAKUNTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "EEDARA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "JONNALAGADA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "JASTY": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "MUDIGONDA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "PUVADA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "JASTRI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KANDEPI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "ARVAPALLI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KINJARAPU": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DUDDUKURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KANIGIRI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "NALLOGORLA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "GOVINI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "DUSANAPUDI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "KASARAGADDA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YARRAMMANENI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SAKAMURI": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "YARRAGUNTA": {
+      "caste": "Kamma",
+      "confidence": "medium"
+    },
+    "SADA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "DESU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MANKINA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MAMIDI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KARETI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "LANKE": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "ERUKULLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "CHEDURI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MEESALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GUTTI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "THUNGALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VOOTLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "PAARA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "VANGALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "SADU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "NALLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BOBBE": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GARUGU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KARLA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KAGGA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "KONDALA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "NETHI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BIKKI": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BEESA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "GUNDA": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "MADU": {
+      "caste": "Kapu",
+      "confidence": "medium"
+    },
+    "BOMMISETTI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "GOPISETTY": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "KOTHARI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "LINGAMSETTI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "LALAJI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "VALLAMSETTI": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "BAID": {
+      "caste": "Vysya",
+      "confidence": "high"
+    },
+    "REDDYBATTULA": {
+      "caste": "Reddy",
+      "confidence": "high"
     }
   }
 }

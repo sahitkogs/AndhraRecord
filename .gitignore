@@ -1,11 +1,11 @@
 .venv/
 __pycache__/
+.pytest_cache/
 *.pyc
-all_surnames.txt
-add_surnames.py
 .claude/
 .continue/
 .kiro/
 skills/
 skills-lock.json
 *.xlsx
+scratch_to_delete/

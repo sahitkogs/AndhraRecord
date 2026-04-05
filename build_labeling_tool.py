@@ -64,7 +64,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
 
 <div class="header">
     <h1>Surname Labeling Tool</h1>
-    <p>Classify each entry: assign a caste, mark as "not a surname", or skip. Progress auto-saves to your browser.</p>
+    <p>Is this a surname or not? Press Y or N. Progress auto-saves to your browser.</p>
 </div>
 <div class="progress-bar-outer"><div class="progress-bar-fill" id="progress-fill"></div></div>
 
@@ -85,24 +85,11 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
         <div class="freq" id="freq"></div>
         <div class="counter" id="counter"></div>
 
-        <div class="label-group">
-            <div class="label-group-title">Assign Caste</div>
-            <div class="buttons">
-                <button class="btn" onclick="label('Kamma')"><span class="key">1</span>Kamma</button>
-                <button class="btn" onclick="label('Kapu')"><span class="key">2</span>Kapu</button>
-                <button class="btn" onclick="label('Reddy')"><span class="key">3</span>Reddy</button>
-                <button class="btn" onclick="label('SC')"><span class="key">4</span>SC</button>
-                <button class="btn" onclick="label('Muslim')"><span class="key">5</span>Muslim</button>
-                <button class="btn" onclick="label('Brahmin')"><span class="key">6</span>Brahmin</button>
-                <button class="btn" onclick="label('Vysya')"><span class="key">7</span>Vysya</button>
-                <button class="btn" onclick="label('ST')"><span class="key">8</span>ST</button>
-                <button class="btn" onclick="label('Kshatriya')"><span class="key">9</span>Kshatriya</button>
-                <button class="btn" onclick="label('Yadava')"><span class="key">0</span>Yadava</button>
-            </div>
+        <div class="buttons" style="gap:16px;">
+            <button class="btn" onclick="label('YES')" style="background:#22c55e; border-color:#22c55e; color:#fff; font-size:1.1em; padding:14px 32px;"><span class="key">Y</span>Yes, Surname</button>
+            <button class="btn btn-not" onclick="label('NOT_SURNAME')" style="font-size:1.1em; padding:14px 32px;"><span class="key">N</span>Not a Surname</button>
         </div>
-
-        <div class="buttons" style="margin-top:12px;">
-            <button class="btn btn-not" onclick="label('NOT_SURNAME')"><span class="key">N</span>Not a Surname</button>
+        <div class="buttons" style="margin-top:16px;">
             <button class="btn btn-skip" onclick="skip()"><span class="key">&rarr;</span>Skip</button>
             <button class="btn btn-undo" onclick="undo()"><span class="key">Z</span>Undo</button>
         </div>
@@ -112,7 +99,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
 </div>
 
 <div class="footer">
-    <div class="info">Keyboard: 1-0 = castes, N = not surname, Arrow keys = skip/undo, Z = undo</div>
+    <div class="info">Keyboard: Y = surname, N = not surname, Arrow keys = skip/undo, Z = undo</div>
     <div style="display:flex; gap:8px;">
         <button onclick="exportCSV()" class="export-btn">Export Labeled CSV</button>
         <button onclick="if(confirm('Clear ALL labels?')){{labels={{}};history=[];save();applyFilter();}}">Reset All</button>
@@ -194,9 +181,8 @@ function updateStats() {{
     let total = 0;
     for (const v of Object.values(labels)) {{ counts[v] = (counts[v] || 0) + 1; total++; }}
     let html = '<div class="stat">Labeled: <span class="num">' + total + '</span> / ' + DATA.length + '</div>';
-    for (const c of ['Kamma','Kapu','Reddy','SC','Muslim','Brahmin','Vysya','ST','Kshatriya','Yadava','NOT_SURNAME']) {{
-        if (counts[c]) html += '<div class="stat">' + (c === 'NOT_SURNAME' ? 'Not surname' : c) + ': <span class="num">' + counts[c] + '</span></div>';
-    }}
+    if (counts['YES']) html += '<div class="stat">Surname: <span class="num">' + counts['YES'] + '</span></div>';
+    if (counts['NOT_SURNAME']) html += '<div class="stat">Not surname: <span class="num">' + counts['NOT_SURNAME'] + '</span></div>';
     document.getElementById('stats').innerHTML = html;
 }}
 
@@ -211,8 +197,7 @@ function exportCSV() {{
 
 document.addEventListener('keydown', (e) => {{
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
-    const map = {{'1':'Kamma','2':'Kapu','3':'Reddy','4':'SC','5':'Muslim','6':'Brahmin','7':'Vysya','8':'ST','9':'Kshatriya','0':'Yadava'}};
-    if (map[e.key]) {{ label(map[e.key]); return; }}
+    if (e.key === 'y' || e.key === 'Y') {{ label('YES'); return; }}
     if (e.key === 'n' || e.key === 'N') {{ label('NOT_SURNAME'); return; }}
     if (e.key === 'ArrowRight' || e.key === ' ') {{ e.preventDefault(); skip(); return; }}
     if (e.key === 'ArrowLeft' || e.key === 'z' || e.key === 'Z') {{ undo(); return; }}

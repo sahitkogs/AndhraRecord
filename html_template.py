@@ -354,11 +354,13 @@ function renderOverview() {{
   const colors = castes.map(c => CC[c] || '#999');
 
   // Treemap
+  const acresPerCaste = castes.map(c => ((CA[c]||0) / 43560).toFixed(1));
   Plotly.newPlot('treemap', [{{
     type: 'treemap', labels: castes, parents: castes.map(() => ''),
     values: castes.map(c => CPC[c]),
+    customdata: acresPerCaste,
     texttemplate: '%{{label}}<br>%{{percentRoot:.1%}}',
-    hovertemplate: '%{{label}}: %{{value:,}} plots (%{{percentRoot:.1%}})<extra></extra>',
+    hovertemplate: '%{{label}}<br>%{{value:,}} plots (%{{percentRoot:.1%}})<br>%{{customdata}} acres<extra></extra>',
     marker: {{ colors }},
   }}], {{ ...pLayout, margin: {{ t: 10, b: 10, l: 10, r: 10 }} }}, pCfg);
 

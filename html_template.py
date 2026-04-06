@@ -441,8 +441,9 @@ function renderVillages() {{
   }}));
   Plotly.newPlot('village-bars', traces, {{
     ...pLayout, barmode: 'stack', height: villages.length * 28 + 80,
-    xaxis: {{ title: '% of village plots', range: [0, 100] }},
-    legend: {{ font: {{ size: 10 }}, orientation: 'h', y: -0.05 }}, showlegend: true,
+    xaxis: {{ range: [0, 100], ticksuffix: '%' }},
+    margin: {{ t: 20, b: 80, l: 120, r: 20 }},
+    legend: {{ font: {{ size: 10 }}, orientation: 'h', y: -0.08, x: 0.5, xanchor: 'center' }}, showlegend: true,
   }}, pCfg);
 
   // Heatmap

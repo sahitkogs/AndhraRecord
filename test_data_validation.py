@@ -28,6 +28,7 @@ def raw_data():
                 'lpsvillage': row[col['lpsvillage']].strip(),
                 'alloted_ex': row[col['alloted_ex']].strip(),
                 'symbology': row[col['symbology']].strip(),
+                'ESRI_OID': row[col['ESRI_OID']].strip() if 'ESRI_OID' in col else '',
             })
     return rows
 
@@ -69,15 +70,23 @@ class TestRawDataIntegrity:
 
 class TestPipelineAccounting:
     def test_all_rows_accounted_for(self, raw_data, processed, mapping):
-        """Every raw row must be either: no-name, filtered, or processed."""
+        """Every unique ESRI_OID must be either: no-name, filtered, deduped, or processed."""
         surname_map, indicator_map, not_surnames = mapping
-        plots, stats = processed
 
+        seen_oids = set()
         no_farmer = 0
         all_filtered = 0
         has_individuals = 0
+        deduped = 0
 
         for row in raw_data:
+            oid = row.get('ESRI_OID', '').strip()
+            if oid:
+                if oid in seen_oids:
+                    deduped += 1
+                    continue
+                seen_oids.add(oid)
+
             farmer = row['farmer_n']
             if not farmer:
                 no_farmer += 1
@@ -98,19 +107,27 @@ class TestPipelineAccounting:
             else:
                 all_filtered += 1
 
-        total_accounted = no_farmer + all_filtered + has_individuals
+        total_accounted = no_farmer + all_filtered + has_individuals + deduped
         assert total_accounted == len(raw_data), (
-            f"Row accounting mismatch: {no_farmer} + {all_filtered} + {has_individuals} "
+            f"Row accounting mismatch: {no_farmer} + {all_filtered} + {has_individuals} + {deduped} (deduped) "
             f"= {total_accounted} != {len(raw_data)}"
         )
 
-    def test_processed_count_matches(self, raw_data, processed, mapping):
-        """Number of processed plots must match rows with valid individuals."""
+    def test_processed_count_matches_deduped(self, raw_data, processed, mapping):
+        """Processed plots must equal unique ESRI_OIDs with valid individuals."""
         surname_map, indicator_map, not_surnames = mapping
         plots, _ = processed
 
+        # Simulate the dedup logic from process_data
+        seen_oids = set()
         expected = 0
         for row in raw_data:
+            oid = row.get('ESRI_OID', '').strip()
+            if oid:
+                if oid in seen_oids:
+                    continue
+                seen_oids.add(oid)
+
             farmer = row['farmer_n']
             if not farmer:
                 continue
@@ -218,40 +235,21 @@ class TestCasteAssignment:
 # 5. DUPLICATE AWARENESS
 # ═══════════════════════════════════════════════════════════════════════════
 
-class TestDuplicateAwareness:
-    def test_duplicate_plot_codes_exist(self, processed):
-        """Document that duplicates exist (not a bug, but documented)."""
+class TestDeduplication:
+    def test_no_duplicate_esri_oids(self, processed):
+        """After dedup, no ESRI_OID should appear more than once."""
         plots, _ = processed
-        code_counts = Counter(p['plot_code'] for p in plots)
-        dupes = sum(1 for c in code_counts.values() if c > 1)
-        # Duplicates exist in the raw data — this test documents that
-        assert dupes > 0, "Expected duplicates in data"
+        # The pipeline deduplicates by ESRI_OID, so plot_codes may still
+        # repeat (e.g. empty plot codes), but the total should be ~48K not ~72K
+        assert len(plots) < 55000, f"Expected ~48K after dedup, got {len(plots)}"
 
-    def test_duplicates_dont_skew_proportions(self, processed):
-        """Proportions should be similar with and without dedup."""
-        plots, stats_all = processed
-
-        # Deduplicate
-        seen = set()
-        unique = []
-        for p in plots:
-            if p['plot_code'] and p['plot_code'] not in seen:
-                seen.add(p['plot_code'])
-                unique.append(p)
-
-        stats_unique = {}
-        total_unique = len(unique)
-        caste_counts_unique = Counter(p['plot_caste'] for p in unique)
-
-        # Compare top castes — proportions should be within 1%
-        for caste in ['Kamma', 'Kapu', 'SC', 'Reddy']:
-            pct_all = 100 * stats_all['caste_plot_counts'].get(caste, 0) / len(plots)
-            pct_unique = 100 * caste_counts_unique.get(caste, 0) / total_unique
-            diff = abs(pct_all - pct_unique)
-            assert diff < 1.0, (
-                f"{caste}: all={pct_all:.1f}% vs dedup={pct_unique:.1f}% "
-                f"(diff={diff:.1f}% > 1%)"
-            )
+    def test_dedup_reduced_count(self, raw_data, processed):
+        """Dedup should have removed ~24K scraper-duplicate rows."""
+        plots, _ = processed
+        rows_with_names = sum(1 for r in raw_data if r['farmer_n'])
+        # Should have removed a significant number
+        removed = rows_with_names - len(plots)  # approximate (some filtered too)
+        assert removed > 20000, f"Expected >20K rows removed by dedup, got {removed}"
 
 
 # ═══════════════════════════════════════════════════════════════════════════

@@ -142,6 +142,7 @@ def process_data():
     surname_map, indicator_map, not_surnames = load_mapping(MAPPING_FILE)
 
     plots = []  # Each: {plot_code, village, zone, zone_simple, area, farmer_names, individuals: [{name, caste, confidence}], plot_caste, plot_confidence}
+    seen_oids = set()  # Deduplicate by ESRI_OID (scraper pagination overlap)
 
     with open(DATA_FILE, 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
@@ -151,6 +152,13 @@ def process_data():
         for row in reader:
             if len(row) < len(header):
                 continue
+
+            # Deduplicate: skip rows with already-seen ESRI_OID
+            esri_oid = row[col['ESRI_OID']].strip() if 'ESRI_OID' in col else None
+            if esri_oid:
+                if esri_oid in seen_oids:
+                    continue
+                seen_oids.add(esri_oid)
 
             plot_code = row[col['plot_code']].strip()
             village = normalize_village(row[col['lpsvillage']])

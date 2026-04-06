@@ -237,8 +237,6 @@ tr:hover td {{ background: var(--paper-tinted); }}
   </div>
 
   <div class="chart-wrap"><h3>Land Share by Community</h3><div id="treemap"></div></div>
-  <div class="chart-wrap"><h3>By Number of Plots</h3><div id="bar-pct"></div></div>
-  <div class="chart-wrap"><h3>By Land Area</h3><div id="bar-area-pct"></div></div>
 </div>
 
 <!-- ═══ VILLAGE MAP ═══ -->
@@ -364,23 +362,6 @@ function renderOverview() {{
     marker: {{ colors }},
   }}], {{ ...pLayout, margin: {{ t: 10, b: 10, l: 10, r: 10 }} }}, pCfg);
 
-  // Horizontal bar - plots %
-  Plotly.newPlot('bar-pct', [{{
-    type: 'bar', orientation: 'h',
-    y: castes.slice().reverse(), x: pcts.slice().reverse(),
-    marker: {{ color: colors.slice().reverse() }},
-    text: pcts.slice().reverse().map(p => p + '%'), textposition: 'outside',
-    hovertemplate: '%{{y}}: %{{x:.1f}}%<extra></extra>',
-  }}], {{ ...pLayout, xaxis: {{ title: '% of total plots', range: [0, Math.max(...pcts) * 1.15] }}, height: 400 }}, pCfg);
-
-  // Horizontal bar - area %
-  Plotly.newPlot('bar-area-pct', [{{
-    type: 'bar', orientation: 'h',
-    y: castes.slice().reverse(), x: areaPcts.slice().reverse(),
-    marker: {{ color: colors.slice().reverse() }},
-    text: areaPcts.slice().reverse().map(p => p + '%'), textposition: 'outside',
-    hovertemplate: '%{{y}}: %{{x:.1f}}% of total area<extra></extra>',
-  }}], {{ ...pLayout, xaxis: {{ title: '% of total land area', range: [0, Math.max(...areaPcts) * 1.15] }}, height: 400 }}, pCfg);
 }}
 
 // ─── Map ───

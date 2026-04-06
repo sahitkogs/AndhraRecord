@@ -255,7 +255,6 @@ tr:hover td {{ background: var(--paper-tinted); }}
   <h2 class="section-title">How Does Each Village Compare?</h2>
   <p class="section-sub">Percentage of plots allocated to each caste, by village</p>
   <div class="chart-wrap"><div id="village-bars"></div></div>
-  <div class="chart-wrap"><h3>Village Heatmap (% share)</h3><div id="village-heatmap"></div></div>
 </div>
 
 <!-- ═══ DATA SOURCE ═══ -->
@@ -416,16 +415,6 @@ function renderVillages() {{
   }}, pCfg);
 
   // Heatmap
-  const topCastes = AC.filter(c => c !== 'Unknown' && c !== 'Mixed').slice(0, 8);
-  const z = topCastes.map(c => villages.map(v => {{
-    const t = Object.values(VCP[v]).reduce((s,x)=>s+x,0);
-    return t > 0 ? +(100 * (VCP[v][c]||0) / t).toFixed(1) : 0;
-  }}));
-  Plotly.newPlot('village-heatmap', [{{
-    z, x: villages, y: topCastes, type: 'heatmap',
-    colorscale: [[0,'#faf8f4'],[0.3,'#fcbba1'],[0.6,'#fb6a4a'],[1,'#67000d']],
-    hovertemplate: '%{{y}} in %{{x}}: %{{z:.1f}}%<extra></extra>',
-  }}], {{ ...pLayout, margin: {{ t: 20, b: 100, l: 80, r: 20 }}, xaxis: {{ tickangle: -45 }}, height: 350 }}, pCfg);
 }}
 
 // ─── Table ───

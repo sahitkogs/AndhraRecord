@@ -276,7 +276,10 @@ def generate_html(plots, stats):
     with open(geojson_path) as f:
         village_geojson = json.load(f)
 
-    return build_html(plots, stats, village_geojson)
+    with open(MAPPING_FILE) as mf:
+        surname_count = len(json.load(mf)['surnames'])
+
+    return build_html(plots, stats, village_geojson, surname_count=surname_count)
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────

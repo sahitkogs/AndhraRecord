@@ -3,7 +3,7 @@ Broadsheet newspaper aesthetic, proportional focus, mobile-friendly."""
 import json
 
 
-def build_html(plots, stats, village_geojson):
+def build_html(plots, stats, village_geojson, surname_count=0):
     # Table data
     table_data = []
     for p in plots:
@@ -214,9 +214,9 @@ tr:hover td {{ background: var(--paper-tinted); }}
       <div class="stat__sub">in capital region</div>
     </div>
     <div class="stat">
-      <div class="stat__label">Classified</div>
-      <div class="stat__value">{classified_pct:.0f}%</div>
-      <div class="stat__sub">of beneficiaries identified</div>
+      <div class="stat__label">Surnames Mapped</div>
+      <div class="stat__value">{surname_count:,}</div>
+      <div class="stat__sub">Telugu surnames classified</div>
     </div>
   </div>
 

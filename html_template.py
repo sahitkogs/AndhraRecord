@@ -24,7 +24,7 @@ def build_html(plots, stats, village_geojson, surname_count=0):
     all_castes = list(stats['caste_plot_counts'].keys())
     total = stats['total_plots']
     total_area_acres = stats['total_area'] / 43560
-    num_villages = len(stats['village_caste_plots'])
+    num_villages = len([v for v in stats['village_caste_plots'] if v != 'Unknown'])
     classified = total - stats['caste_plot_counts'].get('Unknown', 0) - stats['caste_plot_counts'].get('Mixed', 0)
     classified_pct = 100 * classified / total if total else 0
 

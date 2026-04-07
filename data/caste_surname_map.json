@@ -2332,7 +2332,56 @@
     "AVINASH",
     "PALLAVI",
     "MAQBOOL",
-    "LIFT"
+    "LIFT",
+    "ALIAS",
+    "ANJANEYULU",
+    "BASAVA",
+    "BHAGYALAKSHMI",
+    "CHINA",
+    "CHOUDARY",
+    "CHOWDARY",
+    "GOPICHAND",
+    "GOWRI",
+    "GUARDIAN)",
+    "HANUMAYAMMA",
+    "HARIBABU",
+    "HARISH",
+    "KRISHNAIAH",
+    "KRISHNARAO",
+    "LAKSHMAIAH",
+    "MALLESWARARAO",
+    "NAGENDRAMMA",
+    "NAGESWARARAO",
+    "NAIDU",
+    "NEERAJA",
+    "PRABHAKAR",
+    "PRASADARAO",
+    "PUSHPAVATHI",
+    "RAGHAVAIAH",
+    "RAJINI",
+    "RAJYAM",
+    "RAMI",
+    "REDDY",
+    "SEETHARAVAMMA",
+    "SESHAGIRIRAO",
+    "SIVAKUMARI",
+    "SIVAMMA",
+    "SREEDEVI",
+    "SRILATHA",
+    "SRINIVASAREDDY",
+    "SUBBAIAH",
+    "SUBBAMMA",
+    "SUDHAKARA",
+    "SULOCHANA",
+    "SURYANARAYANA",
+    "SWAMY",
+    "TIRUPATAMMA",
+    "TULASI",
+    "VARMA",
+    "VENKAIAH",
+    "VENKATARAO",
+    "VIMALA",
+    "YEDUKONDALU"
   ],
   "surnames": {
     "AALA": {
@@ -2914,10 +2963,6 @@
     "CHIMATA": {
       "caste": "Kapu",
       "confidence": "medium"
-    },
-    "CHINA": {
-      "caste": "Kapu",
-      "confidence": "low"
     },
     "CHINNAM": {
       "caste": "Kamma",
@@ -5399,10 +5444,6 @@
       "caste": "Kamma",
       "confidence": "medium"
     },
-    "REDDY": {
-      "caste": "Reddy",
-      "confidence": "high"
-    },
     "REMALLA": {
       "caste": "Kamma",
       "confidence": "medium"
@@ -5738,10 +5779,6 @@
     "TRIPURANENI": {
       "caste": "Kamma",
       "confidence": "high"
-    },
-    "TULASI": {
-      "caste": "SC",
-      "confidence": "medium"
     },
     "TUMMALA": {
       "caste": "Kamma",
@@ -6379,10 +6416,6 @@
       "caste": "Kapu",
       "confidence": "medium"
     },
-    "NAIDU": {
-      "caste": "Kamma",
-      "confidence": "medium"
-    },
     "NAYUDU": {
       "caste": "Kamma",
       "confidence": "medium"
@@ -6582,10 +6615,6 @@
     "RAYA": {
       "caste": "Kapu",
       "confidence": "medium"
-    },
-    "SWAMY": {
-      "caste": "Brahmin",
-      "confidence": "low"
     },
     "ABDUL": {
       "caste": "Muslim",
@@ -7932,10 +7961,6 @@
       "confidence": "medium"
     },
     "MUNAGA": {
-      "caste": "Kapu",
-      "confidence": "medium"
-    },
-    "BASAVA": {
       "caste": "Kapu",
       "confidence": "medium"
     },
@@ -17395,10 +17420,6 @@
       "caste": "Kamma",
       "confidence": "low"
     },
-    "SRINIVASAREDDY": {
-      "caste": "Reddy",
-      "confidence": "high"
-    },
     "BEEMINENI": {
       "caste": "Kamma",
       "confidence": "low"
@@ -17830,10 +17851,6 @@
     "KODAVALI": {
       "caste": "Kamma",
       "confidence": "medium"
-    },
-    "CHOUDARY": {
-      "caste": "Kapu",
-      "confidence": "high"
     },
     "PATHIPATI": {
       "caste": "Kamma",
@@ -18991,10 +19008,6 @@
       "caste": "Kamma",
       "confidence": "medium"
     },
-    "NAGESWARARAO": {
-      "caste": "Brahmin",
-      "confidence": "medium"
-    },
     "JALLI": {
       "caste": "Kapu",
       "confidence": "medium"
@@ -19335,10 +19348,6 @@
       "caste": "Kamma",
       "confidence": "medium"
     },
-    "VENKAIAH": {
-      "caste": "Kamma",
-      "confidence": "medium"
-    },
     "CHEDELLA": {
       "caste": "Kamma",
       "confidence": "medium"
@@ -19637,10 +19646,6 @@
     },
     "VEMULURU": {
       "caste": "Kamma",
-      "confidence": "medium"
-    },
-    "KRISHNARAO": {
-      "caste": "Brahmin",
       "confidence": "medium"
     },
     "MUTHYALA": {
@@ -19955,10 +19960,6 @@
       "caste": "Kamma",
       "confidence": "medium"
     },
-    "RAGHAVAIAH": {
-      "caste": "Brahmin",
-      "confidence": "medium"
-    },
     "BOBBILLA": {
       "caste": "Kapu",
       "confidence": "medium"
@@ -20093,10 +20094,6 @@
     },
     "CHEEKATI": {
       "caste": "Kamma",
-      "confidence": "medium"
-    },
-    "ANJANEYULU": {
-      "caste": "Brahmin",
       "confidence": "medium"
     },
     "VADDAEBOKA": {
@@ -20348,10 +20345,6 @@
       "confidence": "medium"
     },
     "JAYAVARATHANAVELU": {
-      "caste": "Brahmin",
-      "confidence": "medium"
-    },
-    "SUBBAIAH": {
       "caste": "Brahmin",
       "confidence": "medium"
     },
@@ -23415,10 +23408,6 @@
       "caste": "Kamma",
       "confidence": "medium"
     },
-    "KRISHNAIAH": {
-      "caste": "Brahmin",
-      "confidence": "medium"
-    },
     "KATTUMALLA": {
       "caste": "Kamma",
       "confidence": "medium"
@@ -23530,10 +23519,6 @@
     "UGGIRALA": {
       "caste": "Kamma",
       "confidence": "medium"
-    },
-    "VENKATARAO": {
-      "caste": "Brahmin",
-      "confidence": "high"
     },
     "KANNEDARI": {
       "caste": "Kapu",
@@ -24581,10 +24566,6 @@
     },
     "NAGUMOTHU": {
       "caste": "Kamma",
-      "confidence": "medium"
-    },
-    "YEDUKONDALU": {
-      "caste": "Kapu",
       "confidence": "medium"
     },
     "BRAMHAREDDY": {
@@ -25662,10 +25643,6 @@
     "MANDUR WALA": {
       "caste": "Muslim",
       "confidence": "high"
-    },
-    "VARMA": {
-      "caste": "Kshatriya",
-      "confidence": "medium"
     },
     "ADUSUPALLE": {
       "caste": "Kamma",

@@ -119,7 +119,42 @@ add_source('SC', 'https://en.wikipedia.org/wiki/Mala_(caste)',
 # BUILD AND SAVE
 # ═══════════════════════════════════════════════════════════════════════════
 
+def load_json_sources():
+    """Load additional sources from the JSON file."""
+    json_path = os.path.join('data', 'scraped_surname_sources.json')
+    if not os.path.exists(json_path):
+        return
+
+    with open(json_path, encoding='utf-8') as f:
+        data = json.load(f)
+
+    for source in data['sources']:
+        surnames = source.get('surnames', [])
+        if not isinstance(surnames, list):
+            continue
+        if not surnames or (isinstance(surnames[0], str) and surnames[0].startswith('_')):
+            continue
+
+        caste = source['caste']
+        url = source['url']
+        region = source.get('region', 'Andhra Pradesh')
+
+        for s in surnames:
+            s = s.strip().upper()
+            if s and len(s) <= 30 and ' ' not in s:
+                CORPUS.append({
+                    'surname': s,
+                    'caste': caste,
+                    'source_url': url,
+                    'gothram': '',
+                    'region': region,
+                })
+
+
 def main():
+    # Load JSON sources
+    load_json_sources()
+
     # Deduplicate: same surname from same source
     seen = set()
     unique = []

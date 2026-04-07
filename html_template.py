@@ -19,6 +19,7 @@ def build_html(plots, stats, plot_geodata, surname_count=0):
         'Kshatriya': '#d62783', 'Yadava': '#22b573', 'Goud': '#b5651d',
         'Christian': '#4169e1', 'Mixed': '#999999', 'Other': '#7f7f7f',
         'Unknown': '#c0c0c0', 'No-Caste-Info': '#d9d9d9',
+        'Government': '#ffdd57', 'Institution': '#00d1b2',
     }
 
     all_castes = list(stats['caste_plot_counts'].keys())
@@ -241,17 +242,24 @@ tr:hover td {{ background: var(--paper-tinted); }}
     <select id="map-village-filter" style="padding:4px 8px;font-size:12px;border:1px solid var(--rule-light);background:var(--paper);color:var(--ink);">
       <option value="">All</option>
     </select>
+    <label style="font-family:var(--font-sans);font-size:11px;color:var(--ink-mid);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-left:8px;">Type:</label>
+    <select id="map-type-filter" style="padding:4px 8px;font-size:12px;border:1px solid var(--rule-light);background:var(--paper);color:var(--ink);">
+      <option value="">All</option>
+      <option value="0">Individual</option>
+      <option value="1">Government</option>
+      <option value="2">Institution</option>
+    </select>
     <span id="map-plot-count" style="font-family:var(--font-sans);font-size:11px;color:var(--ink-light);margin-left:auto;"></span>
   </div>
   <div id="map"></div>
   <div id="map-legend" class="map-legend"></div>
   <div style="font-family:var(--font-sans);font-size:10px;color:var(--ink-light);margin-top:8px;line-height:1.6;">
-    <strong>Shown:</strong> {len(plot_geodata['plots']):,} individually-assigned plots with valid geometry from {plot_geodata['filter_stats']['total_rows']:,} total records in the APCRDA dataset.<br>
+    <strong>Shown:</strong> {len(plot_geodata['plots']):,} plots with valid geometry and an identified owner from {plot_geodata['filter_stats']['total_rows']:,} total records in the APCRDA dataset.
+    Includes individual land allotments, government-retained parcels (APCRDA), and named institutions.<br>
     <strong>Filtered out:</strong>
     {plot_geodata['filter_stats']['skipped_dupe']:,} duplicate records,
-    {plot_geodata['filter_stats']['skipped_no_coord']:,} records without coordinates,
-    {plot_geodata['filter_stats']['skipped_infra']:,} infrastructure polygons (roads, reserves &gt;200m extent),
-    {plot_geodata['filter_stats']['skipped_no_code']:,} entries without a plot code (government land, road reserves).
+    {plot_geodata['filter_stats']['skipped_no_coord']:,} records without coordinates or owner,
+    {plot_geodata['filter_stats']['skipped_infra']:,} large APCRDA infrastructure polygons (roads, parks &gt;200m extent).
   </div>
 </div>
 
@@ -383,6 +391,7 @@ function initMap() {{
   const baseLon = PGEO.base[0], baseLat = PGEO.base[1];
   const castes = PGEO.castes, villages = PGEO.villages;
   const plotsData = PGEO.plots;
+  const typeNames = ['Individual', 'Government', 'Institution'];
 
   // Build legend
   const legendEl = document.getElementById('map-legend');
@@ -420,23 +429,34 @@ function initMap() {{
     villageFilterEl.appendChild(opt);
   }}
 
-  // Convert compact data to GeoJSON for L.geoJSON (Canvas renderer)
-  function buildGeoJSON(casteFilter, villageFilter) {{
+  // Type filter + count labels
+  const typeFilterEl = document.getElementById('map-type-filter');
+  const typeCounts = [0, 0, 0];
+  for (const p of plotsData) typeCounts[p[2]]++;
+  typeFilterEl.options[0].textContent = 'All (' + plotsData.length.toLocaleString() + ')';
+  for (let i = 0; i < 3; i++) {{
+    typeFilterEl.options[i + 1].textContent = typeNames[i] + ' (' + typeCounts[i].toLocaleString() + ')';
+  }}
+
+  // Convert compact data to GeoJSON — type is at index 2, coords start at 3
+  function buildGeoJSON(casteFilter, villageFilter, typeFilter) {{
     const features = [];
     for (let i = 0; i < plotsData.length; i++) {{
       const d = plotsData[i];
       const caste = castes[d[0]];
       const village = villages[d[1]];
+      const ptype = d[2];
       if (casteFilter && caste !== casteFilter) continue;
       if (villageFilter && village !== villageFilter) continue;
+      if (typeFilter !== '' && ptype !== +typeFilter) continue;
       const ring = [];
-      for (let j = 2; j < d.length; j += 2) {{
+      for (let j = 3; j < d.length; j += 2) {{
         ring.push([baseLon + d[j] / 1e5, baseLat + d[j+1] / 1e5]);
       }}
       ring.push(ring[0]); // close ring
       features.push({{
         type: 'Feature',
-        properties: {{ c: d[0], v: d[1] }},
+        properties: {{ c: d[0], v: d[1], t: ptype }},
         geometry: {{ type: 'Polygon', coordinates: [ring] }}
       }});
     }}
@@ -444,9 +464,9 @@ function initMap() {{
   }}
 
   let plotLayer = null;
-  function renderPlots(casteFilter, villageFilter) {{
+  function renderPlots(casteFilter, villageFilter, typeFilter) {{
     if (plotLayer) map.removeLayer(plotLayer);
-    const geojson = buildGeoJSON(casteFilter, villageFilter);
+    const geojson = buildGeoJSON(casteFilter, villageFilter, typeFilter);
     plotLayer = L.geoJSON(geojson, {{
       style: function(f) {{
         const col = CC[castes[f.properties.c]] || '#999';
@@ -455,30 +475,33 @@ function initMap() {{
       onEachFeature: function(f, layer) {{
         const caste = castes[f.properties.c];
         const village = villages[f.properties.v];
+        const ptype = typeNames[f.properties.t];
         layer.bindPopup(
           '<div style="font-family:sans-serif;font-size:13px">' +
           '<strong>' + village + '</strong><br>' +
           '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + (CC[caste]||'#999') + ';margin-right:4px;vertical-align:middle"></span>' +
-          '<span style="font-weight:700">' + caste + '</span></div>',
+          '<span style="font-weight:700">' + caste + '</span><br>' +
+          '<span style="color:#888;font-size:11px">' + ptype + '</span></div>',
           {{ maxWidth: 200 }}
         );
       }}
     }}).addTo(map);
     document.getElementById('map-plot-count').textContent = geojson.features.length.toLocaleString() + ' plots shown';
     // Auto-zoom to filtered bounds
-    if ((casteFilter || villageFilter) && geojson.features.length > 0) {{
+    if ((casteFilter || villageFilter || typeFilter !== '') && geojson.features.length > 0) {{
       map.fitBounds(plotLayer.getBounds(), {{ padding: [30, 30] }});
     }}
   }}
 
   function applyFilters() {{
-    renderPlots(casteFilterEl.value, villageFilterEl.value);
+    renderPlots(casteFilterEl.value, villageFilterEl.value, typeFilterEl.value);
   }}
 
-  renderPlots('', '');
+  renderPlots('', '', '');
 
   casteFilterEl.addEventListener('change', applyFilters);
   villageFilterEl.addEventListener('change', applyFilters);
+  typeFilterEl.addEventListener('change', applyFilters);
 }}
 
 // ─── Village Charts ───

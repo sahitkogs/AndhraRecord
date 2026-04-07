@@ -361,18 +361,36 @@ def build_plot_geodata(plots):
                 skipped_no_coord += 1
                 continue
 
-            # Skip infrastructure/road polygons:
-            # - Any plot > 200m extent is almost certainly not a personal land parcel
-            # - Plots without a plot code are roads, reserves, etc.
             xs = [c[0] for c in utm_coords]
             ys = [c[1] for c in utm_coords]
-            if max(xs) - min(xs) > 200 or max(ys) - min(ys) > 200:
-                skipped_infra += 1
-                continue
+            ext = max(max(xs) - min(xs), max(ys) - min(ys))
+
             plot_code = row.get('plot_code', '').strip()
-            if not plot_code:
-                skipped_no_code += 1
+            farmer = row.get('farmer_n', '').strip()
+            village = normalize_village(row.get('lpsvillage', ''))
+            is_apcrda = 'APCRDA' in farmer.upper() if farmer else False
+
+            # Classify plot type and decide inclusion
+            # Type 0 = Individual, 1 = Government, 2 = Institution
+            if ext > 200:
+                if not farmer:
+                    skipped_infra += 1
+                    continue
+                if is_apcrda:
+                    skipped_infra += 1  # large APCRDA blocks (parks, roads)
+                    continue
+                # Named institution (>200m, non-APCRDA, has farmer)
+                plot_type = 2  # Institution
+            elif not farmer:
+                skipped_no_coord += 1  # no owner info at all
                 continue
+            elif not plot_code and is_apcrda:
+                plot_type = 1  # Government (APCRDA small parcels)
+            elif not plot_code and not is_apcrda:
+                # Few individuals without plot code — treat as individual
+                plot_type = 0
+            else:
+                plot_type = 0  # Individual
 
             # Convert to WGS84
             wgs_coords = []
@@ -391,13 +409,15 @@ def build_plot_geodata(plots):
                 deltas.append(round((lon - BASE_LON) * 1e5))
                 deltas.append(round((lat - BASE_LAT) * 1e5))
 
-            # Get caste and village
-            if plot_code in plot_caste_map:
+            # Get caste — institutions and government always use their type label
+            if plot_type == 1:
+                caste = 'Government'
+            elif plot_type == 2:
+                caste = 'Institution'
+            elif plot_code and plot_code in plot_caste_map:
                 caste = plot_caste_map[plot_code]
-                village = plot_village_map.get(plot_code, normalize_village(row.get('lpsvillage', '')))
+                village = plot_village_map.get(plot_code, village)
             else:
-                village = normalize_village(row.get('lpsvillage', ''))
-                farmer = row.get('farmer_n', '').strip()
                 if not farmer:
                     caste = 'No-Caste-Info'
                 elif is_company(farmer.split(',')[0]) or is_govt_entry(farmer.split(',')[0]):
@@ -416,7 +436,8 @@ def build_plot_geodata(plots):
                 villages_idx[village] = len(villages_list)
                 villages_list.append(village)
 
-            plot_data.append([castes_idx[caste], villages_idx[village]] + deltas)
+            # Format: [caste_idx, village_idx, type, dx1, dy1, ...]
+            plot_data.append([castes_idx[caste], villages_idx[village], plot_type] + deltas)
 
     return {
         'base': [BASE_LON, BASE_LAT],

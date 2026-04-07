@@ -3,7 +3,7 @@ Broadsheet newspaper aesthetic, proportional focus, mobile-friendly."""
 import json
 
 
-def build_html(plots, stats, village_geojson, surname_count=0):
+def build_html(plots, stats, plot_geodata, surname_count=0):
     # Table data
     table_data = []
     for p in plots:
@@ -13,12 +13,12 @@ def build_html(plots, stats, village_geojson, surname_count=0):
         ])
 
     caste_colors = {
-        'Kamma': '#8b1a1a', 'Kapu': '#1a3a5f', 'Reddy': '#2d5f2d',
-        'Brahmin': '#8b6914', 'Vysya': '#5f1a5f', 'Muslim': '#1a5f5f',
-        'SC': '#8b5e14', 'ST': '#3a3a3a', 'Velama': '#6b3a1a',
-        'Kshatriya': '#5f2d2d', 'Yadava': '#2d5f3a', 'Goud': '#5f3a5f',
-        'Christian': '#1a3a5f', 'Mixed': '#8a8580', 'Other': '#6a6560',
-        'Unknown': '#b0aaa0',
+        'Kamma': '#d62728', 'Kapu': '#1f77b4', 'Reddy': '#2ca02c',
+        'Brahmin': '#ff7f0e', 'Vysya': '#9467bd', 'Muslim': '#17becf',
+        'SC': '#e377c2', 'ST': '#8c564b', 'Velama': '#bcbd22',
+        'Kshatriya': '#d62783', 'Yadava': '#22b573', 'Goud': '#b5651d',
+        'Christian': '#4169e1', 'Mixed': '#999999', 'Other': '#7f7f7f',
+        'Unknown': '#c0c0c0', 'No-Caste-Info': '#d9d9d9',
     }
 
     all_castes = list(stats['caste_plot_counts'].keys())
@@ -27,22 +27,6 @@ def build_html(plots, stats, village_geojson, surname_count=0):
     num_villages = len([v for v in stats['village_caste_plots'] if v != 'Unknown'])
     classified = total - stats['caste_plot_counts'].get('Unknown', 0) - stats['caste_plot_counts'].get('Mixed', 0)
     classified_pct = 100 * classified / total if total else 0
-
-    # Village caste percentages for map
-    village_caste_pcts = {}
-    for v, castes in stats['village_caste_plots'].items():
-        vtotal = sum(castes.values())
-        if vtotal > 0:
-            village_caste_pcts[v] = {c: round(100 * n / vtotal, 1) for c, n in castes.items()}
-
-    # Enrich GeoJSON with caste data
-    for feat in village_geojson['features']:
-        vname = feat['properties']['village']
-        if vname in village_caste_pcts:
-            feat['properties']['caste_pcts'] = village_caste_pcts[vname]
-            feat['properties']['total_plots'] = sum(stats['village_caste_plots'][vname].values())
-            kamma_pct = village_caste_pcts[vname].get('Kamma', 0)
-            feat['properties']['kamma_pct'] = kamma_pct
 
     html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -115,8 +99,10 @@ body {{ font-family: var(--font-body); font-size: 15px; line-height: 1.6; color:
 .hero-bar__dot {{ width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }}
 
 /* Map */
-#map {{ height: 500px; border: 1px solid var(--rule-light); }}
-.map-legend {{ font-family: var(--font-sans); font-size: 11px; padding: 10px; background: var(--paper); border: 1px solid var(--rule-light); margin-top: 10px; }}
+#map {{ height: 600px; border: 1px solid var(--rule-light); }}
+.map-legend {{ font-family: var(--font-sans); font-size: 11px; padding: 10px; background: var(--paper); border: 1px solid var(--rule-light); margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px 14px; }}
+.map-legend-item {{ display: flex; align-items: center; gap: 4px; }}
+.map-legend-swatch {{ width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }}
 
 /* Table */
 .table-controls {{ display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; align-items: center; }}
@@ -189,7 +175,7 @@ tr:hover td {{ background: var(--paper-tinted); }}
 <!-- TABS -->
 <nav class="tab-bar">
   <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
-  <button class="tab-btn" onclick="showTab('map')">Village Map</button>
+  <button class="tab-btn" onclick="showTab('map')">Plot Map</button>
   <button class="tab-btn" onclick="showTab('villages')">Village Breakdown</button>
   <button class="tab-btn" onclick="showTab('source')">Data Source &amp; Process</button>
   <button class="tab-btn" onclick="showTab('data')">Search the Data</button>
@@ -242,12 +228,31 @@ tr:hover td {{ background: var(--paper-tinted); }}
   </div>
 </div>
 
-<!-- ═══ VILLAGE MAP ═══ -->
+<!-- ═══ PLOT MAP ═══ -->
 <div id="tab-map" class="tab-content">
-  <h2 class="section-title">Capital Region Village Map</h2>
-  <p class="section-sub">Villages colour-coded by share of land allocated to the largest community</p>
+  <h2 class="section-title">Capital Region Plot Map</h2>
+  <p class="section-sub">{len(plot_geodata['plots']):,} individual plots colour-coded by caste of land beneficiary</p>
+  <div id="map-controls" style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
+    <label style="font-family:var(--font-sans);font-size:11px;color:var(--ink-mid);font-weight:700;text-transform:uppercase;letter-spacing:1px;">Caste:</label>
+    <select id="map-caste-filter" style="padding:4px 8px;font-size:12px;border:1px solid var(--rule-light);background:var(--paper);color:var(--ink);">
+      <option value="">All</option>
+    </select>
+    <label style="font-family:var(--font-sans);font-size:11px;color:var(--ink-mid);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-left:8px;">Village:</label>
+    <select id="map-village-filter" style="padding:4px 8px;font-size:12px;border:1px solid var(--rule-light);background:var(--paper);color:var(--ink);">
+      <option value="">All</option>
+    </select>
+    <span id="map-plot-count" style="font-family:var(--font-sans);font-size:11px;color:var(--ink-light);margin-left:auto;"></span>
+  </div>
   <div id="map"></div>
-  <div class="map-legend">Click any village to see its full caste breakdown. Darker shade = higher concentration of the dominant community.</div>
+  <div id="map-legend" class="map-legend"></div>
+  <div style="font-family:var(--font-sans);font-size:10px;color:var(--ink-light);margin-top:8px;line-height:1.6;">
+    <strong>Shown:</strong> {len(plot_geodata['plots']):,} individually-assigned plots with valid geometry from {plot_geodata['filter_stats']['total_rows']:,} total records in the APCRDA dataset.<br>
+    <strong>Filtered out:</strong>
+    {plot_geodata['filter_stats']['skipped_dupe']:,} duplicate records,
+    {plot_geodata['filter_stats']['skipped_no_coord']:,} records without coordinates,
+    {plot_geodata['filter_stats']['skipped_infra']:,} infrastructure polygons (roads, reserves &gt;200m extent),
+    {plot_geodata['filter_stats']['skipped_no_code']:,} entries without a plot code (government land, road reserves).
+  </div>
 </div>
 
 <!-- ═══ VILLAGE BREAKDOWN ═══ -->
@@ -329,7 +334,7 @@ const VCP = {json.dumps(stats['village_caste_plots'])};
 const VCA = {json.dumps(stats['village_caste_area'])};
 const AC = {json.dumps(all_castes)};
 const TOTAL = {total};
-const GEOJSON = {json.dumps(village_geojson)};
+const PGEO = {json.dumps(plot_geodata, separators=(',', ':'))};
 
 const pLayout = {{
   paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
@@ -351,41 +356,129 @@ function showTab(name) {{
 // ─── Overview ───
 // Table is rendered server-side, no JS needed for overview
 
-// ─── Map ───
+// ─── Plot Map ───
 function initMap() {{
-  const map = L.map('map').setView([16.505, 80.51], 12);
-  L.tileLayer('https://{{s}}.basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}@2x.png', {{
-    attribution: '&copy; OpenStreetMap, &copy; CARTO', maxZoom: 18,
+  const homeView = [16.505, 80.51], homeZoom = 12;
+  const map = L.map('map', {{ preferCanvas: true }}).setView(homeView, homeZoom);
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const tileUrl = isDark
+    ? 'https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}@2x.png'
+    : 'https://{{s}}.basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}@2x.png';
+  L.tileLayer(tileUrl, {{
+    attribution: '&copy; OpenStreetMap, &copy; CARTO', maxZoom: 19,
   }}).addTo(map);
 
-  function getColor(pct) {{
-    return pct > 70 ? '#67000d' : pct > 60 ? '#a50f15' : pct > 50 ? '#cb181d' :
-           pct > 40 ? '#ef3b2c' : pct > 30 ? '#fb6a4a' : pct > 20 ? '#fc9272' :
-           pct > 10 ? '#fcbba1' : '#fee0d2';
+  // Home button control
+  const HomeBtn = L.Control.extend({{
+    options: {{ position: 'topleft' }},
+    onAdd: function() {{
+      const btn = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+      btn.innerHTML = '<a href="#" title="Reset view" style="font-size:18px;line-height:26px;display:block;width:26px;height:26px;text-align:center;text-decoration:none;color:#333;">&#8962;</a>';
+      btn.firstChild.onclick = function(e) {{ e.preventDefault(); map.setView(homeView, homeZoom); return false; }};
+      return btn;
+    }}
+  }});
+  map.addControl(new HomeBtn());
+
+  const baseLon = PGEO.base[0], baseLat = PGEO.base[1];
+  const castes = PGEO.castes, villages = PGEO.villages;
+  const plotsData = PGEO.plots;
+
+  // Build legend
+  const legendEl = document.getElementById('map-legend');
+  const casteCounts = {{}};
+  for (const p of plotsData) {{
+    const c = castes[p[0]];
+    casteCounts[c] = (casteCounts[c] || 0) + 1;
+  }}
+  const sortedCastes = Object.entries(casteCounts).sort((a,b) => b[1] - a[1]);
+  legendEl.innerHTML = sortedCastes.map(([c, n]) =>
+    '<span class="map-legend-item"><span class="map-legend-swatch" style="background:' + (CC[c]||'#999') + '"></span>' + c + ' (' + n.toLocaleString() + ')</span>'
+  ).join('');
+
+  // Populate caste filter dropdown
+  const casteFilterEl = document.getElementById('map-caste-filter');
+  for (const [c, n] of sortedCastes) {{
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c + ' (' + n.toLocaleString() + ')';
+    casteFilterEl.appendChild(opt);
   }}
 
-  L.geoJSON(GEOJSON, {{
-    style: function(f) {{
-      const kp = f.properties.kamma_pct || 0;
-      return {{ fillColor: getColor(kp), weight: 2, opacity: 1, color: '#666', fillOpacity: 0.7 }};
-    }},
-    onEachFeature: function(f, layer) {{
-      const p = f.properties;
-      const pcts = p.caste_pcts || {{}};
-      let rows = '';
-      const sorted = Object.entries(pcts).sort((a,b) => b[1]-a[1]);
-      for (const [c, pct] of sorted) {{
-        if (pct > 0) rows += '<tr><td style="padding:2px 8px 2px 0">' + c + '</td><td style="text-align:right;font-weight:700">' + pct + '%</td></tr>';
-      }}
-      layer.bindPopup('<div style="font-family:sans-serif;font-size:13px"><strong>' + p.village + '</strong><br><span style="color:#666">' + (p.total_plots||0) + ' plots</span><table style="margin-top:4px">' + rows + '</table></div>', {{ maxWidth: 250 }});
+  // Populate village filter dropdown
+  const villageFilterEl = document.getElementById('map-village-filter');
+  const villageCounts = {{}};
+  for (const p of plotsData) {{
+    const v = villages[p[1]];
+    villageCounts[v] = (villageCounts[v] || 0) + 1;
+  }}
+  const sortedVillages = Object.entries(villageCounts).sort((a,b) => a[0].localeCompare(b[0]));
+  for (const [v, n] of sortedVillages) {{
+    const opt = document.createElement('option');
+    opt.value = v;
+    opt.textContent = v + ' (' + n.toLocaleString() + ')';
+    villageFilterEl.appendChild(opt);
+  }}
 
-      // Label
-      const center = layer.getBounds().getCenter();
-      L.marker(center, {{
-        icon: L.divIcon({{ className: '', html: '<div style="font-family:sans-serif;font-size:10px;font-weight:700;color:#333;text-shadow:1px 1px 2px #fff;white-space:nowrap">' + p.village + '</div>', iconSize: [100, 20], iconAnchor: [50, 10] }})
-      }}).addTo(map);
+  // Convert compact data to GeoJSON for L.geoJSON (Canvas renderer)
+  function buildGeoJSON(casteFilter, villageFilter) {{
+    const features = [];
+    for (let i = 0; i < plotsData.length; i++) {{
+      const d = plotsData[i];
+      const caste = castes[d[0]];
+      const village = villages[d[1]];
+      if (casteFilter && caste !== casteFilter) continue;
+      if (villageFilter && village !== villageFilter) continue;
+      const ring = [];
+      for (let j = 2; j < d.length; j += 2) {{
+        ring.push([baseLon + d[j] / 1e5, baseLat + d[j+1] / 1e5]);
+      }}
+      ring.push(ring[0]); // close ring
+      features.push({{
+        type: 'Feature',
+        properties: {{ c: d[0], v: d[1] }},
+        geometry: {{ type: 'Polygon', coordinates: [ring] }}
+      }});
     }}
-  }}).addTo(map);
+    return {{ type: 'FeatureCollection', features: features }};
+  }}
+
+  let plotLayer = null;
+  function renderPlots(casteFilter, villageFilter) {{
+    if (plotLayer) map.removeLayer(plotLayer);
+    const geojson = buildGeoJSON(casteFilter, villageFilter);
+    plotLayer = L.geoJSON(geojson, {{
+      style: function(f) {{
+        const col = CC[castes[f.properties.c]] || '#999';
+        return {{ color: col, fillColor: col, fillOpacity: 0.75, weight: 0.5, opacity: 0.6 }};
+      }},
+      onEachFeature: function(f, layer) {{
+        const caste = castes[f.properties.c];
+        const village = villages[f.properties.v];
+        layer.bindPopup(
+          '<div style="font-family:sans-serif;font-size:13px">' +
+          '<strong>' + village + '</strong><br>' +
+          '<span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:' + (CC[caste]||'#999') + ';margin-right:4px;vertical-align:middle"></span>' +
+          '<span style="font-weight:700">' + caste + '</span></div>',
+          {{ maxWidth: 200 }}
+        );
+      }}
+    }}).addTo(map);
+    document.getElementById('map-plot-count').textContent = geojson.features.length.toLocaleString() + ' plots shown';
+    // Auto-zoom to filtered bounds
+    if ((casteFilter || villageFilter) && geojson.features.length > 0) {{
+      map.fitBounds(plotLayer.getBounds(), {{ padding: [30, 30] }});
+    }}
+  }}
+
+  function applyFilters() {{
+    renderPlots(casteFilterEl.value, villageFilterEl.value);
+  }}
+
+  renderPlots('', '');
+
+  casteFilterEl.addEventListener('change', applyFilters);
+  villageFilterEl.addEventListener('change', applyFilters);
 }}
 
 // ─── Village Charts ───

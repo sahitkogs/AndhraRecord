@@ -287,20 +287,167 @@ def compute_stats(plots):
 
     return stats
 
+# ─── Plot Geometry for Map ──────────────────────────────────────────────────
+
+def build_plot_geodata(plots):
+    """Build compact plot geometry data for the map tab.
+
+    Reads plotcoord from CSV, converts UTM Zone 44N -> WGS84,
+    pairs with caste from processed plots, and returns a compact structure.
+
+    Returns dict with:
+      - base: [base_lon, base_lat] reference point
+      - castes: [caste_name, ...]  lookup array
+      - villages: [village_name, ...] lookup array
+      - plots: [[caste_idx, village_idx, dx1, dy1, dx2, dy2, ...], ...]
+        where dx/dy are integer offsets from base * 1e5
+    """
+    import math
+    import pyproj
+    transformer = pyproj.Transformer.from_crs('EPSG:32644', 'EPSG:4326', always_xy=True)
+
+    BASE_LON, BASE_LAT = 80.50000, 16.50000
+
+    # Build plot_code -> caste lookup from processed plots
+    plot_caste_map = {p['plot_code']: p['plot_caste'] for p in plots}
+    # Build plot_code -> village lookup from processed plots
+    plot_village_map = {p['plot_code']: p['village'] for p in plots}
+
+    # Also need caste mapping for plots skipped by process_data (no farmer name)
+    surname_map, indicator_map, not_surnames = load_mapping(MAPPING_FILE)
+
+    castes_list = []
+    castes_idx = {}
+    villages_list = []
+    villages_idx = {}
+    plot_data = []
+
+    # Filter stats
+    total_rows = 0
+    skipped_dupe = 0
+    skipped_no_coord = 0
+    skipped_infra = 0
+    skipped_no_code = 0
+
+    with open(DATA_FILE, 'r', encoding='utf-8') as f:
+        reader = csv.DictReader(f)
+        seen_oids = set()
+        for row in reader:
+            total_rows += 1
+            esri_oid = row.get('ESRI_OID', '').strip()
+            if esri_oid:
+                if esri_oid in seen_oids:
+                    skipped_dupe += 1
+                    continue
+                seen_oids.add(esri_oid)
+
+            pc = row.get('plotcoord', '').strip()
+            if not pc:
+                skipped_no_coord += 1
+                continue
+
+            # Parse coordinates
+            sep = ',' if ',' in pc.split(';')[0] else ':'
+            pairs = [p.strip() for p in pc.split(';') if p.strip()]
+            if len(pairs) < 3:
+                skipped_no_coord += 1
+                continue
+            try:
+                utm_coords = []
+                for p in pairs:
+                    x, y = p.split(sep)
+                    utm_coords.append((float(x), float(y)))
+            except (ValueError, TypeError):
+                skipped_no_coord += 1
+                continue
+
+            # Skip infrastructure/road polygons:
+            # - Any plot > 200m extent is almost certainly not a personal land parcel
+            # - Plots without a plot code are roads, reserves, etc.
+            xs = [c[0] for c in utm_coords]
+            ys = [c[1] for c in utm_coords]
+            if max(xs) - min(xs) > 200 or max(ys) - min(ys) > 200:
+                skipped_infra += 1
+                continue
+            plot_code = row.get('plot_code', '').strip()
+            if not plot_code:
+                skipped_no_code += 1
+                continue
+
+            # Convert to WGS84
+            wgs_coords = []
+            for x, y in utm_coords:
+                lon, lat = transformer.transform(x, y)
+                wgs_coords.append((lon, lat))
+
+            # Sort vertices by angle from centroid to form proper polygon ring
+            cx = sum(p[0] for p in wgs_coords) / len(wgs_coords)
+            cy = sum(p[1] for p in wgs_coords) / len(wgs_coords)
+            wgs_coords.sort(key=lambda p: math.atan2(p[1] - cy, p[0] - cx))
+
+            # Encode as delta integers from base point
+            deltas = []
+            for lon, lat in wgs_coords:
+                deltas.append(round((lon - BASE_LON) * 1e5))
+                deltas.append(round((lat - BASE_LAT) * 1e5))
+
+            # Get caste and village
+            if plot_code in plot_caste_map:
+                caste = plot_caste_map[plot_code]
+                village = plot_village_map.get(plot_code, normalize_village(row.get('lpsvillage', '')))
+            else:
+                village = normalize_village(row.get('lpsvillage', ''))
+                farmer = row.get('farmer_n', '').strip()
+                if not farmer:
+                    caste = 'No-Caste-Info'
+                elif is_company(farmer.split(',')[0]) or is_govt_entry(farmer.split(',')[0]):
+                    caste = 'No-Caste-Info'
+                else:
+                    caste, _ = assign_caste_to_name(
+                        farmer.split(',')[0].strip(), surname_map, indicator_map, not_surnames)
+                    caste = caste or 'Unknown'
+
+            # Index caste
+            if caste not in castes_idx:
+                castes_idx[caste] = len(castes_list)
+                castes_list.append(caste)
+            # Index village
+            if village not in villages_idx:
+                villages_idx[village] = len(villages_list)
+                villages_list.append(village)
+
+            plot_data.append([castes_idx[caste], villages_idx[village]] + deltas)
+
+    return {
+        'base': [BASE_LON, BASE_LAT],
+        'castes': castes_list,
+        'villages': villages_list,
+        'plots': plot_data,
+        'filter_stats': {
+            'total_rows': total_rows,
+            'skipped_dupe': skipped_dupe,
+            'skipped_no_coord': skipped_no_coord,
+            'skipped_infra': skipped_infra,
+            'skipped_no_code': skipped_no_code,
+            'shown': len(plot_data),
+        },
+    }
+
+
 # ─── HTML Generation ─────────────────────────────────────────────────────────
 
 def generate_html(plots, stats):
     import os
     from html_template import build_html
 
-    geojson_path = os.path.join('data', 'lps_village_boundaries.geojson')
-    with open(geojson_path) as f:
-        village_geojson = json.load(f)
+    print("Building plot geometry for map...")
+    plot_geodata = build_plot_geodata(plots)
+    print(f"  {len(plot_geodata['plots']):,} plots with geometry")
 
     with open(MAPPING_FILE) as mf:
         surname_count = len(json.load(mf)['surnames'])
 
-    return build_html(plots, stats, village_geojson, surname_count=surname_count)
+    return build_html(plots, stats, plot_geodata, surname_count=surname_count)
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────

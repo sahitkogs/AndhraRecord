@@ -1,27 +1,30 @@
 surname,frequency,example_full_names,constituencies,years
+KRISHNA,6,Krishna Swaroop Vadlamuri | Krishna Prasad Sabbathi | Krishna Velagada,"AMALAPURAM (SC), BAPATLA (SC), PARVATHIPURAM (SC), PAYAKARAOPET (SC), VICARADAB (SC)","2009, 2024"
 MANDA,5,Manda Sarath Babu | Manda Krishnaiah | Manda Krishna Madiga,"GUDUR (SC), MADIRA (SC), SANTHANUTHALAPADU (SC), VEMURU (SC), WARDHANAPET (SC)","2009, 2024"
-KRISHNA,4,Krishna Swaroop Vadlamuri | Krishna Prasad Sabbathi | Krishna Velagada,"AMALAPURAM (SC), PARVATHIPURAM (SC), PAYAKARAOPET (SC), VICARADAB (SC)","2009, 2024"
 KORIVI,4,Korivi Rajini Kanth | Korivi Vinaya Kumar | Korivi Vinay Kumar,PRATHIPADU (SC),"2009, 2019, 2024"
 AITHABATHULA,3,Aithabathula Anandarao | Aithabathula Subhashini | Aithabathula Anandarao,AMALAPURAM (SC),"2009, 2024"
 SINGAMALA,3,Singamala Venkateshwarlu | Singamala Venkateshwarlu | Singamala Venkateswarlu,"BADVEL (SC), BADVEL (SC) : BYE ELECTION ON 30-10-2021","2009, 2019, 2024"
 VENKATA,3,Venkata Chaitanya Lakkapamu | Venkata Rao Talari | Venkata Subbanna Yata,"CHINTALAPUDI (SC), KOVVUR (SC), SINGANAMALA (SC)",2024
 RAMU,3,Ramu K | Ramu Varikut | M J RAMU,"GANGADHARA NELLORE (SC), SANTHANUTHALAPADU (SC), SECUNDERABAD CANTT. (SC)","2009, 2024"
+RAPAKA,3,Rapaka Hareesh Kumar | Rapaka Vara Prasada Rao | Rapaka Varaprasada Rao,"AMALAPURAM (SC), GOPALAPURAM (SC), RAZOLE (SC)","2009, 2024"
 KAMALA,3,Kamala Arugolanu | J. Kamala Prabhas | Kamala Raju Lingala,"BADVEL (SC), KOVVUR (SC), MADIRA (SC)","2009, 2024"
 KONDETI,3,Kondeti Prabhakaraa Reddy | Kondeti Prabakara Reddy | Kondeti Sridhar,"GANNAVARAM (SC), RAZOLE (SC), WARDHANAPET (SC)","2009, 2024"
 VIJAY,3,Vijay Kumar Bn | Vijay Kumar G.Srkr | Vijay Paul Kolakaluri,"SANTHANUTHALAPADU (SC), SATYAVEDU (SC), VEMURU (SC)",2024
 SAKE,3,Dr. Sake Sailajanath | Sake Sreedevi | Sake Sailajanath,SINGANAMALA (SC),"2009, 2024"
 ANANDA,3,Ananda Babu Nakka | Ananda Babu Srungarapati | Ananda Babu Nakka,"TADIKONDA (SC), VEMURU (SC)","2019, 2024"
+VENKATESWARLU,3,Venkateswarlu Darsi | Venkateswarlu Yanamadini | Venkateswarlu Gude,"AMALAPURAM (SC), KONDAPI (SC), YERRAGONDAPALEM (SC)","2009, 2024"
 PILLI,3,Pilli Baburao | Pilli Balaramudu | Pilli Chenna Kesavulu,"PAYAKARAOPET (SC), TADIKONDA (SC), YERRAGONDAPALEM(SC)","2009, 2019"
 GADDAM,3,Gaddam Bala Swamy | GADDAM RAJESH | Gaddam Nagaraju,"ALAMPUR (SC), DHARMAPURI (SC), MANAKONDUR (SC)",2009
 AITABATHULA,2,Aitabathula Abhimanyudu | Aitabathula Ananda Babu,AMALAPURAM (SC),2024
 DEVARAPALLI,2,Devarapalli Rajiv | Devarapalli Venkata Seshagiri Rao,"AMALAPURAM (SC), KONDAPI (SC)","2009, 2024"
 DASARI,2,Dasari Sudha | Dasari Sudha,"BADVEL (SC), BADVEL (SC) : BYE ELECTION ON 30-10-2021","2019, 2024"
 MADDELA,2,Maddela Mallikarjuna Rao | MADDELA RAVINDAR,"BADVEL (SC), DHARMAPURI (SC)","2009, 2024"
+PALLIPATTU,2,Pallipattu Gunasekhar | Pallipattu Abhinav Vishnu,"CHITTOOR (SC), GANGADHARA NELLORE (SC)",2024
 RAMESH,2,Ramesh Babu Deyala | Ramesh Babu Tenali,"GANGADHARA NELLORE (SC), TADIKONDA (SC)",2024
 RAMA,2,V. Rama Raju | T. V. RAMA RAO,"GANGADHARA NELLORE (SC), KOVVUR (SC)","2009, 2024"
+GIDDI,2,Giddi. Satyanarayana S/O Mahalakshmi | Giddi Jnana Prakasarao,"AMALAPURAM (SC), GANNAVARAM (SC)",2024
 SATYANARAYANA,2,Satyanarayana Giddi S/O China Arjanna | Satyanarayana. Giddi S/O Rama Swamy,GANNAVARAM (SC),2024
 BATHULA,2,Bathula Venu | Bathula Lakshmana Rao,"GOPALAPURAM (SC), RAZOLE (SC)","2009, 2024"
-RAPAKA,2,Rapaka Hareesh Kumar | Rapaka Vara Prasada Rao,"GOPALAPURAM (SC), RAZOLE (SC)","2009, 2024"
 SUNEEL,2,Suneel Raju Darla | M Suneel Kumar,"GUDUR (SC), PUTHALAPATTU (SC)",2024
 AMBATI,2,Ambati Sivaiah | Ambati Krishna Murthy,"AMALAPURAM (SC), KODUR (SC)","2009, 2024"
 KORAMUTLA,2,Koramutla Sreenivasulu | Koramutla Venkata Subbaiah,KODUR (SC),"2009, 2024"
@@ -53,9 +56,9 @@ RAVELA,2,Ravela Yesaya | Ravela Santhi Jyothi,TADIKONDA (SC),"2009, 2024"
 SRAVAN,2,Sravan Kumar Jada | Sravan Kumar Tenali,TADIKONDA (SC),"2009, 2024"
 KOLIKAPOGU,2,Kolikapogu Venkata Rao | Kolikapogu Musalaiah,"SATHUPALLI (SC), TIRUVURU (SC)","2009, 2024"
 BURAGA,2,Buraga Subba Rao | Buraga Ratnam,"BADVEL (SC) : BYE ELECTION ON 30-10-2021, VEMURU (SC)","2019, 2024"
+GADDE,2,Gadde Vijaya Lakshmi | Gadde Vijaya Lakshmi,"BAPATLA (SC), VEMURU (SC)",2024
 PAMULA,2,Pamula Vijaya Kumari | PAMULA RAJESWARI DEVI,"GANNAVARAM (SC), VEMURU (SC)","2009, 2024"
 CHANDRA,2,Chandra Sekhar Tatiparthi | A. Chandra Shekar,"VICARADAB (SC), YERRAGONDAPALEM (SC)","2009, 2024"
-VENKATESWARLU,2,Venkateswarlu Darsi | Venkateswarlu Yanamadini,"KONDAPI (SC), YERRAGONDAPALEM (SC)","2009, 2024"
 KAMALAMMA,2,Kamalamma. P.M. | Kamalamma P. M.,"BADVEL (SC), BADVEL (SC) : BYE ELECTION ON 30-10-2021","2009, 2019"
 SUCHARITHA,2,Sucharitha Mekathoti | Sucharitha Mekathoti,PRATHIPADU (SC),"2009, 2019"
 AMBEDKAR,2,Ambedkar Dara | AMBEDKAR K M,"CHINTALAPUDI (SC), PRATHIPADU (SC)","2009, 2019"
@@ -70,6 +73,7 @@ VANAM,2,Vanam Narasimhulu | Vanam Narasimha Madiga,"BADVEL (SC), VICARADAB (SC)"
 RAVULA,2,Ravula Ramakrishna | RAVULA ANJAIAH,"BELLAMPALLY (SC), SECUNDERABAD CANTT. (SC)",2009
 JADI,2,Jadi Mallaiah | Jadi Yesaiah,CHENNUR (SC),2009
 JAYA,2,K. Jaya Prakash | Jaya Prakash Thammedpalli,"GANGADHARA NELLORE(SC), YERRAGONDAPALEM(SC)",2009
+JANGA,2,Janga Goutham | Janga Goutham,"AMALAPURAM (SC), GANNAVARAM (SC)","2009, 2024"
 DAIDA,2,Daida. Christoper | Daida Sravan Kumar,"GHANPUR (STATION) (SC), NAKREKAL (SC)",2009
 KADIYAM,2,Kadiyam Sreehari | Kadiyam Parameshwar,"GHANPUR (STATION) (SC), THUNGATHURTHY (SC)",2009
 PANABAKA,2,Panabaka Krishnaiah | Panabaka China Gangaiah,"GUDUR (SC), SULLURPETA (SC)",2009
@@ -82,6 +86,8 @@ VIJAYA,2,Vijaya Kumari Katari | B. N. Vijaya Kumar,"PRATHIPADU (SC), SANTHANUTHA
 PUSHPARAJ,2,P. Pushparaj | B. Pushparaj,"PUTHALAPATTU (SC), VICARADAB (SC)",2009
 ANJAIAH,2,Anjaiah Jala | G. Anjaiah,"SANTHANUTHALAPADU (SC), ZAHIRABAD (SC)",2009
 JAGANNADHAM,2,Jagannadham Kotilingam | Jagannadham Sangeetharao,SANTHANUTHALAPADU (SC),2009
+NANDIGAM,2,Nandigam Jesi Babu | Suresh Babu Nandigam,"BAPATLA (SC), YERRAGONDAPALEM(SC)","2009, 2024"
+KATTA,2,Katta Anand Babu | Katta Hemanand,BAPATLA (SC),2024
 BEERA,1,Beera Ramarao,AMALAPURAM (SC),2024
 CHUTUGULLA,1,Chutugulla Veera Venkata Satyanarayana,AMALAPURAM (SC),2024
 ISWARYA,1,Iswarya Bojja,AMALAPURAM (SC),2024
@@ -109,10 +115,8 @@ VADINGADU,1,Vadingadu Munaswamy Thomas,GANGADHARA NELLORE (SC),2024
 KARUNA,1,K. Karuna Sree,GANGADHARA NELLORE (SC),2024
 KALLATHUR,1,Kallathur Krupalakshmi,GANGADHARA NELLORE (SC),2024
 BHASKAR,1,P. Bhaskar,GANGADHARA NELLORE (SC),2024
-PALLIPATTU,1,Pallipattu Gunasekhar,GANGADHARA NELLORE (SC),2024
 PULIVELAM,1,Pulivelam Madhu,GANGADHARA NELLORE (SC),2024
 T.D,1,T.D. Devaraj,GANGADHARA NELLORE (SC),2024
-GIDDI,1,Giddi. Satyanarayana S/O Mahalakshmi,GANNAVARAM (SC),2024
 ANANDARAO,1,Anandarao Kollabathula,GANNAVARAM (SC),2024
 BALAKRISHNA,1,Balakrishna Kota,GANNAVARAM (SC),2024
 CHITTIBABU,1,Chittibabu Kondeti,GANNAVARAM (SC),2024
@@ -286,7 +290,6 @@ SEELAM,1,Seelam Raja,TIRUVURU (SC),2024
 ASHOK,1,Ashok Babu Varikuti,VEMURU (SC),2024
 BODIYYA,1,Bodiyya Chebrolu,VEMURU (SC),2024
 DURU,1,Duru Bhagya Raju,VEMURU (SC),2024
-GADDE,1,Gadde Vijaya Lakshmi,VEMURU (SC),2024
 GORIKAPUDI,1,Gorikapudi Steeven,VEMURU (SC),2024
 NAIDU,1,Naidu Nikhil Krishna,VEMURU (SC),2024
 RAVEENDRA,1,Raveendra Babu Jada,VEMURU (SC),2024
@@ -414,7 +417,6 @@ NAGABUSHNAM,1,M. Nagabushnam,GANGADHARA NELLORE(SC),2009
 JAYANKAR,1,N. Jayankar,GANGADHARA NELLORE(SC),2009
 SIVAPRASAD,1,Sivaprasad,GANGADHARA NELLORE(SC),2009
 RAJENDRAN,1,V. Rajendran,GANGADHARA NELLORE(SC),2009
-JANGA,1,Janga Goutham,GANNAVARAM (SC),2009
 KOLLI,1,Kolli Suryarao,GANNAVARAM (SC),2009
 KUSUME,1,Kusume Satyanarayana,GANNAVARAM (SC),2009
 MAKEY,1,Makey Davy Prasad,GANNAVARAM (SC),2009
@@ -632,7 +634,6 @@ DEVARAKONDA,1,Devarakonda Madhu,YERRAGONDAPALEM(SC),2009
 ISRAEL,1,Israel Chilaka,YERRAGONDAPALEM(SC),2009
 JALLI,1,Jalli Chakravarthy,YERRAGONDAPALEM(SC),2009
 MANJULA,1,Manjula Chinge,YERRAGONDAPALEM(SC),2009
-NANDIGAM,1,Nandigam Jesi Babu,YERRAGONDAPALEM(SC),2009
 PARISAPOGU,1,Parisapogu Issaiah,YERRAGONDAPALEM(SC),2009
 RAJU,1,Raju Banka,YERRAGONDAPALEM(SC),2009
 YADDANAPUDI,1,Yaddanapudi Pedda Guravaiah,YERRAGONDAPALEM(SC),2009
@@ -649,3 +650,37 @@ NALLA,1,Nalla Surya Prakash,ZAHIRABAD (SC),2009
 RAJ,1,P. Raj Kumar,ZAHIRABAD (SC),2009
 SONNAYALA,1,Sonnayala Babu,ZAHIRABAD (SC),2009
 NAROTHAM,1,Y. Narotham,ZAHIRABAD (SC),2009
+HARISH,1,G M Harish (Balayogi),AMALAPURAM (SC),2024
+DORABABU,1,Dorababu Yalla,AMALAPURAM (SC),2024
+JILLELLA,1,Jillella Ramesh,AMALAPURAM (SC),2024
+KAPA,1,Kapa Kalyan,AMALAPURAM (SC),2024
+KATRU,1,Katru Naga Babu,AMALAPURAM (SC),2024
+PATHURI,1,Pathuri Ramesh,AMALAPURAM (SC),2024
+VADDI,1,Vaddi Lalith Kumar,AMALAPURAM (SC),2024
+YADLA,1,Yadla Rajesh,AMALAPURAM (SC),2024
+YALANGI,1,Yalangi Ramesh,AMALAPURAM (SC),2024
+BUSSA,1,Bussa Nagaraju,BAPATLA (SC),2024
+CHINNAM,1,Chinnam Muralidhar,BAPATLA (SC),2024
+J.D,1,J.D. Seelam,BAPATLA (SC),2024
+JAGAN,1,Jagan Mohana Rao Dokka,BAPATLA (SC),2024
+KATTAPOGU,1,Kattapogu Vijay Kumar,BAPATLA (SC),2024
+KOTAIAH,1,Kotaiah Parre,BAPATLA (SC),2024
+MERUGUPALA,1,Merugupala Sadasivarao,BAPATLA (SC),2024
+NALAMALA,1,Nalamala Tirupathi Rao,BAPATLA (SC),2024
+PALADUGU,1,Paladugu Vijendra Rao,BAPATLA (SC),2024
+DAGGUMALLA,1,Daggumalla Prasada Rao,CHITTOOR (SC),2024
+PURNA,1,A. Purna Chandra,CHITTOOR (SC),2024
+BANDAPALLI,1,Bandapalli Ramesh,CHITTOOR (SC),2024
+C.SUDHAKAR,1,C.Sudhakar,CHITTOOR (SC),2024
+MAHESH,1,D. Mahesh,CHITTOOR (SC),2024
+K.MUNI,1,K.Muni Krishna,CHITTOOR (SC),2024
+MADASI,1,Madasi Sudharshan,CHITTOOR (SC),2024
+MOTUKUR,1,Motukur Jagapathi,CHITTOOR (SC),2024
+GANGAIAH,1,N. Gangaiah,CHITTOOR (SC),2024
+REDDEPPA,1,N. Reddeppa,CHITTOOR (SC),2024
+N.CHANDRA,1,N.Chandra Babu,CHITTOOR (SC),2024
+MADHU,1,P. Madhu,CHITTOOR (SC),2024
+P.JANAKI,1,P.Janaki Rama Rao ( Babu),CHITTOOR (SC),2024
+PETA,1,Peta Mohan,CHITTOOR (SC),2024
+NARESH,1,T Naresh,CHITTOOR (SC),2024
+YUGANDAR,1,Yugandar Konda,CHITTOOR (SC),2024

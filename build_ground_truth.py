@@ -151,9 +151,39 @@ def load_json_sources():
                 })
 
 
+def load_myneta_sc_records():
+    """Load MyNeta SC candidate records with per-constituency URLs."""
+    import os
+    myneta_path = os.path.join('data', 'myneta_sc_candidates.json')
+    if not os.path.exists(myneta_path):
+        return
+
+    with open(myneta_path, encoding='utf-8') as f:
+        records = json.load(f)
+
+    for rec in records:
+        surname = rec['surname'].strip().upper()
+        if not surname or len(surname) <= 2:
+            continue
+        import re
+        if re.search(r'[^A-Z]', surname):
+            continue
+        CORPUS.append({
+            'surname': surname,
+            'caste': 'SC',
+            'source_url': rec['source_url'],
+            'gothram': '',
+            'region': 'Andhra Pradesh',
+            'example_name': rec['full_name'],
+        })
+
+
 def main():
     # Load JSON sources
     load_json_sources()
+
+    # Load MyNeta SC with per-constituency URLs
+    load_myneta_sc_records()
 
     # Deduplicate: same surname from same source
     seen = set()
@@ -192,7 +222,8 @@ def main():
         writer = csv.writer(f)
         writer.writerow(['surname', 'caste', 'source_url', 'gothram', 'region', 'example_full_names'])
         for e in sorted(unique, key=lambda x: (x['caste'], x['surname'])):
-            writer.writerow([e['surname'], e['caste'], e['source_url'], e['gothram'], e['region'], ''])
+            example = e.get('example_name', '')
+            writer.writerow([e['surname'], e['caste'], e['source_url'], e['gothram'], e['region'], example])
 
     print(f"\nSaved to {output}")
 

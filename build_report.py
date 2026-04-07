@@ -141,6 +141,13 @@ def simplify_zone(zone):
 def process_data():
     surname_map, indicator_map, not_surnames = load_mapping(MAPPING_FILE)
 
+    # Load Gemini per-name classification (primary source)
+    gemini_map_path = os.path.join(os.path.dirname(MAPPING_FILE), 'gemini_name_caste_map.json')
+    gemini_map = {}
+    if os.path.exists(gemini_map_path):
+        with open(gemini_map_path, encoding='utf-8') as f:
+            gemini_map = json.load(f)
+
     plots = []  # Each: {plot_code, village, zone, zone_simple, area, farmer_names, individuals: [{name, caste, confidence}], plot_caste, plot_confidence}
     seen_oids = set()  # Deduplicate by ESRI_OID (scraper pagination overlap)
 
@@ -181,7 +188,21 @@ def process_data():
             for name in individual_names:
                 if is_company(name) or is_govt_entry(name):
                     continue
-                caste, confidence = assign_caste_to_name(name, surname_map, indicator_map, not_surnames)
+
+                # Primary: Gemini per-name classification
+                gemini_entry = gemini_map.get(name.strip())
+                if gemini_entry:
+                    caste = gemini_entry['caste']
+                    # Normalize non-standard caste values from Gemini
+                    caste_fix = {'Other BC': 'Other', 'Other Backward Class (BC)': 'Other', 'Kapu, Kamma': 'Kapu'}
+                    caste = caste_fix.get(caste, caste)
+                    confidence = gemini_entry.get('confidence', 'medium')
+                    if confidence not in ('high', 'medium', 'low'):
+                        confidence = 'medium'
+                else:
+                    # Fallback: surname-based lookup
+                    caste, confidence = assign_caste_to_name(name, surname_map, indicator_map, not_surnames)
+
                 if caste and caste != "Company":
                     individuals.append({
                         'name': name,

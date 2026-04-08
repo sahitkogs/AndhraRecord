@@ -12,6 +12,8 @@ except ImportError:
     types = None
 
 
+from prompts import SYSTEM_PROMPT as DEFAULT_SYSTEM_PROMPT
+
 CASTE_NORMALIZE = {
     'kamma': 'Kamma', 'kapu': 'Kapu', 'reddy': 'Reddy',
     'brahmin': 'Brahmin', 'vysya': 'Vysya', 'muslim': 'Muslim',
@@ -22,29 +24,8 @@ CASTE_NORMALIZE = {
     'balija': 'Kapu', 'telaga': 'Kapu', 'mala': 'SC', 'madiga': 'SC',
     'other bc': 'Other', 'other backward class (bc)': 'Other',
     'kapu, kamma': 'Kapu',
+    'lambada': 'ST',
 }
-
-DEFAULT_SYSTEM_PROMPT = """You are an expert on caste demographics in the Krishna-Guntur region of Andhra Pradesh, India. You classify land beneficiary names from official APCRDA (Amaravati Capital Region) records.
-
-For each person, determine their most likely caste community. Use EVERYTHING in the name — surname, given names, caste suffixes, honorifics, deity references, all of it.
-
-Key knowledge:
-- Telugu names: surname comes FIRST ("ALURI VENKATA RAO" = surname ALURI)
-- Caste suffixes: Reddy/Reddi = Reddy. Chowdary/Choudary/Chodary = Kamma. Setty/Setti/Shetty = Vysya.
-- Naidu can be Kamma or Kapu. Raju can be Kshatriya or just a name. Rayudu = Kapu.
-- Deity names: Vasavi = Vysya community deity.
-- Christian given names (Israel, John, Mary, David, Glory, Jerusalem, Abraham, Solomon, Paul) = Christian regardless of surname.
-- Muslim given names (Mohammad, Noor, Ahmed, Basha, Khadar) = Muslim regardless of surname.
-- Some surnames are shared. Pick the MOST COMMON caste for that surname in Krishna-Guntur.
-- Non-person entries (businesses, institutions, data artifacts) should be flagged.
-- These are agricultural landowners in rural villages near Amaravati.
-
-Be decisive. Do not use "Unknown" unless truly unclassifiable (single initials, gibberish).
-
-For each name return: name, name_type (person/non_person), caste, confidence (high/medium/low), reasoning.
-Categories: Kamma, Kapu, Reddy, Brahmin, Vysya, Muslim, SC, ST, Velama, Kshatriya, Yadava, Christian, Other
-
-Return JSON: {"results": [...]}"""
 
 
 class GeminiClient:
@@ -88,7 +69,9 @@ class GeminiClient:
                     system_instruction=self.system_prompt,
                     temperature=0.1,
                     response_mime_type="application/json",
-                    thinking_config=types.ThinkingConfig(thinking_budget=0),
+                    thinking_config=types.ThinkingConfig(
+                        thinking_budget=int(os.environ.get('GEMINI_THINKING_BUDGET', '1024'))
+                    ),
                 ),
             )
             result = json.loads(response.text)

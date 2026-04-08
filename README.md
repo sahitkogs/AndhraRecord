@@ -70,8 +70,9 @@ Examines ~48,000 land plots allocated under the APCRDA Land Pooling Scheme acros
 # Step 1: Scrape (if source data needs refresh)
 python scrape_apcrda_lps.py
 
-# Step 3: Classify names via Gemini
-GEMINI_API_KEY=your_key python caste_classifier_gemini.py
+# Step 3: Classify names via Gemini (configure in .env — see .env.sample)
+# Config: GEMINI_API_KEY, GEMINI_MODEL, GEMINI_BATCH_SIZE, GEMINI_THINKING_BUDGET
+python caste_classifier_gemini.py
 
 # Steps 2+4: Generate reports
 python build_report.py

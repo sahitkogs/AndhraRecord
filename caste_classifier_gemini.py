@@ -28,8 +28,11 @@ from google.genai import types
 
 load_dotenv()
 
+from prompts import SYSTEM_PROMPT, build_reference_context, load_surname_references
+
 MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash')
-BATCH_SIZE = 20
+BATCH_SIZE = int(os.environ.get('GEMINI_BATCH_SIZE', '15'))
+THINKING_BUDGET = int(os.environ.get('GEMINI_THINKING_BUDGET', '1024'))
 RAW_DIR = "data/raw"
 PROCESSED_DIR = "data/processed"
 MAPPING_FILE = f"{PROCESSED_DIR}/caste_surname_map.json"
@@ -38,38 +41,7 @@ RESULTS_FILE = f"{PROCESSED_DIR}/gemini_classification_results.json"
 NAME_MAP_FILE = f"{PROCESSED_DIR}/gemini_name_caste_map.json"
 CHECKPOINT_FILE = f"{PROCESSED_DIR}/gemini_checkpoint.json"
 
-SYSTEM = """You are an expert on caste demographics in the Krishna-Guntur region of Andhra Pradesh, India. You classify land beneficiary names from official APCRDA (Amaravati Capital Region) records.
-
-For each person, determine their most likely caste community. Use EVERYTHING in the name — surname, given names, caste suffixes, honorifics, deity references, all of it.
-
-Key knowledge:
-- Telugu names: surname comes FIRST ("ALURI VENKATA RAO" = surname ALURI)
-- Caste suffixes: Reddy/Reddi = Reddy. Chowdary/Choudary/Chodary = Kamma. Setty/Setti/Shetty = Vysya.
-- Naidu can be Kamma or Kapu. Raju can be Kshatriya or just a name. Rayudu = Kapu.
-- Deity names: Vasavi = Vysya community deity.
-- Christian given names (Israel, John, Mary, David, Glory, Jerusalem, Abraham, Solomon, Paul) = Christian regardless of surname.
-- Muslim given names (Mohammad, Noor, Ahmed, Basha, Khadar) = Muslim regardless of surname.
-- Some surnames are shared. Pick the MOST COMMON caste for that surname in Krishna-Guntur.
-- Non-person entries (businesses, institutions, data artifacts) should be flagged.
-- These are agricultural landowners in rural villages near Amaravati.
-
-Be decisive. Do not use "Unknown" unless truly unclassifiable (single initials, gibberish).
-
-For each name return: name, name_type (person/non_person), caste, confidence (high/medium/low), reasoning.
-Categories: Kamma, Kapu, Reddy, Brahmin, Vysya, Muslim, SC, ST, Velama, Kshatriya, Yadava, Christian, Other
-
-Return JSON: {"results": [...]}"""
-
-CASTE_NORMALIZE = {
-    'kamma': 'Kamma', 'kapu': 'Kapu', 'reddy': 'Reddy',
-    'brahmin': 'Brahmin', 'vysya': 'Vysya', 'muslim': 'Muslim',
-    'sc': 'SC', 'st': 'ST', 'velama': 'Velama',
-    'kshatriya': 'Kshatriya', 'yadava': 'Yadava',
-    'christian': 'Christian', 'other': 'Other', 'unknown': 'Unknown',
-    'scheduled caste': 'SC', 'scheduled tribe': 'ST',
-    'balija': 'Kapu', 'telaga': 'Kapu', 'mala': 'SC', 'madiga': 'SC',
-    'other bc': 'Other', 'other backward class (bc)': 'Other',
-}
+from utils.gemini_client import CASTE_NORMALIZE
 
 
 def get_all_unique_names():
@@ -92,20 +64,24 @@ def get_all_unique_names():
     return names
 
 
-def classify_batch(client, batch_items):
+def classify_batch(client, batch_items, references):
     """Send a batch of (name, village) pairs to Gemini."""
     names_text = "\n".join(f"- {name} (village: {village})" for name, village in batch_items)
     prompt = f"Classify these Amaravati land beneficiaries:\n\n{names_text}"
+
+    ref_context = build_reference_context([name for name, _ in batch_items], references)
+    if ref_context:
+        prompt += f"\n\n{ref_context}"
 
     try:
         response = client.models.generate_content(
             model=MODEL,
             contents=prompt,
             config=types.GenerateContentConfig(
-                system_instruction=SYSTEM,
+                system_instruction=SYSTEM_PROMPT,
                 temperature=0.1,
                 response_mime_type="application/json",
-                thinking_config=types.ThinkingConfig(thinking_budget=0),
+                thinking_config=types.ThinkingConfig(thinking_budget=THINKING_BUDGET),
             ),
         )
         result = json.loads(response.text)
@@ -165,6 +141,10 @@ def main():
     client = genai.Client(api_key=api_key)
     start_time = time.time()
 
+    # Load surname references
+    references = load_surname_references()
+    print(f"Surname references: {len(references):,} surnames loaded", flush=True)
+
     # Get all unique names
     print("Loading all unique names...", flush=True)
     all_names = get_all_unique_names()
@@ -216,7 +196,7 @@ def main():
         batch_items = [(n, all_names[n]['village']) for n in batch_names]
         batch_num = i // BATCH_SIZE + 1
 
-        results = classify_batch(client, batch_items)
+        results = classify_batch(client, batch_items, references)
 
         if results:
             all_results.extend(results)

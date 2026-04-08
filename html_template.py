@@ -143,9 +143,13 @@ tr:hover td {{ background: var(--paper-tinted); }}
 .colophon {{ font-family: var(--font-sans); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); border-top: 3px solid var(--rule); padding-top: 10px; margin-top: 24px; text-align: center; }}
 
 @media (max-width: 800px) {{
-  .container {{ padding: 16px 20px; }}
-  .masthead__title {{ font-size: 28px; }}
+  .sticky-header {{ position: sticky; top: 0; z-index: 100; background: var(--paper); }}
+  .container {{ padding: 16px 16px; }}
+  .masthead {{ padding: 6px 0; margin-bottom: 8px; }}
+  .masthead__title {{ font-size: 24px; }}
   .masthead__meta {{ font-size: 8px; }}
+  .masthead__tagline {{ font-size: 11px; padding: 2px 0; }}
+  .tab-bar {{ margin-bottom: 12px; }}
   .tab-btn {{ font-size: 11px; padding: 10px 12px; }}
   .stats {{ grid-template-columns: repeat(2, 1fr); }}
   .stat__value {{ font-size: 22px; }}
@@ -154,7 +158,8 @@ tr:hover td {{ background: var(--paper-tinted); }}
   body {{ font-size: 16px; }}
   table {{ font-size: 14px; }}
   th {{ font-size: 11px; }}
-  #map {{ height: 350px; }}
+  #map {{ height: calc(100vh - 180px); min-height: 400px; }}
+  .map-legend {{ font-size: 10px; gap: 4px 10px; }}
   .section-title {{ font-size: 19px; }}
   .source-section p, .source-section li {{ font-size: 15px; }}
   .step p {{ font-size: 15px; }}
@@ -170,7 +175,8 @@ tr:hover td {{ background: var(--paper-tinted); }}
 <body>
 <div class="container">
 
-<!-- MASTHEAD -->
+<!-- STICKY HEADER (masthead + tabs) -->
+<div class="sticky-header">
 <header class="masthead">
   <div class="masthead__meta">
     <span>DATA ROOM</span>
@@ -183,15 +189,16 @@ tr:hover td {{ background: var(--paper-tinted); }}
 
 <!-- TABS -->
 <nav class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
-  <button class="tab-btn" onclick="showTab('map')">Plot Map</button>
+  <button class="tab-btn" onclick="showTab('overview')">Overview</button>
+  <button class="tab-btn active" onclick="showTab('map')">Plot Map</button>
   <button class="tab-btn" onclick="showTab('villages')">Village Breakdown</button>
   <button class="tab-btn" onclick="showTab('source')">Data Source &amp; Process</button>
   <button class="tab-btn" onclick="showTab('data')">Search the Data</button>
 </nav>
+</div>
 
 <!-- ═══ OVERVIEW ═══ -->
-<div id="tab-overview" class="tab-content active">
+<div id="tab-overview" class="tab-content">
   <div class="stats">
     <div class="stat">
       <div class="stat__label">Plots Analysed</div>
@@ -238,7 +245,7 @@ tr:hover td {{ background: var(--paper-tinted); }}
 </div>
 
 <!-- ═══ PLOT MAP ═══ -->
-<div id="tab-map" class="tab-content">
+<div id="tab-map" class="tab-content active">
   <h2 class="section-title">Capital Region Plot Map</h2>
   <p class="section-sub">{len(plot_geodata['plots']):,} individual plots colour-coded by caste of land beneficiary</p>
   <div id="map-controls" style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
@@ -359,6 +366,7 @@ function showTab(name) {{
   event.target.classList.add('active');
   if (name === 'data' && !window._tblInit) {{ window._tblInit = true; filterTable(); }}
   if (name === 'map' && !window._mapInit) {{ window._mapInit = true; initMap(); }}
+  if (name === 'villages' && !window._vilInit) {{ window._vilInit = true; renderVillages(); }}
   window.dispatchEvent(new Event('resize'));
 }}
 
@@ -532,31 +540,47 @@ function initMap() {{
 
 // ─── Village Charts ───
 function renderVillages() {{
-  const villages = Object.keys(VCP).sort((a,b) => {{
-    const ka = VCP[a]['Kamma']||0, kb = VCP[b]['Kamma']||0;
+  const villages = Object.keys(VCP).filter(v => v !== 'Unknown').sort((a,b) => {{
     const ta = Object.values(VCP[a]).reduce((s,v)=>s+v,0);
     const tb = Object.values(VCP[b]).reduce((s,v)=>s+v,0);
-    return (kb/tb) - (ka/ta);
+    const ka = (VCP[a]['Kamma']||0)/ta, kb = (VCP[b]['Kamma']||0)/tb;
+    return kb - ka;
   }});
 
-  // 100% stacked horizontal bars
-  const traces = AC.map(caste => ({{
+  // Top castes by total count, rest grouped as "Others"
+  const casteTotals = {{}};
+  AC.forEach(c => {{ casteTotals[c] = Object.values(VCP).reduce((s, v) => s + (v[c]||0), 0); }});
+  const topCastes = Object.entries(casteTotals)
+    .filter(([c]) => c !== 'Mixed' && c !== 'Unknown')
+    .sort((a,b) => b[1] - a[1])
+    .slice(0, 10)
+    .map(([c]) => c);
+  const showCastes = [...topCastes, 'Others'];
+  const showColors = {{}};
+  topCastes.forEach(c => {{ showColors[c] = CC[c] || '#999'; }});
+  showColors['Others'] = '#aaaaaa';
+
+  const traces = showCastes.map(caste => ({{
     name: caste, type: 'bar', orientation: 'h',
     y: villages, x: villages.map(v => {{
       const t = Object.values(VCP[v]).reduce((s,x)=>s+x,0);
-      return t > 0 ? +(100 * (VCP[v][caste]||0) / t).toFixed(1) : 0;
+      if (t === 0) return 0;
+      if (caste === 'Others') {{
+        const topSum = topCastes.reduce((s, c) => s + (VCP[v][c]||0), 0);
+        return +(100 * (t - topSum) / t).toFixed(1);
+      }}
+      return +(100 * (VCP[v][caste]||0) / t).toFixed(1);
     }}),
-    marker: {{ color: CC[caste] || '#999' }},
+    marker: {{ color: showColors[caste] }},
     hovertemplate: caste + ': %{{x:.1f}}%<extra>%{{y}}</extra>',
   }}));
   Plotly.newPlot('village-bars', traces, {{
-    ...pLayout, barmode: 'stack', height: villages.length * 28 + 80,
-    xaxis: {{ range: [0, 100], ticksuffix: '%' }},
-    margin: {{ t: 20, b: 80, l: 120, r: 20 }},
-    legend: {{ font: {{ size: 10 }}, orientation: 'h', y: -0.08, x: 0.5, xanchor: 'center' }}, showlegend: true,
+    ...pLayout, barmode: 'stack', height: Math.max(400, villages.length * 32 + 100),
+    xaxis: {{ range: [0, 100], ticksuffix: '%', dtick: 25 }},
+    yaxis: {{ automargin: true }},
+    margin: {{ t: 20, b: 80, l: 140, r: 20 }},
+    legend: {{ font: {{ size: 11 }}, orientation: 'h', y: -0.06, x: 0.5, xanchor: 'center', traceorder: 'normal' }}, showlegend: true,
   }}, pCfg);
-
-  // Heatmap
 }}
 
 // ─── Table ───
@@ -599,7 +623,9 @@ function sortTable(c) {{
   cPage = 0; renderPage();
 }}
 
-renderVillages();
+// Init map on load since it's the default tab
+window._mapInit = true;
+initMap();
 </script>
 </body>
 </html>"""

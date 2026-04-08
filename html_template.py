@@ -143,27 +143,29 @@ tr:hover td {{ background: var(--paper-tinted); }}
 .colophon {{ font-family: var(--font-sans); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); border-top: 3px solid var(--rule); padding-top: 10px; margin-top: 24px; text-align: center; }}
 
 @media (max-width: 800px) {{
-  .sticky-header {{ position: sticky; top: 0; z-index: 100; background: var(--paper); }}
-  .container {{ padding: 16px 16px; }}
+  body {{ font-size: 16px; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }}
+  .container {{ padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }}
+  .sticky-header {{ flex-shrink: 0; padding: 0 16px; background: var(--paper); z-index: 100; }}
+  .tab-content {{ flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 16px; }}
   .masthead {{ padding: 6px 0; margin-bottom: 8px; }}
   .masthead__title {{ font-size: 24px; }}
   .masthead__meta {{ font-size: 8px; }}
   .masthead__tagline {{ font-size: 11px; padding: 2px 0; }}
-  .tab-bar {{ margin-bottom: 12px; }}
+  .tab-bar {{ margin-bottom: 0; }}
   .tab-btn {{ font-size: 11px; padding: 10px 12px; }}
   .stats {{ grid-template-columns: repeat(2, 1fr); }}
   .stat__value {{ font-size: 22px; }}
   .hero-bar__bar {{ height: 36px; }}
   .hero-bar__seg {{ font-size: 9px; }}
-  body {{ font-size: 16px; }}
   table {{ font-size: 14px; }}
   th {{ font-size: 11px; }}
-  #map {{ height: calc(100vh - 180px); min-height: 400px; }}
+  #map {{ height: calc(100vh - 260px); min-height: 300px; }}
   .map-legend {{ font-size: 10px; gap: 4px 10px; }}
   .section-title {{ font-size: 19px; }}
   .source-section p, .source-section li {{ font-size: 15px; }}
   .step p {{ font-size: 15px; }}
   .table-controls input, .table-controls select {{ font-size: 16px; }}
+  .colophon {{ padding: 10px 16px; }}
 }}
 @media print {{
   body {{ background: #fff; color: #000; }}
@@ -601,12 +603,26 @@ function filterTable() {{
   cPage = 0; renderPage();
 }}
 
+function maskPlotCode(code) {{
+  if (!code) return '';
+  const parts = code.split('-');
+  return parts.map((p, i) => i < 2 ? p : '***').join('-');
+}}
+function maskFarmerNames(names) {{
+  if (!names) return '';
+  return names.split(',').map(function(name) {{
+    name = name.trim();
+    const parts = name.split(/\s+/);
+    if (parts.length <= 1) return parts[0];
+    return parts[0] + ' ***';
+  }}).join(', ');
+}}
 function renderPage() {{
   const s = cPage * PS, e = Math.min(s + PS, fData.length);
   let h = '';
   for (let i = s; i < e; i++) {{
     const r = fData[i], col = CC[r[5]] || '#999';
-    h += '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+(r[3]?r[3].toLocaleString():'0')+'</td><td>'+r[4]+'</td><td><span class="caste-tag" style="background:'+col+'">'+r[5]+'</span></td></tr>';
+    h += '<tr><td>'+maskPlotCode(r[0])+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+(r[3]?r[3].toLocaleString():'0')+'</td><td>'+maskFarmerNames(r[4])+'</td><td><span class="caste-tag" style="background:'+col+'">'+r[5]+'</span></td></tr>';
   }}
   document.getElementById('table-body').innerHTML = h;
   const tp = Math.ceil(fData.length / PS), pg = document.getElementById('pagination');

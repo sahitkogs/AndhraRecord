@@ -10,3 +10,4 @@ skills-lock.json
 *.xlsx
 archives/scratch_to_delete/
 .playwright-mcp/
+.env

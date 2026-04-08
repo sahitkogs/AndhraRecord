@@ -22,10 +22,13 @@ import time
 from collections import Counter, defaultdict
 from datetime import datetime
 
+from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-MODEL = "gemini-2.5-flash"
+load_dotenv()
+
+MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash')
 BATCH_SIZE = 20
 RAW_DIR = "data/raw"
 PROCESSED_DIR = "data/processed"

@@ -3,6 +3,7 @@ import json
 import os
 import time
 
+
 try:
     from google import genai
     from google.genai import types
@@ -49,7 +50,7 @@ Return JSON: {"results": [...]}"""
 class GeminiClient:
     """Wrapper for Gemini API calls for caste classification."""
 
-    def __init__(self, api_key=None, model="gemini-2.5-flash", system_prompt=None):
+    def __init__(self, api_key=None, model=None, system_prompt=None):
         if genai is None:
             raise ImportError("google-genai package required. Install: pip install google-genai")
 
@@ -58,7 +59,7 @@ class GeminiClient:
             raise ValueError("Set GEMINI_API_KEY environment variable or pass api_key")
 
         self.client = genai.Client(api_key=self.api_key)
-        self.model = model
+        self.model = model or os.environ.get('GEMINI_MODEL', 'gemini-2.5-flash')
         self.system_prompt = system_prompt or DEFAULT_SYSTEM_PROMPT
 
     def classify_batch(self, name_village_pairs, ground_truth_context=None):

@@ -16,9 +16,17 @@ def build_html(plots, stats, plot_geodata, surname_count=0):
         'Kamma': '#d62728', 'Kapu': '#1f77b4', 'Reddy': '#2ca02c',
         'Brahmin': '#ff7f0e', 'Vysya': '#9467bd', 'Muslim': '#17becf',
         'SC': '#e377c2', 'ST': '#8c564b', 'Velama': '#bcbd22',
-        'Kshatriya': '#d62783', 'Yadava': '#22b573', 'Goud': '#b5651d',
+        'Kshatriya': '#d62783', 'Yadava': '#22b573',
         'Christian': '#4169e1', 'Mixed': '#999999', 'Other': '#7f7f7f',
         'Unknown': '#c0c0c0', 'No-Caste-Info': '#d9d9d9',
+        'Padmasali': '#6a3d9a', 'Mudiraj': '#33a02c', 'Gouda': '#b15928',
+        'Settibalija': '#a6761d', 'Balija': '#e6ab02', 'Mala': '#c77cff',
+        'Madiga': '#ae76a6', 'Lambada': '#7a6140', 'Agnikula Kshatriya': '#5f9ea0',
+        'Gavara': '#556b2f', 'Jain': '#cd853f', 'Boya': '#8b4513',
+        'Koya': '#2e8b57', 'K Velama': '#b8860b', 'P Velama': '#daa520',
+        'T Kapu': '#4682b4', 'Erukula': '#708090', 'Golla': '#6b8e23',
+        'Surya Balija': '#d2691e', 'Vadabalija': '#8fbc8f',
+        'Kurni': '#778899', 'Kuruba': '#696969',
     }
 
     all_castes = list(stats['caste_plot_counts'].keys())

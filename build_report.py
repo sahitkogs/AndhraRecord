@@ -142,7 +142,7 @@ def process_data():
     surname_map, indicator_map, not_surnames = load_mapping(MAPPING_FILE)
 
     # Load Gemini per-name classification (primary source)
-    gemini_map_path = os.path.join(os.path.dirname(MAPPING_FILE), 'gemini_name_caste_map.json')
+    gemini_map_path = os.path.join(os.path.dirname(MAPPING_FILE), 'processed', 'gemini_name_caste_map.json')
     gemini_map = {}
     if os.path.exists(gemini_map_path):
         with open(gemini_map_path, encoding='utf-8') as f:
@@ -194,7 +194,9 @@ def process_data():
                 if gemini_entry:
                     caste = gemini_entry['caste']
                     # Normalize non-standard caste values from Gemini
-                    caste_fix = {'Other BC': 'Other', 'Other Backward Class (BC)': 'Other', 'Kapu, Kamma': 'Kapu'}
+                    # Minimal fixes only — keep all specific caste names
+                    caste_fix = {'Other BC': 'Other', 'Other Backward Class (BC)': 'Other', 'Kapu, Kamma': 'Kapu',
+                                 'Scheduled Caste': 'SC', 'Scheduled Tribe': 'ST'}
                     caste = caste_fix.get(caste, caste)
                     confidence = gemini_entry.get('confidence', 'medium')
                     if confidence not in ('high', 'medium', 'low'):

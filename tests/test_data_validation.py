@@ -203,15 +203,10 @@ class TestCasteAssignment:
         assert len(companies) == 0, f"Found {len(companies)} plots with caste='Company'"
 
     def test_valid_caste_values(self, processed):
-        """All castes must be from the known set."""
-        valid = {
-            'Kamma', 'Kapu', 'Reddy', 'Brahmin', 'Vysya', 'Muslim',
-            'SC', 'ST', 'Velama', 'Kshatriya', 'Yadava', 'Goud',
-            'Christian', 'Mixed', 'Other', 'Unknown',
-        }
+        """All castes must be non-empty strings (any specific caste is valid)."""
         plots, _ = processed
         for p in plots:
-            assert p['plot_caste'] in valid, (
+            assert p['plot_caste'] and isinstance(p['plot_caste'], str), (
                 f"Plot {p['plot_code']} has invalid caste: {p['plot_caste']}"
             )
 

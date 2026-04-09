@@ -187,22 +187,30 @@ tr:hover td {{ background: var(--paper-tinted); }}
   body {{ font-size: 16px; }}
   .container {{ padding: 12px; }}
   .header h1 {{ font-size: 20px; }}
-  .header .subtitle {{ font-size: 11px; }}
+  .header .subtitle {{ font-size: 14px; }}
+  .header .meta {{ font-size: 12px; }}
   .stats {{ grid-template-columns: repeat(3, 1fr); gap: 6px; }}
   .stat {{ padding: 8px 4px; }}
   .stat__num {{ font-size: 20px; }}
-  .stat__label {{ font-size: 8px; }}
+  .stat__label {{ font-size: 12px; }}
   .tab-bar {{ display: none; }}
   .tab-content {{ display: block !important; }}
-  .tab-btn {{ font-size: 11px; padding: 12px 14px; }}
+  .tab-btn {{ font-size: 12px; padding: 12px 14px; }}
   .controls {{ flex-direction: column; }}
   .controls input, .controls select {{ width: 100%; min-width: 0; font-size: 16px; padding: 10px 12px; }}
-  .caste-btn {{ font-size: 10px; padding: 8px 10px; min-height: 36px; }}
-  table {{ font-size: 14px; }}
+  .controls .count {{ font-size: 14px; }}
+  .caste-btn {{ font-size: 12px; padding: 8px 10px; min-height: 36px; }}
+  table {{ font-size: 15px; }}
   td, th {{ padding: 10px 8px; }}
+  th {{ font-size: 12px; }}
+  .tag {{ font-size: 12px; }}
+  .overlap-badge {{ font-size: 12px; }}
   .table-wrap {{ max-height: 60vh; }}
-  .section h2 {{ font-size: 18px; }}
+  .section h2 {{ font-size: 20px; }}
   .chart-box {{ padding: 6px; }}
+  .pagination button {{ font-size: 14px; }}
+  .pagination span {{ font-size: 14px; }}
+  .footer {{ font-size: 12px; }}
 }}
 </style>
 </head>

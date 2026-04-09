@@ -1,15 +1,41 @@
 """New HTML template for the Amaravati caste report dashboard.
 Broadsheet newspaper aesthetic, proportional focus, mobile-friendly."""
 import json
+import re
 
 
-def build_html(plots, stats, plot_geodata, surname_count=0):
+def _mask_plot_code(code):
+    """Keep first 2 segments, mask the rest: 6-352-***-***-***"""
+    if not code:
+        return ''
+    parts = code.split('-')
+    return '-'.join(parts[:2] + ['***'] * max(0, len(parts) - 2))
+
+
+def _mask_farmer_names(names):
+    """Keep surname (first token), mask given names: ALURI ***"""
+    if not names:
+        return ''
+    masked = []
+    for name in names.split(','):
+        name = name.strip()
+        parts = name.split()
+        if len(parts) <= 1:
+            masked.append(parts[0] if parts else '')
+        else:
+            masked.append(parts[0] + ' ***')
+    return ', '.join(masked)
+
+
+def build_html(plots, stats, plot_geodata, surname_count=0, mask_pii=False):
     # Table data
     table_data = []
     for p in plots:
+        plot_code = _mask_plot_code(p['plot_code']) if mask_pii else p['plot_code']
+        farmer_names = _mask_farmer_names(p['farmer_names']) if mask_pii else p['farmer_names']
         table_data.append([
-            p['plot_code'], p['village'], p['zone_simple'],
-            p['area'], p['farmer_names'], p['plot_caste'],
+            plot_code, p['village'], p['zone_simple'],
+            p['area'], farmer_names, p['plot_caste'],
         ])
 
     caste_colors = {
@@ -65,9 +91,10 @@ def build_html(plots, stats, plot_geodata, surname_count=0):
   }}
 }}
 *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
-body {{ font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--ink); background: var(--paper); }}
+html {{ overflow-x: hidden; }}
+body {{ font-family: var(--font-body); font-size: 15px; line-height: 1.6; color: var(--ink); background: var(--paper); max-width: 100vw; overflow-x: hidden; }}
 
-.container {{ max-width: 1000px; margin: 0 auto; padding: 20px 40px; }}
+.container {{ max-width: 1000px; width: 100%; margin: 0 auto; padding: 20px 40px; overflow-x: hidden; }}
 
 /* Masthead */
 .masthead {{ text-align: center; border-top: 3px solid var(--rule); padding: 10px 0; border-bottom: 3px solid var(--rule); margin-bottom: 16px; }}
@@ -143,29 +170,80 @@ tr:hover td {{ background: var(--paper-tinted); }}
 .colophon {{ font-family: var(--font-sans); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); border-top: 3px solid var(--rule); padding-top: 10px; margin-top: 24px; text-align: center; }}
 
 @media (max-width: 800px) {{
+  /* Layout */
   body {{ font-size: 16px; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }}
-  .container {{ padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }}
-  .sticky-header {{ flex-shrink: 0; padding: 0 16px; background: var(--paper); z-index: 100; }}
-  .tab-content {{ flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 16px; }}
-  .masthead {{ padding: 6px 0; margin-bottom: 8px; }}
-  .masthead__title {{ font-size: 24px; }}
-  .masthead__meta {{ font-size: 8px; }}
-  .masthead__tagline {{ font-size: 11px; padding: 2px 0; }}
+  .container {{ padding: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; width: 100%; max-width: 100vw; }}
+  .sticky-header {{ flex-shrink: 0; padding: 0 12px; background: var(--paper); z-index: 100; overflow: hidden; }}
+  .tab-content {{ flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; padding: 0 12px 16px; }}
+
+  /* Masthead */
+  .masthead {{ padding: 4px 0; margin-bottom: 4px; }}
+  .masthead__title {{ font-size: 20px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }}
+  .masthead__meta {{ font-size: 8px; gap: 4px; white-space: nowrap; }}
+  .masthead__tagline {{ font-size: 12px; padding: 2px 0; }}
+
+  /* Tabs */
   .tab-bar {{ margin-bottom: 0; }}
-  .tab-btn {{ font-size: 11px; padding: 10px 12px; }}
-  .stats {{ grid-template-columns: repeat(2, 1fr); }}
+  .tab-btn {{ font-size: 12px; padding: 10px 12px; }}
+
+  /* Stat cards */
+  .stats {{ grid-template-columns: repeat(2, 1fr); gap: 8px; }}
+  .stat {{ padding: 10px 8px; overflow: hidden; }}
   .stat__value {{ font-size: 22px; }}
+  .stat__label {{ font-size: 12px; letter-spacing: 1px; }}
+  .stat__sub {{ font-size: 14px; }}
+
+  /* Overview table */
+  .chart-wrap {{ padding: 8px; overflow-x: auto; }}
+  .chart-wrap table th:nth-child(n+3), .chart-wrap table td:nth-child(n+3) {{ display: none; }}
+  .chart-wrap table {{ font-size: 16px; }}
+  .chart-wrap table th {{ font-size: 12px; }}
+
+  /* Hero bar */
   .hero-bar__bar {{ height: 36px; }}
-  .hero-bar__seg {{ font-size: 9px; }}
-  table {{ font-size: 14px; }}
-  th {{ font-size: 11px; }}
-  #map {{ height: calc(100vh - 260px); min-height: 300px; }}
-  .map-legend {{ font-size: 10px; gap: 4px 10px; }}
-  .section-title {{ font-size: 19px; }}
-  .source-section p, .source-section li {{ font-size: 15px; }}
-  .step p {{ font-size: 15px; }}
+  .hero-bar__seg {{ font-size: 14px; }}
+  .hero-bar__item {{ font-size: 14px; }}
+
+  /* Tables */
+  table {{ font-size: 16px; }}
+  th {{ font-size: 12px; }}
+  td {{ font-size: 15px; }}
+  .caste-tag {{ font-size: 12px; }}
+
+  /* Section titles */
+  .section-title {{ font-size: 20px; }}
+  .section-sub {{ font-size: 14px; }}
+
+  /* Plot Map tab */
+  #tab-map .section-title {{ display: none; }}
+  #tab-map .map-deck {{ font-family: var(--font-display); font-style: italic; font-size: 13px; color: var(--ink-mid); text-transform: none; letter-spacing: 0; margin: 0; padding: 6px 8px 4px; border-bottom: 1px solid var(--rule-light); }}
+  #tab-map {{ padding: 0 !important; overflow: hidden !important; }}
+  #tab-map.active {{ display: flex; flex-direction: column; }}
+  #map-controls {{ padding: 2px 8px 4px; flex-shrink: 0; display: flex; gap: 4px; align-items: center; flex-wrap: nowrap; }}
+  #map-controls select {{ font-size: 14px; padding: 4px 6px; flex: 1; min-width: 0; }}
+  #map-controls label {{ font-size: 12px; white-space: nowrap; }}
+  #map-controls label[style*="margin-left"] {{ margin-left: 2px !important; }}
+  #map-controls #map-plot-count {{ display: none; }}
+  #tab-map.active #map {{ flex: 1; min-height: 0; border: none; }}
+  .map-legend {{ display: none; }}
+  #map-extra-info {{ display: none; }}
+
+  /* Source / methodology */
+  .source-section p, .source-section li {{ font-size: 16px; }}
+  .source-section h2 {{ font-size: 20px; }}
+  .step__num {{ font-size: 12px; }}
+  .step p {{ font-size: 16px; }}
+
+  /* Search tab */
   .table-controls input, .table-controls select {{ font-size: 16px; }}
-  .colophon {{ padding: 10px 16px; }}
+  .table-controls .count {{ font-size: 14px; }}
+
+  /* Pagination */
+  .pagination button {{ font-size: 14px; padding: 8px 14px; }}
+  .pagination span {{ font-size: 14px; }}
+
+  /* Footer */
+  .colophon {{ padding: 10px 16px; font-size: 12px; }}
 }}
 @media print {{
   body {{ background: #fff; color: #000; }}
@@ -249,7 +327,7 @@ tr:hover td {{ background: var(--paper-tinted); }}
 <!-- ═══ PLOT MAP ═══ -->
 <div id="tab-map" class="tab-content active">
   <h2 class="section-title">Capital Region Plot Map</h2>
-  <p class="section-sub">{len(plot_geodata['plots']):,} individual plots colour-coded by caste of land beneficiary</p>
+  <p class="section-sub map-deck">{len(plot_geodata['plots']):,} individual plots colour-coded by caste of land beneficiary</p>
   <div id="map-controls" style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;align-items:center;">
     <label style="font-family:var(--font-sans);font-size:11px;color:var(--ink-mid);font-weight:700;text-transform:uppercase;letter-spacing:1px;">Caste:</label>
     <select id="map-caste-filter" style="padding:4px 8px;font-size:12px;border:1px solid var(--rule-light);background:var(--paper);color:var(--ink);">
@@ -263,7 +341,7 @@ tr:hover td {{ background: var(--paper-tinted); }}
   </div>
   <div id="map"></div>
   <div id="map-legend" class="map-legend"></div>
-  <div style="font-family:var(--font-sans);font-size:10px;color:var(--ink-light);margin-top:8px;line-height:1.6;">
+  <div id="map-extra-info" style="font-family:var(--font-sans);font-size:10px;color:var(--ink-light);margin-top:8px;line-height:1.6;">
     <strong>Shown:</strong> {len(plot_geodata['plots']):,} individually-assigned plots with valid geometry from {plot_geodata['filter_stats']['total_rows']:,} total records in the APCRDA dataset.<br>
     <strong>Filtered out:</strong>
     {plot_geodata['filter_stats']['skipped_dupe']:,} duplicate records,
@@ -445,17 +523,48 @@ function initMap() {{
     const c = castes[p[0]];
     casteCounts[c] = (casteCounts[c] || 0) + 1;
   }}
-  const sortedCastes = Object.entries(casteCounts).sort((a,b) => b[1] - a[1]);
+  const totalPlots = Object.entries(casteCounts)
+    .filter(([c]) => c !== 'No-Caste-Info')
+    .reduce((s, [, n]) => s + n, 0);
+  const sortedCastes = Object.entries(casteCounts)
+    .filter(([c]) => c !== 'No-Caste-Info')
+    .sort((a,b) => b[1] - a[1]);
+
+  // Desktop legend (below map)
   legendEl.innerHTML = sortedCastes.map(([c, n]) =>
-    '<span class="map-legend-item"><span class="map-legend-swatch" style="background:' + (CC[c]||'#999') + '"></span>' + c + ' (' + n.toLocaleString() + ')</span>'
+    '<span class="map-legend-item"><span class="map-legend-swatch" style="background:' + (CC[c]||'#999') + '"></span>' + c + ' ' + (100*n/totalPlots).toFixed(1) + '%</span>'
   ).join('');
+
+  // In-map legend control (collapsible, shows top castes with %)
+  const LegendControl = L.Control.extend({{
+    options: {{ position: 'bottomright' }},
+    onAdd: function() {{
+      const div = L.DomUtil.create('div', 'leaflet-bar');
+      div.style.cssText = 'background:rgba(26,24,21,0.88);color:#e8e4dd;padding:8px 10px;font-family:sans-serif;font-size:10px;max-height:50vh;overflow-y:auto;line-height:1.6;border-radius:4px;max-width:180px;';
+      const top15 = sortedCastes.slice(0, 15);
+      const rest = sortedCastes.slice(15);
+      const restPct = rest.reduce((s, [,n]) => s + n, 0);
+      let html = top15.map(([c, n]) =>
+        '<div style="white-space:nowrap;"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:' + (CC[c]||'#999') + ';margin-right:4px;vertical-align:middle;"></span>' + c + ' <span style="color:#a8a49d;">' + (100*n/totalPlots).toFixed(1) + '%</span></div>'
+      ).join('');
+      if (rest.length > 0) {{
+        html += '<div style="white-space:nowrap;margin-top:2px;border-top:1px solid #504c45;padding-top:2px;"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:#aaa;margin-right:4px;vertical-align:middle;"></span>' + rest.length + ' others <span style="color:#a8a49d;">' + (100*restPct/totalPlots).toFixed(1) + '%</span></div>';
+      }}
+      div.innerHTML = html;
+      L.DomEvent.disableScrollPropagation(div);
+      L.DomEvent.disableClickPropagation(div);
+      return div;
+    }}
+  }});
+  map.addControl(new LegendControl());
 
   // Populate caste filter dropdown
   const casteFilterEl = document.getElementById('map-caste-filter');
   for (const [c, n] of sortedCastes) {{
+    if (c === 'No-Caste-Info') continue;
     const opt = document.createElement('option');
     opt.value = c;
-    opt.textContent = c + ' (' + n.toLocaleString() + ')';
+    opt.textContent = c + ' (' + (100*n/totalPlots).toFixed(1) + '%)';
     casteFilterEl.appendChild(opt);
   }}
 
@@ -603,26 +712,12 @@ function filterTable() {{
   cPage = 0; renderPage();
 }}
 
-function maskPlotCode(code) {{
-  if (!code) return '';
-  const parts = code.split('-');
-  return parts.map((p, i) => i < 2 ? p : '***').join('-');
-}}
-function maskFarmerNames(names) {{
-  if (!names) return '';
-  return names.split(',').map(function(name) {{
-    name = name.trim();
-    const parts = name.split(/\s+/);
-    if (parts.length <= 1) return parts[0];
-    return parts[0] + ' ***';
-  }}).join(', ');
-}}
 function renderPage() {{
   const s = cPage * PS, e = Math.min(s + PS, fData.length);
   let h = '';
   for (let i = s; i < e; i++) {{
     const r = fData[i], col = CC[r[5]] || '#999';
-    h += '<tr><td>'+maskPlotCode(r[0])+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+(r[3]?r[3].toLocaleString():'0')+'</td><td>'+maskFarmerNames(r[4])+'</td><td><span class="caste-tag" style="background:'+col+'">'+r[5]+'</span></td></tr>';
+    h += '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+(r[3]?r[3].toLocaleString():'0')+'</td><td>'+r[4]+'</td><td><span class="caste-tag" style="background:'+col+'">'+r[5]+'</span></td></tr>';
   }}
   document.getElementById('table-body').innerHTML = h;
   const tp = Math.ceil(fData.length / PS), pg = document.getElementById('pagination');

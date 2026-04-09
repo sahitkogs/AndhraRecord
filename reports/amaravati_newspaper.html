@@ -107,43 +107,63 @@
     .dispatch-card__label--recovery { color: var(--green); }
     .colophon { display: flex; justify-content: space-between; font-family: var(--font-sans); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); border-top: 3px solid var(--rule); padding-top: 10px; }
     @media (max-width: 800px) {
-      body { font-size: 16px; }
+      body { font-size: 17px; }
       .broadsheet { padding: 16px 20px 32px; }
-      .masthead__meta { font-size: 11px; letter-spacing: 1px; }
-      .masthead__tagline { font-size: 14px; }
+
+      /* Masthead */
+      .masthead__title { font-size: clamp(32px, 7vw, 48px); }
+      .masthead__meta { font-size: 9px; letter-spacing: 0.5px; white-space: nowrap; }
+      .masthead__tagline { font-size: 13px; }
+
+      /* Lead story */
       .front-page { grid-template-columns: 1fr; }
       .lead { padding-right: 0; border-right: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 20px; margin-bottom: 20px; }
-      .lead__deck { font-size: 17px; }
+      .lead__deck { font-size: 18px; }
+      .lead__body { font-size: 17px; }
+
+      /* Sidebar */
       .sidebar { padding-left: 0; }
-      .sidebar__body { font-size: 15px; }
-      .sidebar__headline { font-size: 19px; }
+      .sidebar__body { font-size: 16px; }
+      .sidebar__headline { font-size: 20px; }
+
+      /* Secondary stories */
       .stories-row { grid-template-columns: 1fr; gap: 20px; }
       .story { padding: 0; border-left: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 20px; }
       .story:last-child { border-bottom: none; padding-bottom: 0; }
       .story__headline { font-size: 20px; }
-      .story__body { font-size: 15px; }
+      .story__body { font-size: 16px; }
+
+      /* Lower fold */
       .lower-fold { grid-template-columns: 1fr; }
       .letters { padding-right: 0; border-right: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 20px; margin-bottom: 20px; }
       .letter__from { font-size: 12px; }
-      .letter__body { font-size: 15px; }
+      .letter__body { font-size: 16px; }
       .dispatch-board { padding-left: 0; }
       .dispatch-board__title { font-size: 14px; }
-      .dispatch-card__label { font-size: 11px; }
-      .dispatch-card__body { font-size: 14px; }
+      .dispatch-card__label { font-size: 12px; }
+      .dispatch-card__body { font-size: 16px; }
+
+      /* Inset box */
       .column-text { column-count: 1; }
       .inset-box { float: none; width: 100%; margin: 0 0 16px 0; }
       .inset-box__title { font-size: 12px; }
-      .inset-box__detail { font-size: 14px; }
-      .category { font-size: 11px; }
-      .badge { font-size: 11px; }
-      .byline { font-size: 11px; }
-      .ticker { font-size: 11px; }
-      .widget__label { font-size: 11px; }
-      .widget__body { font-size: 15px; }
-      .agents-table { font-size: 14px; }
-      .agents-table td:last-child { font-size: 13px; }
-      .colophon { flex-direction: column; gap: 4px; text-align: center; font-size: 11px; }
-      .progress-bar__label { font-size: 10px; }
+      .inset-box__detail { font-size: 15px; }
+
+      /* Labels — decorative uppercase with letter-spacing, 12px min */
+      .category { font-size: 12px; }
+      .badge { font-size: 12px; }
+      .byline { font-size: 12px; }
+      .ticker { font-size: 12px; }
+      .widget__label { font-size: 12px; }
+      .widget__body { font-size: 16px; }
+      .progress-bar__label { font-size: 12px; }
+
+      /* Allocation table */
+      .agents-table { font-size: 16px; }
+      .agents-table td:last-child { font-size: 15px; }
+
+      /* Footer */
+      .colophon { flex-direction: column; gap: 4px; text-align: center; font-size: 12px; }
     }
     @media print {
       body { background: #fff; color: #000; }

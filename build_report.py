@@ -11,6 +11,9 @@ import os
 import re
 from collections import Counter, defaultdict
 
+from dotenv import load_dotenv
+load_dotenv()
+
 # ─── Configuration ───────────────────────────────────────────────────────────
 
 DATA_FILE = "data/apcrda_lps_data.csv"
@@ -449,7 +452,9 @@ def generate_html(plots, stats):
     with open(MAPPING_FILE) as mf:
         surname_count = len(json.load(mf)['surnames'])
 
-    return build_html(plots, stats, plot_geodata, surname_count=surname_count)
+    mask_pii = os.environ.get('MASK_PII', 'false').lower() in ('true', '1', 'yes')
+
+    return build_html(plots, stats, plot_geodata, surname_count=surname_count, mask_pii=mask_pii)
 
 
 # ─── Main ────────────────────────────────────────────────────────────────────

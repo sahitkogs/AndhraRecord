@@ -59,7 +59,7 @@ Examines ~48,000 land plots allocated under the APCRDA Land Pooling Scheme acros
 ## Key Findings
 
 - **47,993 unique plots** analysed (deduplicated from 95,645 raw records)
-- **Kamma: ~51.5%** of plots — the single largest beneficiary community
+- **Kamma: ~57.4%** of plots — the single largest beneficiary community (Kapu 13.0%, Reddy 5.0% trail)
 - **5,548 surnames** in ground truth corpus with URL-backed evidence
 - **351 first names** detected and excluded via frequency analysis
 - **99.6% classification rate** using Gemini 2.5 Flash per-name approach

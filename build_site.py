@@ -265,7 +265,7 @@ def build_page(name: str) -> None:
 
     html = inject_chatbot(
         html,
-        assistant_name="The Amaravati Record",
+        assistant_name="Ask The Record",
         system_prompt=system_prompt,
         welcome_message=cfg["welcome"],
         suggestions=cfg["suggestions"],

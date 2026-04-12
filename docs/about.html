@@ -191,6 +191,60 @@
 .chatbot-header button[disabled]:hover {
   background: none; color: var(--cb-header-muted);
 }
+/* --- Thinking dots animation --- */
+.chatbot-typing {
+  display: inline-flex; align-items: center; gap: 5px; padding: 6px 0;
+}
+.chatbot-typing span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cb-system-text);
+  animation: cb-pulse 1.4s infinite;
+}
+.chatbot-typing span:nth-child(2) { animation-delay: 0.2s; }
+.chatbot-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes cb-pulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+/* --- Dot preload pulse --- */
+@keyframes cb-dot-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+#chatbotDot.loading {
+  background: var(--cb-dot-default);
+  animation: cb-dot-pulse 1.5s ease-in-out infinite;
+}
+/* --- Mobile responsive --- */
+@media (max-width: 600px) {
+  #chatbotBubble {
+    bottom: 12px; right: 12px;
+    width: 48px; height: 48px; font-size: 22px;
+  }
+  #chatbotWindow {
+    width: calc(100vw - 16px); height: 70vh;
+    bottom: 8px; right: 8px; left: 8px;
+    border-radius: 12px;
+  }
+  #chatbotWindow.maximized {
+    width: calc(100vw - 16px); height: 85vh;
+    bottom: 8px; right: 8px; left: 8px;
+    border-radius: 12px;
+  }
+  #chatbotBubble.hidden {
+    display: flex !important;
+    opacity: 0.6;
+    z-index: 10002;
+    bottom: 12px; right: 12px;
+    width: 36px; height: 36px; font-size: 16px;
+  }
+  .chatbot-header { padding: 10px 12px; gap: 6px; }
+  .chatbot-header-title { font-size: 13px; }
+  .chatbot-header button { font-size: 16px; padding: 2px 4px; }
+  #chatbotMessages { padding: 12px; }
+  .chatbot-input-row { padding: 10px 12px; }
+  .chatbot-suggestion { font-size: 11px; padding: 5px 10px; }
+}
 
 </style>
 <style>
@@ -417,7 +471,7 @@
 <!-- Chatbot Window -->
 <div id="chatbotWindow">
   <div class="chatbot-header">
-    <div class="chatbot-header-title">The Amaravati Record</div>
+    <div class="chatbot-header-title">Ask The Record</div>
     <select id="chatbotWebllmModel" title="WebLLM model" style="display:none;"></select>
     <button id="chatbotBackendToggle" title="Switch backend">&#9729;</button>
     <button id="chatbotNewChat" title="New conversation">&#8634;</button>
@@ -443,8 +497,8 @@ const CHATBOT_API_KEY_HEADER = 'api-key';
 const CHATBOT_MODEL = 'gpt-4o';
 const CHATBOT_API_VERSION = '2024-10-21';
 const CHATBOT_PORTAL_URL = '';
-const CHATBOT_WEBLLM_MODELS = ["SmolLM2-1.7B-Instruct-q4f16_1-MLC", "SmolLM2-360M-Instruct-q4f16_1-MLC", "Qwen3-0.6B-q4f16_1-MLC", "Qwen2.5-1.5B-Instruct-q4f16_1-MLC", "Llama-3.2-1B-Instruct-q4f16_1-MLC"];
-const CHATBOT_WEBLLM_DEFAULT = 'SmolLM2-1.7B-Instruct-q4f16_1-MLC';
+const CHATBOT_WEBLLM_MODELS = ["Qwen3-0.6B-q4f16_1-MLC"];
+const CHATBOT_WEBLLM_DEFAULT = 'Qwen3-0.6B-q4f16_1-MLC';
 const CHATBOT_DEFAULT_BACKEND = 'webllm';
 
 // Detect if served via HTTP (proxy available) or opened from file://
@@ -885,10 +939,15 @@ function loadModel() {
   isLoading = true;
   if (activeBackend === 'webllm') {
     modelReady = true;
-    addMessage('system', 'Assistant ready (Local WebLLM). First message will download the model.');
     setInputEnabled(true);
     isLoading = false;
     refreshBackendUI();
+    // If engine not yet ready, show a preparing message; otherwise ready
+    if (!webllmEngine) {
+      addMessage('system', 'Preparing assistant…');
+    } else {
+      addMessage('system', 'Assistant ready.');
+    }
     return;
   }
   if (!GENAI_API_KEY) {
@@ -898,7 +957,7 @@ function loadModel() {
         GENAI_API_KEY = key;
         modelReady = true;
         dot.classList.add('ready');
-        addMessage('system', 'Assistant ready. Ask me anything!');
+        addMessage('system', 'Assistant ready.');
         setInputEnabled(true);
       } else {
         addMessage('system', 'API key required. Click the key button in the header to set your API key.');
@@ -908,40 +967,58 @@ function loadModel() {
   }
   modelReady = true;
   dot.classList.add('ready');
-  addMessage('system', 'Assistant ready. Ask me anything!');
+  addMessage('system', 'Assistant ready.');
   setInputEnabled(true);
   isLoading = false;
 }
 
-async function ensureWebLLMEngine(modelId) {
+async function ensureWebLLMEngine(modelId, silent) {
   if (webllmEngine && webllmCurrentModel === modelId) return webllmEngine;
-  if (webllmLoading) throw new Error('WebLLM is still loading, please wait.');
+  if (webllmLoading) {
+    // If already loading, wait for it to finish
+    return new Promise(function(resolve, reject) {
+      var check = setInterval(function() {
+        if (!webllmLoading) {
+          clearInterval(check);
+          if (webllmEngine) resolve(webllmEngine);
+          else reject(new Error('Assistant failed to load.'));
+        }
+      }, 200);
+    });
+  }
   webllmLoading = true;
   dot.classList.remove('ready');
-  const sysMsg = addMessage('system', 'Loading WebLLM runtime...');
+  dot.classList.add('loading');
+  // Only show progress in chat if not a silent background preload
+  var sysMsg = silent ? null : addMessage('system', 'Preparing assistant…');
   try {
     if (!('gpu' in navigator)) {
-      throw new Error('WebGPU not available in this browser. Use the Cloud backend instead.');
+      throw new Error('This browser does not support local AI. Click the cloud icon to use the Cloud backend instead.');
     }
     const mod = await import('https://esm.run/@mlc-ai/web-llm@0.2');
-    // chatOpts: sliding-window attention so long system prompts +
-    // multi-turn history don't overflow the compiled context window.
-    // Requires models with RoPEMode::kNormal (Phi-3.5 is NOT compatible).
     const chatOpts = {
       context_window_size: -1,
       sliding_window_size: 4096,
       attention_sink_size: 4,
     };
+    var lastPct = 0;
     webllmEngine = await mod.CreateMLCEngine(modelId, {
       initProgressCallback: function(p) {
-        const pct = (p.progress * 100).toFixed(0);
-        sysMsg.textContent = 'Loading ' + modelId + ': ' + pct + '% - ' + (p.text || '');
+        var pct = Math.round(p.progress * 100);
+        if (sysMsg && pct > lastPct) {
+          sysMsg.textContent = pct < 95 ? 'Preparing assistant… ' + pct + '%' : 'Almost ready…';
+          lastPct = pct;
+        }
       },
     }, chatOpts);
     webllmCurrentModel = modelId;
-    sysMsg.textContent = modelId + ' ready.';
+    dot.classList.remove('loading');
     if (activeBackend === 'webllm') dot.classList.add('ready');
+    if (sysMsg) sysMsg.textContent = 'Assistant ready.';
     return webllmEngine;
+  } catch(err) {
+    dot.classList.remove('loading');
+    throw err;
   } finally {
     webllmLoading = false;
   }
@@ -982,6 +1059,7 @@ async function sendMessage() {
   }
   messages.push({ role: 'user', content: userContent });
   const botDiv = addMessage('bot', '');
+  botDiv.innerHTML = '<div class="chatbot-typing"><span></span><span></span><span></span></div>';
 
   try {
     const apiMessages = [
@@ -1145,7 +1223,7 @@ function refreshBackendUI() {
   backendToggleBtn.title = isWebllm
     ? 'Local (WebLLM) - click to switch to Cloud'
     : 'Cloud - click to switch to Local (WebLLM)';
-  webllmModelSelect.style.display = isWebllm ? 'inline-block' : 'none';
+  webllmModelSelect.style.display = 'none';  // Model selector always hidden; single model only
   changeKeyBtn.disabled = isWebllm;
   imageBtn.disabled = isWebllm;
   imageBtn.title = isWebllm
@@ -1257,6 +1335,18 @@ fileInput.addEventListener('change', async function() {
     attachImage(dataUrl);
   }
 });
+
+// --- Preload WebLLM on page load (silent, in background) ---
+if (activeBackend === 'webllm' && CHATBOT_WEBLLM_MODELS.length > 0) {
+  // Start loading immediately so the model is ready by the time user chats
+  ensureWebLLMEngine(webllmSelectedModel, true).then(function() {
+    modelReady = true;
+    refreshBackendUI();
+  }).catch(function(err) {
+    // Silent preload failed — user will see the error on first message instead
+    console.warn('[chatbot] WebLLM preload failed:', err.message);
+  });
+}
 
 </script>
 </body>

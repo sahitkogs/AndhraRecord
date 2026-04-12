@@ -220,28 +220,32 @@
     width: 48px; height: 48px; font-size: 22px;
   }
   #chatbotWindow {
-    width: calc(100vw - 16px); height: 70vh;
-    bottom: 8px; right: 8px; left: 8px;
-    border-radius: 12px;
+    width: 100vw; height: calc(100vh - 68px);
+    bottom: 68px; right: 0; left: 0;
+    border-radius: 12px 12px 0 0;
   }
   #chatbotWindow.maximized {
-    width: calc(100vw - 16px); height: 85vh;
-    bottom: 8px; right: 8px; left: 8px;
-    border-radius: 12px;
+    width: 100vw; height: calc(100vh - 68px);
+    bottom: 68px; right: 0; left: 0;
+    border-radius: 12px 12px 0 0;
   }
   #chatbotBubble.hidden {
     display: flex !important;
-    opacity: 0.6;
     z-index: 10002;
     bottom: 12px; right: 12px;
-    width: 36px; height: 36px; font-size: 16px;
+    width: 48px; height: 48px; font-size: 22px;
   }
-  .chatbot-header { padding: 10px 12px; gap: 6px; }
-  .chatbot-header-title { font-size: 13px; }
+  #chatbotMaximize { display: none !important; }
+  .chatbot-header { padding: 10px 14px; gap: 6px; }
+  .chatbot-header-title { font-size: 15px; }
   .chatbot-header button { font-size: 16px; padding: 2px 4px; }
-  #chatbotMessages { padding: 12px; }
-  .chatbot-input-row { padding: 10px 12px; }
-  .chatbot-suggestion { font-size: 11px; padding: 5px 10px; }
+  #chatbotMessages { padding: 14px; font-size: 15px; }
+  .chatbot-msg { font-size: 15px; line-height: 1.55; }
+  .chatbot-msg.bot code { font-size: 13.5px; }
+  .chatbot-input-row { padding: 12px 14px; }
+  #chatbotInput { font-size: 15px; }
+  .chatbot-suggestion { font-size: 12px; padding: 6px 12px; }
+  .chatbot-msg.system { font-size: 11px; }
 }
 
 </style>
@@ -1427,7 +1431,15 @@ if (activeBackend === 'webllm' && CHATBOT_WEBLLM_MODELS.length > 0) {
   // Start loading immediately so the model is ready by the time user chats
   ensureWebLLMEngine(webllmSelectedModel, true).then(function() {
     modelReady = true;
+    setInputEnabled(true);
     refreshBackendUI();
+    // Update any "Preparing assistant..." message in the chat to show ready
+    var sysMsgs = messagesEl.querySelectorAll('.chatbot-msg.system');
+    for (var i = 0; i < sysMsgs.length; i++) {
+      if (sysMsgs[i].textContent.indexOf('Preparing') !== -1) {
+        sysMsgs[i].textContent = 'Assistant ready.';
+      }
+    }
   }).catch(function(err) {
     // Silent preload failed — user will see the error on first message instead
     console.warn('[chatbot] WebLLM preload failed:', err.message);

@@ -173,11 +173,50 @@
     }
   </style>
 <style>
-/* --- Chatbot Styles --- */
+/* --- Chatbot Styles (themeable via --cb-* custom properties) --- */
+#chatbotBubble, #chatbotWindow {
+  --cb-accent: #4cc9f0;
+  --cb-accent-hover: #3ab4d9;
+  --cb-bubble-bg: linear-gradient(135deg, #4cc9f0, #1a1a2e);
+  --cb-bubble-border: none;
+  --cb-header-bg: linear-gradient(135deg, #1a1a2e, #16213e);
+  --cb-header-text: #fff;
+  --cb-header-muted: #adb5bd;
+  --cb-window-bg: #fff;
+  --cb-window-radius: 16px;
+  --cb-messages-bg: #f8f9fa;
+  --cb-user-bg: #4cc9f0;
+  --cb-user-text: #fff;
+  --cb-bot-bg: #fff;
+  --cb-bot-text: #333;
+  --cb-bot-border: #e9ecef;
+  --cb-code-bg: #e9ecef;
+  --cb-pre-bg: #1a1a2e;
+  --cb-pre-text: #e9ecef;
+  --cb-table-header-bg: #f1f3f5;
+  --cb-table-border: #dee2e6;
+  --cb-system-text: #888;
+  --cb-suggestion-bg: #e9ecef;
+  --cb-suggestion-border: #dee2e6;
+  --cb-suggestion-text: #333;
+  --cb-input-bg: #fff;
+  --cb-input-border: #dee2e6;
+  --cb-input-row-bg: #fff;
+  --cb-send-disabled: #adb5bd;
+  --cb-image-btn-text: #6c757d;
+  --cb-dot-default: #888;
+  --cb-dot-ready: #2ecc71;
+  --cb-dot-border: #1a1a2e;
+  --cb-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --cb-msg-radius: 12px;
+  --cb-dropdown-bg: #1a1a2e;
+  --cb-dropdown-text: #fff;
+}
 #chatbotBubble {
   position: fixed; bottom: 28px; right: 28px; z-index: 10000;
   width: 56px; height: 56px; border-radius: 50%;
-  background: linear-gradient(135deg, #4cc9f0, #1a1a2e); color: #fff;
+  background: var(--cb-bubble-bg); color: #fff;
+  border: var(--cb-bubble-border);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.25);
   transition: transform 0.2s, box-shadow 0.2s; font-size: 26px;
@@ -186,90 +225,91 @@
 #chatbotBubble.hidden { display: none; }
 #chatbotDot {
   position: absolute; top: 6px; right: 6px; width: 10px; height: 10px;
-  border-radius: 50%; background: #888; border: 2px solid #1a1a2e;
+  border-radius: 50%; background: var(--cb-dot-default); border: 2px solid var(--cb-dot-border);
 }
-#chatbotDot.ready { background: #2ecc71; }
+#chatbotDot.ready { background: var(--cb-dot-ready); }
 #chatbotWindow {
   display: none; position: fixed; bottom: 28px; right: 28px; z-index: 10001;
-  width: 400px; height: 520px; border-radius: 16px; overflow: hidden;
+  width: 400px; height: 520px; border-radius: var(--cb-window-radius); overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,0,0,0.25); flex-direction: column;
-  background: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--cb-window-bg); font-family: var(--cb-font);
 }
 #chatbotWindow.open { display: flex; }
 #chatbotWindow.maximized { width: 700px; height: 80vh; bottom: 20px; right: 20px; border-radius: 12px; }
 .chatbot-header {
-  background: linear-gradient(135deg, #1a1a2e, #16213e); color: #fff;
+  background: var(--cb-header-bg); color: var(--cb-header-text);
   padding: 12px 16px; display: flex; align-items: center; gap: 10px; flex-shrink: 0;
 }
 .chatbot-header-title { flex: 1; font-weight: 600; font-size: 15px; }
 .chatbot-header button {
-  background: none; border: none; color: #adb5bd; cursor: pointer;
+  background: none; border: none; color: var(--cb-header-muted); cursor: pointer;
   font-size: 18px; padding: 2px 6px; border-radius: 4px;
 }
-.chatbot-header button:hover { color: #fff; background: rgba(255,255,255,0.1); }
+.chatbot-header button:hover { color: var(--cb-header-text); background: rgba(255,255,255,0.1); }
 #chatbotMessages {
   flex: 1; overflow-y: auto; padding: 16px; display: flex;
-  flex-direction: column; gap: 10px; background: #f8f9fa;
+  flex-direction: column; gap: 10px; background: var(--cb-messages-bg);
 }
 .chatbot-msg {
-  max-width: 85%; padding: 10px 14px; border-radius: 12px;
+  max-width: 85%; padding: 10px 14px; border-radius: var(--cb-msg-radius);
   font-size: 14px; line-height: 1.5; word-wrap: break-word;
 }
 .chatbot-msg.user {
-  align-self: flex-end; background: #4cc9f0; color: #fff; border-bottom-right-radius: 4px;
+  align-self: flex-end; background: var(--cb-user-bg); color: var(--cb-user-text);
+  border-bottom-right-radius: 4px;
 }
 .chatbot-msg.bot {
-  align-self: flex-start; background: #fff; color: #333;
-  border: 1px solid #e9ecef; border-bottom-left-radius: 4px;
+  align-self: flex-start; background: var(--cb-bot-bg); color: var(--cb-bot-text);
+  border: 1px solid var(--cb-bot-border); border-bottom-left-radius: 4px;
 }
 .chatbot-msg.bot p { margin: 0 0 8px 0; }
 .chatbot-msg.bot p:last-child { margin-bottom: 0; }
-.chatbot-msg.bot code { background: #e9ecef; padding: 1px 5px; border-radius: 3px; font-size: 13px; }
-.chatbot-msg.bot pre { background: #1a1a2e; color: #e9ecef; padding: 10px; border-radius: 6px;
+.chatbot-msg.bot code { background: var(--cb-code-bg); padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+.chatbot-msg.bot pre { background: var(--cb-pre-bg); color: var(--cb-pre-text); padding: 10px; border-radius: 6px;
   overflow-x: auto; margin: 8px 0; }
 .chatbot-msg.bot pre code { background: none; color: inherit; padding: 0; }
 .chatbot-msg.bot table { border-collapse: collapse; width: 100%; margin: 8px 0; font-size: 13px; }
-.chatbot-msg.bot th, .chatbot-msg.bot td { border: 1px solid #dee2e6; padding: 5px 8px; text-align: left; }
-.chatbot-msg.bot th { background: #f1f3f5; font-weight: 600; }
+.chatbot-msg.bot th, .chatbot-msg.bot td { border: 1px solid var(--cb-table-border); padding: 5px 8px; text-align: left; }
+.chatbot-msg.bot th { background: var(--cb-table-header-bg); font-weight: 600; }
 .chatbot-msg.system {
-  align-self: center; color: #888; font-size: 12px; font-style: italic; padding: 4px 0;
+  align-self: center; color: var(--cb-system-text); font-size: 12px; font-style: italic; padding: 4px 0;
 }
 .chatbot-suggestions { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 0; }
 .chatbot-suggestion {
-  background: #e9ecef; border: 1px solid #dee2e6; border-radius: 16px;
-  padding: 6px 12px; font-size: 12px; cursor: pointer; color: #333;
-  transition: background 0.15s;
+  background: var(--cb-suggestion-bg); border: 1px solid var(--cb-suggestion-border);
+  border-radius: 16px; padding: 6px 12px; font-size: 12px; cursor: pointer;
+  color: var(--cb-suggestion-text); transition: background 0.15s;
 }
-.chatbot-suggestion:hover { background: #4cc9f0; color: #fff; border-color: #4cc9f0; }
+.chatbot-suggestion:hover { background: var(--cb-accent); color: #fff; border-color: var(--cb-accent); }
 .chatbot-input-row {
   display: flex; align-items: flex-end; gap: 8px; padding: 12px 16px;
-  border-top: 1px solid #e9ecef; background: #fff; flex-shrink: 0;
+  border-top: 1px solid var(--cb-bot-border); background: var(--cb-input-row-bg); flex-shrink: 0;
 }
 #chatbotInput {
-  flex: 1; border: 1px solid #dee2e6; border-radius: 8px; padding: 8px 12px;
+  flex: 1; border: 1px solid var(--cb-input-border); border-radius: 8px; padding: 8px 12px;
   font-size: 14px; resize: none; outline: none; max-height: 80px;
-  font-family: inherit; line-height: 1.4;
+  font-family: inherit; line-height: 1.4; background: var(--cb-input-bg); color: var(--cb-bot-text);
 }
-#chatbotInput:focus { border-color: #4cc9f0; }
+#chatbotInput:focus { border-color: var(--cb-accent); }
 #chatbotSend {
-  background: #4cc9f0; color: #fff; border: none; border-radius: 8px;
+  background: var(--cb-accent); color: #fff; border: none; border-radius: 8px;
   padding: 8px 14px; cursor: pointer; font-size: 14px; font-weight: 600;
   transition: background 0.15s;
 }
-#chatbotSend:hover { background: #3ab4d9; }
-#chatbotSend:disabled { background: #adb5bd; cursor: not-allowed; }
+#chatbotSend:hover { background: var(--cb-accent-hover); }
+#chatbotSend:disabled { background: var(--cb-send-disabled); cursor: not-allowed; }
 #chatbotImageBtn {
-  background: none; border: 1px solid #dee2e6; border-radius: 8px;
-  padding: 7px 10px; cursor: pointer; font-size: 16px; color: #6c757d;
+  background: none; border: 1px solid var(--cb-input-border); border-radius: 8px;
+  padding: 7px 10px; cursor: pointer; font-size: 16px; color: var(--cb-image-btn-text);
   transition: all 0.15s; flex-shrink: 0;
 }
-#chatbotImageBtn:hover { border-color: #4cc9f0; color: #4cc9f0; }
+#chatbotImageBtn:hover { border-color: var(--cb-accent); color: var(--cb-accent); }
 #chatbotImageBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 #chatbotImagePreview {
-  display: none; padding: 4px 16px 0; background: #fff; flex-shrink: 0;
+  display: none; padding: 4px 16px 0; background: var(--cb-input-row-bg); flex-shrink: 0;
 }
 #chatbotImagePreview .preview-wrap {
-  display: inline-block; position: relative; border: 1px solid #dee2e6;
+  display: inline-block; position: relative; border: 1px solid var(--cb-input-border);
   border-radius: 6px; overflow: hidden;
 }
 #chatbotImagePreview img {
@@ -285,28 +325,83 @@
 }
 #chatbotBackendToggle, #chatbotWebllmModel {
   background: none; border: 1px solid rgba(255,255,255,0.2);
-  color: #adb5bd; cursor: pointer; font-size: 13px;
+  color: var(--cb-header-muted); cursor: pointer; font-size: 13px;
   padding: 3px 8px; border-radius: 4px;
 }
 #chatbotBackendToggle:hover, #chatbotWebllmModel:hover {
-  color: #fff; background: rgba(255,255,255,0.1);
+  color: var(--cb-header-text); background: rgba(255,255,255,0.1);
 }
 #chatbotWebllmModel {
   max-width: 140px;
 }
 #chatbotWebllmModel option {
-  background: #1a1a2e; color: #fff;
+  background: var(--cb-dropdown-bg); color: var(--cb-dropdown-text);
 }
 .chatbot-header button[disabled] {
   opacity: 0.35; cursor: not-allowed;
 }
 .chatbot-header button[disabled]:hover {
-  background: none; color: #adb5bd;
+  background: none; color: var(--cb-header-muted);
+}
+/* --- Thinking dots animation --- */
+.chatbot-typing {
+  display: inline-flex; align-items: center; gap: 5px; padding: 6px 0;
+}
+.chatbot-typing span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cb-system-text);
+  animation: cb-pulse 1.4s infinite;
+}
+.chatbot-typing span:nth-child(2) { animation-delay: 0.2s; }
+.chatbot-typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes cb-pulse {
+  0%, 80%, 100% { opacity: 0.3; transform: scale(0.8); }
+  40% { opacity: 1; transform: scale(1); }
+}
+/* --- Dot preload pulse --- */
+@keyframes cb-dot-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+#chatbotDot.loading {
+  background: var(--cb-dot-default);
+  animation: cb-dot-pulse 1.5s ease-in-out infinite;
+}
+/* --- Mobile responsive --- */
+@media (max-width: 600px) {
+  #chatbotBubble {
+    bottom: 12px; right: 12px;
+    width: 48px; height: 48px; font-size: 22px;
+  }
+  #chatbotWindow {
+    width: calc(100vw - 16px); height: 70vh;
+    bottom: 8px; right: 8px; left: 8px;
+    border-radius: 12px;
+  }
+  #chatbotWindow.maximized {
+    width: calc(100vw - 16px); height: 85vh;
+    bottom: 8px; right: 8px; left: 8px;
+    border-radius: 12px;
+  }
+  #chatbotBubble.hidden {
+    display: flex !important;
+    opacity: 0.6;
+    z-index: 10002;
+    bottom: 12px; right: 12px;
+    width: 36px; height: 36px; font-size: 16px;
+  }
+  .chatbot-header { padding: 10px 12px; gap: 6px; }
+  .chatbot-header-title { font-size: 13px; }
+  .chatbot-header button { font-size: 16px; padding: 2px 4px; }
+  #chatbotMessages { padding: 12px; }
+  .chatbot-input-row { padding: 10px 12px; }
+  .chatbot-suggestion { font-size: 11px; padding: 5px 10px; }
 }
 
 </style>
 <style>
-/* --- Chatbot Theme Overrides: Newspaper / Broadsheet --- */
+/* --- Chatbot Theme Overrides --- */
+/* --- Newspaper / Broadsheet Theme --- */
 #chatbotBubble, #chatbotWindow {
   --cb-accent: #8b1a1a;
   --cb-accent-hover: #6d1515;
@@ -345,39 +440,103 @@
   --cb-dropdown-bg: #1a1715;
   --cb-dropdown-text: #faf8f4;
 }
+
+/* Header title in display serif */
 .chatbot-header-title {
   font-family: 'Playfair Display', Georgia, 'Times New Roman', serif !important;
-  font-weight: 700; letter-spacing: -0.3px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
+
+/* Suggestions in sans for label feel */
 .chatbot-suggestion {
   font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
-  text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px;
-  font-weight: 600; border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 10px;
+  font-weight: 600;
+  border-radius: 4px;
 }
-.chatbot-msg.bot code { font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace; }
-.chatbot-msg.bot pre { font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace; border: 1px solid #d4cfc8; }
-#chatbotInput { font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif; }
-#chatbotSend { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 11px; border-radius: 4px; }
-.chatbot-msg.system { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; text-transform: uppercase; letter-spacing: 0.5px; font-size: 10px; }
+
+/* Code blocks in monospace */
+.chatbot-msg.bot code {
+  font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+}
+.chatbot-msg.bot pre {
+  font-family: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  border: 1px solid #d4cfc8;
+}
+
+/* Input in serif to match body */
+#chatbotInput {
+  font-family: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+}
+
+/* Send button uppercase label */
+#chatbotSend {
+  font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  border-radius: 4px;
+}
+
+/* Backend toggle + model selector */
+#chatbotBackendToggle, #chatbotWebllmModel {
+  border-color: rgba(250,248,244,0.25);
+}
+
+/* System messages */
+.chatbot-msg.system {
+  font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 10px;
+}
+
+/* --- Dark mode --- */
 @media (prefers-color-scheme: dark) {
   #chatbotBubble, #chatbotWindow {
-    --cb-accent: #d4605a; --cb-accent-hover: #b84e49;
-    --cb-bubble-bg: #242018; --cb-bubble-border: 2px solid #3a3630;
-    --cb-header-bg: #242018; --cb-header-text: #e8e4dd; --cb-header-muted: #706c65;
-    --cb-window-bg: #1a1815; --cb-messages-bg: #242018;
-    --cb-user-bg: #e8e4dd; --cb-user-text: #1a1815;
-    --cb-bot-bg: #1a1815; --cb-bot-text: #e8e4dd; --cb-bot-border: #3a3630;
-    --cb-code-bg: #242018; --cb-pre-bg: #0e0d0b; --cb-pre-text: #e8e4dd;
-    --cb-table-header-bg: #242018; --cb-table-border: #3a3630;
+    --cb-accent: #d4605a;
+    --cb-accent-hover: #b84e49;
+    --cb-bubble-bg: #242018;
+    --cb-bubble-border: 2px solid #3a3630;
+    --cb-header-bg: #242018;
+    --cb-header-text: #e8e4dd;
+    --cb-header-muted: #706c65;
+    --cb-window-bg: #1a1815;
+    --cb-window-radius: 8px;
+    --cb-messages-bg: #242018;
+    --cb-user-bg: #e8e4dd;
+    --cb-user-text: #1a1815;
+    --cb-bot-bg: #1a1815;
+    --cb-bot-text: #e8e4dd;
+    --cb-bot-border: #3a3630;
+    --cb-code-bg: #242018;
+    --cb-pre-bg: #0e0d0b;
+    --cb-pre-text: #e8e4dd;
+    --cb-table-header-bg: #242018;
+    --cb-table-border: #3a3630;
     --cb-system-text: #706c65;
-    --cb-suggestion-bg: #242018; --cb-suggestion-border: #3a3630; --cb-suggestion-text: #e8e4dd;
-    --cb-input-bg: #1a1815; --cb-input-border: #3a3630; --cb-input-row-bg: #1a1815;
-    --cb-send-disabled: #504c45; --cb-image-btn-text: #706c65;
-    --cb-dot-default: #706c65; --cb-dot-ready: #6aaa6a; --cb-dot-border: #242018;
-    --cb-dropdown-bg: #242018; --cb-dropdown-text: #e8e4dd;
+    --cb-suggestion-bg: #242018;
+    --cb-suggestion-border: #3a3630;
+    --cb-suggestion-text: #e8e4dd;
+    --cb-input-bg: #1a1815;
+    --cb-input-border: #3a3630;
+    --cb-input-row-bg: #1a1815;
+    --cb-send-disabled: #504c45;
+    --cb-image-btn-text: #706c65;
+    --cb-dot-default: #706c65;
+    --cb-dot-ready: #6aaa6a;
+    --cb-dot-border: #242018;
+    --cb-dropdown-bg: #242018;
+    --cb-dropdown-text: #e8e4dd;
   }
-  .chatbot-msg.bot pre { border-color: #3a3630; }
+  .chatbot-msg.bot pre {
+    border-color: #3a3630;
+  }
 }
+
 </style>
 </head>
 <body>
@@ -651,6 +810,31 @@
     <input type="file" id="chatbotFileInput" accept="image/*" style="display:none">
   </div>
 </div>
+<!-- Chatbot Bubble -->
+<div id="chatbotBubble" title="Chat with AI Assistant">
+  &#128172;
+  <div id="chatbotDot"></div>
+</div>
+<!-- Chatbot Window -->
+<div id="chatbotWindow">
+  <div class="chatbot-header">
+    <div class="chatbot-header-title">Ask The Record</div>
+    <select id="chatbotWebllmModel" title="WebLLM model" style="display:none;"></select>
+    <button id="chatbotBackendToggle" title="Switch backend">&#9729;</button>
+    <button id="chatbotNewChat" title="New conversation">&#8634;</button>
+    <button id="chatbotChangeKey" title="Change API key">&#128273;</button>
+    <button id="chatbotMaximize" title="Maximize">&#9634;</button>
+    <button id="chatbotClose" title="Close">&times;</button>
+  </div>
+  <div id="chatbotMessages"></div>
+  <div id="chatbotImagePreview"></div>
+  <div class="chatbot-input-row">
+    <button id="chatbotImageBtn" title="Attach image (or paste with Ctrl+V)" disabled>&#128247;</button>
+    <textarea id="chatbotInput" rows="1" placeholder="Ask a question..." disabled></textarea>
+    <button id="chatbotSend" disabled>Send</button>
+    <input type="file" id="chatbotFileInput" accept="image/*" style="display:none">
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <script>
@@ -660,8 +844,8 @@ const CHATBOT_API_KEY_HEADER = 'api-key';
 const CHATBOT_MODEL = 'gpt-4o';
 const CHATBOT_API_VERSION = '2024-10-21';
 const CHATBOT_PORTAL_URL = '';
-const CHATBOT_WEBLLM_MODELS = ["Phi-3.5-mini-instruct-q4f16_1-MLC", "SmolLM2-1.7B-Instruct-q4f16_1-MLC", "Llama-3.1-8B-Instruct-q4f32_1-MLC", "Qwen2.5-7B-Instruct-q4f16_1-MLC"];
-const CHATBOT_WEBLLM_DEFAULT = 'Phi-3.5-mini-instruct-q4f16_1-MLC';
+const CHATBOT_WEBLLM_MODELS = ["Qwen3-0.6B-q4f16_1-MLC"];
+const CHATBOT_WEBLLM_DEFAULT = 'Qwen3-0.6B-q4f16_1-MLC';
 const CHATBOT_DEFAULT_BACKEND = 'webllm';
 
 // Detect if served via HTTP (proxy available) or opened from file://
@@ -669,7 +853,7 @@ const USE_PROXY = window.location.protocol.startsWith('http');
 const GENAI_BASE = USE_PROXY ? CHATBOT_API_ENDPOINT : CHATBOT_API_ENDPOINT;
 
 // --- API key management (localStorage, never embedded in HTML) ---
-const API_KEY_STORAGE = 'chatbot_genai_key';
+const API_KEY_STORAGE = 'amaravati_genai_key';
 
 function getStoredApiKey() {
   try { return (localStorage.getItem(API_KEY_STORAGE) || '').trim(); }
@@ -730,28 +914,11 @@ function showApiKeyModal(msg) {
 
 let GENAI_API_KEY = getStoredApiKey();
 
-const SYSTEM_PROMPT = `You are the research assistant embedded in 'The Amaravati Record — Special Investigation', a long-form investigative report on the Andhra Pradesh Capital Region Development Authority (APCRDA) land pooling scheme.
+const SYSTEM_PROMPT = `You are the reader assistant for The Amaravati Record, embedded in the Broadsheet Investigation report. This narrative investigation covers the finding that 57.4% of 47,993 APCRDA Land Pooling Scheme plots are held by the Kamma community across 26 villages. The report is written in broadsheet newspaper format with a lead story, sidebar analysis, pull quotes, and a dispatch board. Answer concisely using markdown. Do not invent numbers.`;
 
-The report has the following sections (in order):
-1. Nearly 6 in 10 Amaravati Plots Allocated to a Single Caste Community (headline finding)
-2. Records Drawn From Official APCRDA Portal (data source)
-3. Caste Identified by Surname, Not Self-Declaration (methodology)
-4. Pattern Holds Across All 25 Villages Without Exception (village-level finding)
-5. Valuable Commercial Land Follows the Same Distribution (commercial land)
-6. About 1,131 Acres of Capital Land Covered in This Analysis (scope)
-7. How This Investigation Was Conducted (methodology detail)
-8. Key Facts (summary box)
+const WELCOME_MSG = "Ask me about this investigation. I can help explain the findings and methodology.";
 
-When the user asks a question, you will receive a [Screen Context] block containing the page title, outline, current section, and the text currently visible in their viewport. Use that to answer precisely — cite the current section by name when relevant. If the user asks about something not in the visible content, say so and suggest which section they should scroll to.
-
-You also have a [Report Data] block in this system prompt with high-level facts. Answer concisely using markdown. Do not invent numbers; if a specific figure is not in [Report Data] or the visible content, say you cannot see it from the current view.
-
-[Report Data]
-{"report_title":"The Amaravati Record \\u2014 Special Investigation","sections":["Nearly 6 in 10 Amaravati Plots Allocated to a Single Caste Community","Records Drawn From Official APCRDA Portal","Caste Identified by Surname, Not Self-Declaration","Pattern Holds Across All 25 Villages Without Exception","Valuable Commercial Land Follows the Same Distribution","About 1,131 Acres of Capital Land Covered in This Analysis","How This Investigation Was Conducted","Key Facts"],"key_finding":"Nearly 6 in 10 Amaravati plots were allocated to a single caste community, a pattern that holds across all 25 villages.","scope_acres":1131,"villages_analyzed":25,"data_source":"APCRDA official portal","methodology":"Surname-based caste classification (not self-declaration)"}`;
-
-const WELCOME_MSG = "Hi! Ask me anything about this investigation. I can see the section you are currently reading.";
-
-const SUGGESTION_POOL = ["What is the key finding?", "How was caste identified?", "Which villages were studied?", "What about commercial land?"];
+const SUGGESTION_POOL = ["What is the main finding?", "How were the names classified?", "What is the Kamma percentage?", "Where does the data come from?"];
 
 // --- DOM elements ---
 const bubble = document.getElementById('chatbotBubble');
@@ -778,8 +945,8 @@ let messages = [];
 let pendingImageBase64 = null;
 
 // --- Backend selection state (cloud vs WebLLM) ---
-const BACKEND_KEY = 'chatbot_backend';
-const WEBLLM_MODEL_KEY = 'chatbot_webllm_model';
+const BACKEND_KEY = 'amaravati_backend';
+const WEBLLM_MODEL_KEY = 'amaravati_webllm_model';
 let activeBackend = (function() {
   try { return localStorage.getItem(BACKEND_KEY) || CHATBOT_DEFAULT_BACKEND; }
   catch(e) { return CHATBOT_DEFAULT_BACKEND; }
@@ -792,7 +959,7 @@ let webllmEngine = null;
 let webllmCurrentModel = null;
 let webllmLoading = false;
 
-const STORAGE_KEY = 'chatbot_chat_' + location.pathname.split('/').pop();
+const STORAGE_KEY = 'amaravati_chat_' + location.pathname.split('/').pop();
 
 function saveChat() {
   try {
@@ -1057,12 +1224,9 @@ function pickRandomSuggestions(count) {
   return picks;
 }
 
-function addWelcome() {
-  const div = document.createElement('div');
-  div.className = 'chatbot-msg bot';
-  div.style.whiteSpace = 'pre-wrap';
-  div.textContent = WELCOME_MSG;
-  messagesEl.appendChild(div);
+function addSuggestionChips() {
+  // Remove any existing chips first
+  messagesEl.querySelectorAll('.chatbot-suggestions').forEach(function(el) { el.remove(); });
   const chips = document.createElement('div');
   chips.className = 'chatbot-suggestions';
   pickRandomSuggestions(4).forEach(function(q) {
@@ -1078,6 +1242,16 @@ function addWelcome() {
     chips.appendChild(btn);
   });
   messagesEl.appendChild(chips);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function addWelcome() {
+  const div = document.createElement('div');
+  div.className = 'chatbot-msg bot';
+  div.style.whiteSpace = 'pre-wrap';
+  div.textContent = WELCOME_MSG;
+  messagesEl.appendChild(div);
+  addSuggestionChips();
 }
 
 function setInputEnabled(enabled) {
@@ -1108,10 +1282,15 @@ function loadModel() {
   isLoading = true;
   if (activeBackend === 'webllm') {
     modelReady = true;
-    addMessage('system', 'Assistant ready (Local WebLLM). First message will download the model.');
     setInputEnabled(true);
     isLoading = false;
     refreshBackendUI();
+    // If engine not yet ready, show a preparing message; otherwise ready
+    if (!webllmEngine) {
+      addMessage('system', 'Preparing assistant…');
+    } else {
+      addMessage('system', 'Assistant ready.');
+    }
     return;
   }
   if (!GENAI_API_KEY) {
@@ -1121,7 +1300,7 @@ function loadModel() {
         GENAI_API_KEY = key;
         modelReady = true;
         dot.classList.add('ready');
-        addMessage('system', 'Assistant ready. Ask me anything!');
+        addMessage('system', 'Assistant ready.');
         setInputEnabled(true);
       } else {
         addMessage('system', 'API key required. Click the key button in the header to set your API key.');
@@ -1131,40 +1310,58 @@ function loadModel() {
   }
   modelReady = true;
   dot.classList.add('ready');
-  addMessage('system', 'Assistant ready. Ask me anything!');
+  addMessage('system', 'Assistant ready.');
   setInputEnabled(true);
   isLoading = false;
 }
 
-async function ensureWebLLMEngine(modelId) {
+async function ensureWebLLMEngine(modelId, silent) {
   if (webllmEngine && webllmCurrentModel === modelId) return webllmEngine;
-  if (webllmLoading) throw new Error('WebLLM is still loading, please wait.');
+  if (webllmLoading) {
+    // If already loading, wait for it to finish
+    return new Promise(function(resolve, reject) {
+      var check = setInterval(function() {
+        if (!webllmLoading) {
+          clearInterval(check);
+          if (webllmEngine) resolve(webllmEngine);
+          else reject(new Error('Assistant failed to load.'));
+        }
+      }, 200);
+    });
+  }
   webllmLoading = true;
   dot.classList.remove('ready');
-  const sysMsg = addMessage('system', 'Loading WebLLM runtime...');
+  dot.classList.add('loading');
+  // Only show progress in chat if not a silent background preload
+  var sysMsg = silent ? null : addMessage('system', 'Preparing assistant…');
   try {
     if (!('gpu' in navigator)) {
-      throw new Error('WebGPU not available in this browser. Use the Cloud backend instead.');
+      throw new Error('This browser does not support local AI. Click the cloud icon to use the Cloud backend instead.');
     }
     const mod = await import('https://esm.run/@mlc-ai/web-llm@0.2');
-    // chatOpts: enable sliding-window attention so long system prompts +
-    // visible-content captures + multi-turn history don't overflow the
-    // compiled context window (many MLC builds ship with 4096).
     const chatOpts = {
       context_window_size: -1,
       sliding_window_size: 4096,
       attention_sink_size: 4,
     };
+    var lastPct = 0;
     webllmEngine = await mod.CreateMLCEngine(modelId, {
       initProgressCallback: function(p) {
-        const pct = (p.progress * 100).toFixed(0);
-        sysMsg.textContent = 'Loading ' + modelId + ': ' + pct + '% - ' + (p.text || '');
+        var pct = Math.round(p.progress * 100);
+        if (sysMsg && pct > lastPct) {
+          sysMsg.textContent = pct < 95 ? 'Preparing assistant… ' + pct + '%' : 'Almost ready…';
+          lastPct = pct;
+        }
       },
     }, chatOpts);
     webllmCurrentModel = modelId;
-    sysMsg.textContent = modelId + ' ready.';
+    dot.classList.remove('loading');
     if (activeBackend === 'webllm') dot.classList.add('ready');
+    if (sysMsg) sysMsg.textContent = 'Assistant ready.';
     return webllmEngine;
+  } catch(err) {
+    dot.classList.remove('loading');
+    throw err;
   } finally {
     webllmLoading = false;
   }
@@ -1205,6 +1402,7 @@ async function sendMessage() {
   }
   messages.push({ role: 'user', content: userContent });
   const botDiv = addMessage('bot', '');
+  botDiv.innerHTML = '<div class="chatbot-typing"><span></span><span></span><span></span></div>';
 
   try {
     const apiMessages = [
@@ -1315,7 +1513,7 @@ async function sendMessage() {
       botDiv.innerHTML = renderMarkdown(
         '**Cannot connect to AI service** (CORS restriction).\n\n' +
         'When opening the report as a local file, the browser blocks direct API calls.\n\n' +
-        'To use the AI chatbot, double-click **open_amaravati_newspaper.bat** in the same folder as this report. ' +
+        'To use the AI chatbot, double-click **open_report.bat** in the same folder as this report. ' +
         'This starts a small local server that proxies requests to the AI service.'
       );
     } else {
@@ -1325,7 +1523,7 @@ async function sendMessage() {
           '**Error:** ' + detail.replace(/[<>&]/g, '') + '\n\n' +
           'If this persists, try:\n' +
           '- Click the key button in the header to check/change your API key\n' +
-          '- Or double-click **open_amaravati_newspaper.bat** to open via the local proxy server'
+          '- Or double-click **open_report.bat** to open via the local proxy server'
         );
       } else {
         botDiv.innerHTML = renderMarkdown(
@@ -1338,6 +1536,7 @@ async function sendMessage() {
     isGenerating = false;
     setInputEnabled(true);
     refreshBackendUI();
+    addSuggestionChips();
   }
 }
 
@@ -1368,7 +1567,7 @@ function refreshBackendUI() {
   backendToggleBtn.title = isWebllm
     ? 'Local (WebLLM) - click to switch to Cloud'
     : 'Cloud - click to switch to Local (WebLLM)';
-  webllmModelSelect.style.display = isWebllm ? 'inline-block' : 'none';
+  webllmModelSelect.style.display = 'none';  // Model selector always hidden; single model only
   changeKeyBtn.disabled = isWebllm;
   imageBtn.disabled = isWebllm;
   imageBtn.title = isWebllm
@@ -1480,6 +1679,18 @@ fileInput.addEventListener('change', async function() {
     attachImage(dataUrl);
   }
 });
+
+// --- Preload WebLLM on page load (silent, in background) ---
+if (activeBackend === 'webllm' && CHATBOT_WEBLLM_MODELS.length > 0) {
+  // Start loading immediately so the model is ready by the time user chats
+  ensureWebLLMEngine(webllmSelectedModel, true).then(function() {
+    modelReady = true;
+    refreshBackendUI();
+  }).catch(function(err) {
+    // Silent preload failed — user will see the error on first message instead
+    console.warn('[chatbot] WebLLM preload failed:', err.message);
+  });
+}
 
 </script>
 </body>

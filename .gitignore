@@ -13,5 +13,7 @@ archives/
 .env
 docs/superpowers/
 tests/data/
-data/processed/
+data/
+raw_data/
+processed_data/
 *.png

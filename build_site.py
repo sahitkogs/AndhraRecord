@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Build The Amaravati Record site pages with chatbot injection.
 
-Reads docs/*.src.html, injects a broadsheet-themed chatbot widget into each,
-and writes the result to docs/*.html. Each page gets a page-specific system
+Reads .src.html files (index from docs/, others from docs/pages/), injects a
+broadsheet-themed chatbot widget into each, and writes the compiled .html
+alongside. Each page gets a page-specific system
 prompt so the chatbot knows what it's embedded in.
 
 Usage:
@@ -244,8 +245,13 @@ Academic partnerships welcomed (no fees).""",
 
 def build_page(name: str) -> None:
     """Read docs/{name}.src.html, inject chatbot, write docs/{name}.html."""
-    src = DOCS_DIR / f"{name}.src.html"
-    dst = DOCS_DIR / f"{name}.html"
+    # index lives at docs/ root; everything else lives under docs/pages/
+    if name == "index":
+        page_dir = DOCS_DIR
+    else:
+        page_dir = DOCS_DIR / "pages"
+    src = page_dir / f"{name}.src.html"
+    dst = page_dir / f"{name}.html"
 
     if not src.exists():
         print(f"  SKIP {name} — {src.name} not found")

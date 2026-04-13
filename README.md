@@ -15,14 +15,14 @@ The site is a multi-page static newspaper built on a broadsheet aesthetic (monoc
 | Page | URL |
 |------|-----|
 | Home | [/TheAmaravatiRecord/](https://sahitkogs.github.io/TheAmaravatiRecord/) |
-| Reports | [/TheAmaravatiRecord/reports.html](https://sahitkogs.github.io/TheAmaravatiRecord/reports.html) |
+| Reports | [/TheAmaravatiRecord/pages/reports.html](https://sahitkogs.github.io/TheAmaravatiRecord/pages/reports.html) |
 | Caste Dashboard | [/TheAmaravatiRecord/reports/amaravati_caste_report.html](https://sahitkogs.github.io/TheAmaravatiRecord/reports/amaravati_caste_report.html) |
 | Capital Tracker | [amaravati-tracker-staging](https://sahitkogs.github.io/amaravati-tracker-staging/) (separate repo) |
 | About / Contact / Support | See nav links on the site |
 
 ### Policies & legal
 
-Privacy Policy, Cookie Notice, Terms of Use, Editorial Policy, Corrections Ledger, AI Disclosure — all published on the site. Content is CC BY 4.0, datasets ODbL 1.0, code MIT. See the [Licenses page](https://sahitkogs.github.io/TheAmaravatiRecord/licenses.html).
+Privacy Policy, Cookie Notice, Terms of Use, Editorial Policy, Corrections Ledger, AI Disclosure — all published on the site under `pages/`. Content is CC BY 4.0, datasets ODbL 1.0, code MIT. See the [Licenses page](https://sahitkogs.github.io/TheAmaravatiRecord/pages/licenses.html).
 
 ---
 
@@ -42,26 +42,25 @@ Examines ~48,000 land plots allocated under the APCRDA Land Pooling Scheme acros
 
 | Source | What | URL |
 |--------|------|-----|
-| APCRDA LPS Portal | Plot data, farmer names | https://gis.apcrda.org/lps/index.html |
+| APCRDA LPS Portal | Plot data, farmer names, GIS layers | https://gis.apcrda.org/lps/index.html |
 | MyNeta.info | SC candidate names (elections) | https://www.myneta.info/ |
 | Community websites | Surname-caste lists (19 sources) | Various blogspot/weebly |
 
 ### Data pipeline
 
 ```
-1. Scrape       → scrape_apcrda_lps.py          → data/apcrda_lps_data.csv
-2. Clean + Build → build_report.py               → Dedup, normalize, process
-3. Classify     → caste_classifier_gemini.py     → data/gemini_name_caste_map.json
-4. Report       → build_report.py + html_template.py → docs/reports/amaravati_caste_report.html
+1. Scrape       → data_extraction/lps_village_plots/scrape_lps_village_plots.py → raw_data/apcrda_lps_data.csv
+2. Classify     → data_extraction/lps_village_plots/caste_classifier_gemini.py  → processed_data/gemini_name_caste_map.json
+3. Report       → data_extraction/lps_village_plots/build_report.py             → docs/reports/amaravati_caste_report.html
 ```
 
 ---
 
 ## Building the Site
 
-### Site pages (13 pages)
+### Site pages
 
-Source files live in `docs/*.src.html`. A build script injects the chatbot widget (with broadsheet theme) and writes to `docs/*.html`, which is what GitHub Pages serves.
+Source files live in `docs/index.src.html` and `docs/pages/*.src.html`. A build script injects the chatbot widget (with broadsheet theme) and writes the compiled `.html` alongside each source.
 
 ```bash
 # Build all site pages
@@ -77,7 +76,7 @@ Each page gets a page-specific system prompt and suggestion chips. The chatbot u
 
 ```bash
 # Regenerate the caste dashboard (requires data + Gemini API key)
-python build_report.py
+python data_extraction/lps_village_plots/build_report.py
 
 # Refresh chatbot on existing report HTML (no data regeneration)
 python refresh_report_chatbot.py
@@ -86,14 +85,14 @@ python refresh_report_chatbot.py
 ### Full pipeline
 
 ```bash
-# Step 1: Scrape (if source data needs refresh)
-python scrape_apcrda_lps.py
+# Step 1: Scrape all GIS layers (or just the ones you need)
+python data_extraction/scrape_all_layers.py
 
 # Step 2: Classify names via Gemini (configure in .env — see .env.sample)
-python caste_classifier_gemini.py
+python data_extraction/lps_village_plots/caste_classifier_gemini.py
 
 # Step 3: Generate reports
-python build_report.py
+python data_extraction/lps_village_plots/build_report.py
 
 # Step 4: Build site pages
 python build_site.py
@@ -102,10 +101,10 @@ python build_site.py
 python refresh_report_chatbot.py
 
 # Tests
-python -m pytest tests/ -v
+python -m pytest data_extraction/lps_village_plots/test_*.py -v
 
-# Explorer
-python explorer/build_surname_explorer.py
+# Surname explorer
+python data_extraction/surname_explorer/build_surname_explorer.py
 ```
 
 ---
@@ -113,49 +112,59 @@ python explorer/build_surname_explorer.py
 ## Project Structure
 
 ```
-├── build_site.py                # Build docs/*.src.html → docs/*.html with chatbot injection
-├── build_report.py              # Generate caste report from data + inject chatbot
-├── refresh_report_chatbot.py    # Strip old chatbot from reports, re-inject with current library
-├── html_template.py             # Dashboard HTML template
-├── scrape_apcrda_lps.py         # Scrape APCRDA LPS portal
-├── caste_classifier_gemini.py   # Gemini per-name caste classification
-├── utils/
-│   ├── gemini_client.py         # Gemini API wrapper
-│   └── name_utils.py            # Name parsing utilities
-├── prompts/
-│   ├── __init__.py              # Prompt module init
-│   └── caste_classifier.py      # Classification prompt template
-├── explorer/
-│   ├── build_surname_explorer.py # Build explorer HTML
-│   ├── surname_explorer.html    # Interactive surname browser
-│   ├── surname_ground_truth.csv # 5,548 surnames × 8 castes (19 sources)
-│   └── detected_first_names.json # 351 detected first names
-├── tests/
-│   ├── test_build_report.py     # Unit tests
-│   ├── test_data_validation.py  # Data validation tests
-│   └── test_prompt_sample.py    # Prompt tests
-├── data/
-│   ├── apcrda_lps_data.csv      # Source: 95K plot records from APCRDA
-│   ├── gemini_name_caste_map.json # Per-name caste assignments (30K names)
-│   └── caste_surname_map.json   # Surname fallback + not_surnames list
-├── docs/                        # GitHub Pages site: The Amaravati Record
-│   ├── *.src.html               # Source pages (edit these)
-│   ├── *.html                   # Built pages (generated by build_site.py)
-│   ├── styles.css               # Shared broadsheet stylesheet
-│   ├── consent.js               # Cookie consent banner + GA4 integration
-│   ├── robots.txt               # Search engine crawl policy
-│   ├── sitemap.xml              # Sitemap for search engines
-│   ├── pgp-key.txt              # PGP public key (placeholder)
-│   ├── .well-known/security.txt # Security contact
-│   └── reports/
-│       ├── amaravati_caste_report.html  # Interactive dashboard (generated)
-│       └── amaravati_newspaper.html     # Broadsheet investigation (hand-maintained)
-├── LICENSE.md                   # License index (three-layer stack)
-├── LICENSE-CODE.md              # MIT (code)
-├── LICENSE-CONTENT.md           # CC BY 4.0 (prose)
-├── LICENSE-DATA.md              # ODbL 1.0 (datasets)
-├── SECURITY.md                  # Responsible disclosure policy
-└── archives/                    # Old versions, one-time scripts, raw extracts
+├── build_site.py                  # Build site pages with chatbot injection
+├── refresh_report_chatbot.py      # Re-inject chatbot into report HTML files
+├── README.md
+├── SECURITY.md
+├── .env.sample
+│
+├── docs/                          # GitHub Pages site
+│   ├── index.html / index.src.html
+│   ├── styles.css                 # Shared broadsheet stylesheet
+│   ├── consent.js                 # Cookie consent + GA4
+│   ├── sitemap.xml / robots.txt
+│   ├── pages/                     # Secondary pages (about, reports, legal, etc.)
+│   │   ├── *.src.html             # Source (edit these)
+│   │   └── *.html                 # Built (generated by build_site.py)
+│   └── reports/                   # Published investigations
+│       ├── amaravati_caste_report.html
+│       └── amaravati_newspaper.html
+│
+├── data_extraction/               # All data scraping and processing
+│   ├── scrape_all_layers.py       # Run all GIS layer scrapers at once
+│   │
+│   ├── lps_village_plots/         # APCRDA LPS plot data (95K records)
+│   │   ├── scrape_lps_village_plots.py
+│   │   ├── build_report.py        # Generate caste dashboard report
+│   │   ├── html_template.py       # Dashboard HTML template
+│   │   ├── caste_classifier_gemini.py  # Gemini per-name classification
+│   │   ├── caste_classifier.py    # Prompt templates
+│   │   ├── gemini_client.py       # Gemini API wrapper
+│   │   ├── name_utils.py          # Name parsing utilities
+│   │   ├── test_*.py              # Tests
+│   │   ├── raw_data/              # apcrda_lps_data.csv, .xlsx
+│   │   └── processed_data/        # Gemini classifications, surname maps
+│   │
+│   ├── surname_explorer/          # Surname ground truth explorer
+│   │   ├── build_surname_explorer.py
+│   │   ├── raw_data/              # surname_ground_truth.csv
+│   │   └── processed_data/        # surname_explorer.html, detected_first_names.json
+│   │
+│   ├── allocated_lands/           # APCRDA Layer 0 — govt allocated parcels (165)
+│   ├── roads/                     # APCRDA Layer 2 — road network (52)
+│   ├── burial_grounds/            # APCRDA Layer 3 — burial ground sites (25)
+│   ├── water_bodies/              # APCRDA Layer 4 — lakes, tanks, ponds (28)
+│   ├── survey_parcels/            # APCRDA Layer 5 — revenue survey parcels (1,276)
+│   └── r1_boundary/               # APCRDA Layer 6 — zoning boundaries (195)
+│       ├── scrape_*.py            # Extraction script
+│       ├── raw_data/              # CSV + GeoJSON output
+│       └── processed_data/        # For downstream analysis
+│
+└── licenses/
+    ├── LICENSE.md                 # License index (three-layer stack)
+    ├── LICENSE-CODE.md            # MIT (code)
+    ├── LICENSE-CONTENT.md         # CC BY 4.0 (prose)
+    └── LICENSE-DATA.md            # ODbL 1.0 (datasets)
 ```
 
 ---
@@ -180,13 +189,8 @@ Every page on the site includes an AI chatbot widget powered by [chatbot-in-html
 If the chatbot-in-html library is updated:
 
 ```bash
-# Reinstall the library
 pip install -e /path/to/chatbot-in-html
-
-# Rebuild all site pages
 python build_site.py
-
-# Refresh chatbot on report pages
 python refresh_report_chatbot.py
 ```
 

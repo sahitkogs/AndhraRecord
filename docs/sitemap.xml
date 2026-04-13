@@ -7,19 +7,19 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/reports.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/reports.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/methodology.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/methodology.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/about.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/about.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -37,55 +37,55 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/support.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/support.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/contact.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/contact.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/licenses.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/licenses.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/editorial.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/editorial.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/corrections.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/corrections.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/ai-disclosure.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/ai-disclosure.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/privacy.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/privacy.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/cookies.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/cookies.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/terms.html</loc>
+    <loc>https://sahitkogs.github.io/TheAmaravatiRecord/pages/terms.html</loc>
     <lastmod>2026-04-10</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>

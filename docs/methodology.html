@@ -189,6 +189,33 @@
 .chatbot-header button[disabled]:hover {
   background: none; color: var(--cb-header-muted);
 }
+/* --- Think block (collapsible reasoning) --- */
+.chatbot-think-block {
+  margin-bottom: 8px; border-left: 2px solid var(--cb-bot-border);
+  padding-left: 10px;
+}
+.chatbot-think-toggle {
+  font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+  font-size: 12px; font-weight: 600; color: var(--cb-system-text);
+  cursor: pointer; user-select: none; padding: 4px 0;
+  display: flex; align-items: center; gap: 4px;
+}
+.chatbot-think-toggle:hover { color: var(--cb-bot-text); }
+.chatbot-think-toggle .arrow { display: inline-block; transition: transform 0.15s; font-size: 10px; }
+.chatbot-think-block.collapsed .arrow { transform: rotate(0deg); }
+.chatbot-think-block.expanded .arrow { transform: rotate(90deg); }
+.chatbot-think-content {
+  font-size: 12px; line-height: 1.5; color: var(--cb-system-text);
+  font-style: italic; overflow: hidden; transition: max-height 0.2s;
+}
+.chatbot-think-block.collapsed .chatbot-think-content {
+  max-height: 0; padding: 0;
+}
+.chatbot-think-block.expanded .chatbot-think-content {
+  max-height: 2000px; padding: 4px 0 6px;
+}
+.chatbot-think-content p { margin: 0 0 4px; }
+.chatbot-think-content p:last-child { margin-bottom: 0; }
 /* --- Thinking dots animation --- */
 .chatbot-typing {
   display: inline-flex; align-items: center; gap: 5px; padding: 6px 0;
@@ -248,6 +275,8 @@
   #chatbotInput { font-size: 16px; }
   .chatbot-suggestion { font-size: 13px; padding: 7px 14px; }
   .chatbot-msg.system { font-size: 12px; }
+  .chatbot-think-toggle { font-size: 13px; }
+  .chatbot-think-content { font-size: 13px; }
 }
 
 </style>
@@ -902,16 +931,59 @@ function getScreenContext() {
 
 function stripThinkTags(text) {
   // Strip <think>...</think> blocks (Qwen3 reasoning tokens)
-  // Handle both complete and in-progress blocks during streaming
   var result = text.replace(/<think>[\s\S]*?<\/think>\s*/g, '');
-  // If a <think> block is still open (streaming), hide everything from <think> onward
   var openIdx = result.indexOf('<think>');
   if (openIdx !== -1) result = result.slice(0, openIdx);
   return result.trim();
 }
 
 function renderMarkdown(md) {
-  return marked.parse(stripThinkTags(md));
+  return marked.parse(md);
+}
+
+var thinkStartTime = 0;
+
+function renderWithThinking(raw, botDiv) {
+  // Parse <think>...</think> blocks and render as collapsible sections
+  var thinkOpen = raw.indexOf('<think>');
+  if (thinkOpen === -1) {
+    // No thinking — render plain markdown
+    botDiv.innerHTML = renderMarkdown(raw);
+    return;
+  }
+
+  var before = raw.slice(0, thinkOpen).trim();
+  var afterOpen = raw.slice(thinkOpen + 7);  // after <think>
+  var thinkClose = afterOpen.indexOf('</think>');
+  var thinkDone = thinkClose !== -1;
+  var thinkContent = thinkDone ? afterOpen.slice(0, thinkClose) : afterOpen;
+  var answer = thinkDone ? afterOpen.slice(thinkClose + 8).trim() : '';
+
+  if (!thinkStartTime) thinkStartTime = Date.now();
+  var elapsed = ((Date.now() - thinkStartTime) / 1000).toFixed(0);
+
+  var label = thinkDone
+    ? 'Thought for ' + elapsed + 's'
+    : 'Thinking… ' + elapsed + 's';
+  var state = thinkDone ? 'collapsed' : 'expanded';
+
+  var html = '';
+  if (before) html += renderMarkdown(before);
+  html += '<div class="chatbot-think-block ' + state + '">';
+  html += '<div class="chatbot-think-toggle" onclick="this.parentElement.classList.toggle('collapsed');this.parentElement.classList.toggle('expanded');">';
+  html += '<span class="arrow">&#9656;</span> ' + label;
+  html += '</div>';
+  html += '<div class="chatbot-think-content">' + renderMarkdown(thinkContent) + '</div>';
+  html += '</div>';
+  if (answer) {
+    html += renderMarkdown(answer);
+  } else if (thinkDone) {
+    // Think done but answer hasn't started streaming yet — show dots
+    html += '<div class="chatbot-typing"><span></span><span></span><span></span></div>';
+  }
+
+  botDiv.innerHTML = html;
+  if (thinkDone) thinkStartTime = 0;  // Reset for next message
 }
 
 function addMessage(role, text, imageDataUrl) {
@@ -1182,6 +1254,7 @@ async function sendMessage() {
   messages.push({ role: 'user', content: userContent });
   const botDiv = addMessage('bot', '');
   botDiv.innerHTML = '<div class="chatbot-typing"><span></span><span></span><span></span></div>';
+  thinkStartTime = 0;
 
   try {
     const apiMessages = [
@@ -1199,11 +1272,12 @@ async function sendMessage() {
         temperature: 0.7,
         max_tokens: 1024,
       });
+      thinkStartTime = 0;
       for await (const chunk of chunks) {
         const delta = chunk.choices && chunk.choices[0] && chunk.choices[0].delta;
         if (delta && delta.content) {
           assistantContent += delta.content;
-          botDiv.innerHTML = renderMarkdown(assistantContent);
+          renderWithThinking(assistantContent, botDiv);
           messagesEl.scrollTop = messagesEl.scrollHeight;
         }
       }
@@ -1263,7 +1337,7 @@ async function sendMessage() {
           const delta = json.choices && json.choices[0] && json.choices[0].delta;
           if (delta && delta.content) {
             assistantContent += delta.content;
-            botDiv.innerHTML = renderMarkdown(assistantContent);
+            renderWithThinking(assistantContent, botDiv);
             messagesEl.scrollTop = messagesEl.scrollHeight;
           }
         } catch (e) { /* skip malformed SSE */ }

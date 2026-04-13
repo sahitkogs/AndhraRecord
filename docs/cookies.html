@@ -911,6 +911,7 @@ function renderMarkdown(md) {
 }
 
 var thinkStartTime = 0;
+var thinkElapsedFinal = 0;
 
 function renderWithThinking(raw, botDiv) {
   // Parse <think>...</think> blocks and render as collapsible sections
@@ -929,7 +930,15 @@ function renderWithThinking(raw, botDiv) {
   var answer = thinkDone ? afterOpen.slice(thinkClose + 8).trim() : '';
 
   if (!thinkStartTime) thinkStartTime = Date.now();
-  var elapsed = ((Date.now() - thinkStartTime) / 1000).toFixed(0);
+
+  var elapsed;
+  if (thinkDone) {
+    // Capture final elapsed time once when thinking completes
+    if (!thinkElapsedFinal) thinkElapsedFinal = Math.round((Date.now() - thinkStartTime) / 1000);
+    elapsed = thinkElapsedFinal;
+  } else {
+    elapsed = Math.round((Date.now() - thinkStartTime) / 1000);
+  }
 
   var label = thinkDone
     ? 'Thought for ' + elapsed + 's'
@@ -952,7 +961,6 @@ function renderWithThinking(raw, botDiv) {
   }
 
   botDiv.innerHTML = html;
-  if (thinkDone) thinkStartTime = 0;  // Reset for next message
 }
 
 function addMessage(role, text, imageDataUrl) {
@@ -1223,6 +1231,7 @@ async function sendMessage() {
   const botDiv = addMessage('bot', '');
   botDiv.innerHTML = '<div class="chatbot-typing"><span></span><span></span><span></span></div>';
   thinkStartTime = 0;
+  thinkElapsedFinal = 0;
 
   try {
     // Build API messages with screen context prepended to the latest user message

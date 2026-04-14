@@ -51,7 +51,7 @@ _DIR = os.path.dirname(os.path.abspath(__file__))
 _REPO = os.path.join(_DIR, '..', '..')
 DATA_FILE = os.path.join(_DIR, "raw_data", "apcrda_lps_data.csv")
 MAPPING_FILE = os.path.join(_DIR, "processed_data", "caste_surname_map.json")
-OUTPUT_FILE = os.path.join(_REPO, "docs", "reports", "amaravati_caste_report.html")
+OUTPUT_FILE = os.path.join(_REPO, "docs", "reports", "lps-caste-dashboard.html")
 
 # Village name normalization map
 VILLAGE_NORMALIZE = {

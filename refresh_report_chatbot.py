@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Strip old chatbot from report HTML files and re-inject with current library.
 
-The report files (amaravati_caste_report.html, amaravati_newspaper.html) have
+The report files (lps-caste-dashboard.html, lps-caste-investigation.html) have
 an old version of the chatbot baked in with hardcoded cyan colors, old model
 lists, and missing features. This script strips the old chatbot CSS/HTML/JS
 and re-injects using the current chatbot-in-html library with the newspaper theme.
@@ -19,7 +19,7 @@ from chatbot_in_html.themes import THEME_NEWSPAPER
 REPORTS_DIR = Path(__file__).parent / "docs" / "reports"
 
 REPORTS = {
-    "amaravati_caste_report.html": {
+    "lps-caste-dashboard.html": {
         "assistant_name": "Ask The Record",
         "system_prompt": (
             "You are the reader assistant for The Amaravati Record, embedded in the "
@@ -40,7 +40,7 @@ REPORTS = {
             "What are the confidence levels?",
         ],
     },
-    "amaravati_newspaper.html": {
+    "lps-caste-investigation.html": {
         "assistant_name": "Ask The Record",
         "system_prompt": (
             "You are the reader assistant for The Amaravati Record, embedded in the "

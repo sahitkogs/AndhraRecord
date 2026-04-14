@@ -136,9 +136,9 @@ html[data-theme="dark"] .site-bar {
   display: flex !important;
   align-items: center !important;
   gap: 0 !important;
-  padding: 8px 0 !important;
+  padding: 6px 0 !important;
   border-bottom: 2px solid var(--rule) !important;
-  margin-bottom: 16px !important;
+  margin-bottom: 0 !important;
   font-family: var(--font-sans) !important;
 }
 
@@ -239,7 +239,8 @@ html[data-theme="dark"] .site-bar {
   letter-spacing: 0.8px !important;
   overflow: hidden !important;
   white-space: nowrap !important;
-  margin-bottom: 22px !important;
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
 }
 
 .ticker__track {

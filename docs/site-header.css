@@ -25,6 +25,12 @@ html[lang="te"] .masthead__tagline {
 html[lang="te"] .masthead__title {
   font-size: clamp(32px, 7vw, 60px) !important;
   letter-spacing: 2px !important;
+  overflow: visible !important;
+}
+
+html[lang="te"] .masthead__title a::after {
+  content: '\00A0\00A0\00A0' !important;
+  font-size: 0.5em !important;
 }
 
 html[lang="te"] .masthead__meta,

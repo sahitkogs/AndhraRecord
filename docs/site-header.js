@@ -48,7 +48,7 @@ var AmaravatiHeader = (function () {
     for (var i = scripts.length - 1; i >= 0; i--) {
       var src = scripts[i].getAttribute('src') || '';
       if (src.indexOf('site-header.js') !== -1) {
-        return src.replace('site-header.js', '');
+        return src.replace(/site-header\.js.*$/, '');
       }
     }
     var p = location.pathname;

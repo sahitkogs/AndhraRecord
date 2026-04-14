@@ -201,7 +201,7 @@
       '    <strong>Analytics cookies &mdash; your choice.</strong> ',
       '    The Amaravati Record uses Google Analytics 4 to understand how readers find our work, ',
       '    with IP anonymization enabled. No cookies are set unless you accept. ',
-      '    See the <a href="' + (location.pathname.indexOf('/pages/') !== -1 ? '' : 'pages/') + 'cookies.html">cookie notice</a> or <a href="' + (location.pathname.indexOf('/pages/') !== -1 ? '' : 'pages/') + 'privacy.html">privacy policy</a> for details.',
+      '    See the <a href="' + (location.pathname.indexOf('/pages/') !== -1 ? '' : (location.pathname.indexOf('/reports/') !== -1 ? '../pages/' : 'pages/')) + 'cookies.html">cookie notice</a> or <a href="' + (location.pathname.indexOf('/pages/') !== -1 ? '' : (location.pathname.indexOf('/reports/') !== -1 ? '../pages/' : 'pages/')) + 'privacy.html">privacy policy</a> for details.',
       '  </p>',
       '  <div class="ar-consent__actions">',
       '    <button type="button" class="ar-consent__reject" aria-label="Reject analytics cookies">Reject</button>',

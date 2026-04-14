@@ -72,6 +72,40 @@ python build_site.py index
 
 Each page gets a page-specific system prompt and suggestion chips. The chatbot uses a shared localStorage key (`amaravati`) so conversation persists across page navigations.
 
+### Adding a new report
+
+Every report must use the shared header template so the masthead, nav, ticker, and footer stay consistent site-wide. Include these in `<head>`:
+
+```html
+<link rel="stylesheet" href="../site-header.css?v=2">
+<script src="../site-header.js"></script>
+```
+
+Then in `<body>`, use placeholder divs instead of hardcoding the masthead/nav:
+
+```html
+<div id="site-masthead"></div>
+<div id="site-nav"></div>
+<script>AmaravatiHeader.render({ page: '' });</script>
+
+<!-- optional: ticker (content is page-specific, styling is shared) -->
+<div class="ticker">
+  <div class="ticker__track">
+    <span class="ticker__item">YOUR HEADLINE HERE</span>
+    <span class="ticker__sep">&#9670;</span>
+    <!-- duplicate items for seamless loop -->
+  </div>
+</div>
+
+<!-- your report content -->
+
+<div id="site-footer"></div>
+```
+
+`site-header.js` auto-detects the page depth and sets link prefixes correctly. `site-header.css` enforces identical masthead/nav/ticker/footer styling across all pages via `!important` overrides, including mobile breakpoints at 880px and 520px. The page's own inline `<style>` controls everything below the header (article layout, charts, tables, etc.).
+
+Do **not** hardcode the masthead HTML or write custom masthead CSS in new reports. If the header needs to change, edit `site-header.js` (content) or `site-header.css` (styling) — the change will propagate to every page automatically.
+
 ### Data reports
 
 ```bash
@@ -120,8 +154,9 @@ python data_extraction/surname_explorer/build_surname_explorer.py
 │
 ├── docs/                          # GitHub Pages site
 │   ├── index.html / index.src.html
-│   ├── styles.css                 # Shared broadsheet stylesheet
-│   ├── site-header.js             # Shared masthead, nav & footer template
+│   ├── styles.css                 # Shared broadsheet stylesheet (site pages)
+│   ├── site-header.js             # Shared header template (HTML content)
+│   ├── site-header.css            # Shared header styles (overrides inline CSS)
 │   ├── consent.js                 # Cookie consent + GA4
 │   ├── sitemap.xml / robots.txt
 │   ├── pages/                     # Secondary pages (about, reports, legal, etc.)

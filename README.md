@@ -60,7 +60,7 @@ Examines ~48,000 land plots allocated under the APCRDA Land Pooling Scheme acros
 
 ### Site pages
 
-Source files live in `docs/index.src.html` and `docs/pages/*.src.html`. A build script injects the chatbot widget (with broadsheet theme) and writes the compiled `.html` alongside each source.
+Source files live in `docs/index.src.html` and `docs/pages/*.src.html`. All pages share a common header, nav, and footer via `docs/site-header.js` — edit that single file to change the masthead across the entire site. A build script injects the chatbot widget (with broadsheet theme) and writes the compiled `.html` alongside each source.
 
 ```bash
 # Build all site pages
@@ -121,6 +121,7 @@ python data_extraction/surname_explorer/build_surname_explorer.py
 ├── docs/                          # GitHub Pages site
 │   ├── index.html / index.src.html
 │   ├── styles.css                 # Shared broadsheet stylesheet
+│   ├── site-header.js             # Shared masthead, nav & footer template
 │   ├── consent.js                 # Cookie consent + GA4
 │   ├── sitemap.xml / robots.txt
 │   ├── pages/                     # Secondary pages (about, reports, legal, etc.)

@@ -1,5 +1,5 @@
 /* ================================================================
-   The Amaravati Record — Shared Header, Nav & Footer
+   The Amaravati Record — Shared Header, Nav, Footer & Theme Toggle
    ----------------------------------------------------------------
    Drop <script src="...site-header.js"></script> into any page,
    then call: AmaravatiHeader.render({ page: 'about' })
@@ -7,13 +7,40 @@
    The script detects its own depth (pages/, reports/, or root)
    and sets link prefixes automatically.
 
-   This is a pure HTML template — each page controls its own
-   masthead CSS (via styles.css or inline styles). This script
-   only ensures the content (text, links) is identical everywhere.
+   Theme toggle: sun/moon icon in the top-right of the masthead.
+   Persists in localStorage. Overrides prefers-color-scheme.
    ================================================================ */
+
+// --- Theme: apply saved preference immediately (before render) to avoid flash ---
+(function () {
+  var THEME_KEY = 'amaravati_theme';
+  var saved = null;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+  if (saved === 'dark' || saved === 'light') {
+    document.documentElement.setAttribute('data-theme', saved);
+  }
+})();
 
 var AmaravatiHeader = (function () {
   'use strict';
+
+  var THEME_KEY = 'amaravati_theme';
+
+  function getTheme() {
+    var saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+    if (saved === 'dark' || saved === 'light') return saved;
+    // Fall back to system preference
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+
+  function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+    // Update toggle icon
+    var btn = document.querySelector('.theme-toggle');
+    if (btn) btn.textContent = theme === 'dark' ? '\u2600' : '\u263D';
+  }
 
   // Detect path depth from the script's own src attribute
   function getBase() {
@@ -21,11 +48,9 @@ var AmaravatiHeader = (function () {
     for (var i = scripts.length - 1; i >= 0; i--) {
       var src = scripts[i].getAttribute('src') || '';
       if (src.indexOf('site-header.js') !== -1) {
-        // Strip filename to get relative path to docs/
         return src.replace('site-header.js', '');
       }
     }
-    // Fallback: guess from pathname
     var p = location.pathname;
     if (p.indexOf('/pages/') !== -1 || p.indexOf('/reports/') !== -1) return '../';
     return '';
@@ -44,18 +69,24 @@ var AmaravatiHeader = (function () {
 
   function render(opts) {
     opts = opts || {};
-    var page = opts.page || '';          // e.g. 'about', 'reports', 'index'
-    var base = getBase();                // '' from root, '../' from subfolders
+    var page = opts.page || '';
+    var base = getBase();
     var pagesBase = base + 'pages/';
+    var theme = getTheme();
 
     // Inject shared header CSS
     injectCSS(base);
 
+    // Apply theme
+    setTheme(theme);
+
     // ── Masthead ──
     var mastheadEl = document.getElementById('site-masthead');
     if (mastheadEl) {
+      var icon = theme === 'dark' ? '\u2600' : '\u263D';
       mastheadEl.innerHTML =
         '<header class="masthead">' +
+        '  <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">' + icon + '</button>' +
         '  <div class="masthead__meta">' +
         '    <span>VOL. I &middot; NO. 001</span>' +
         '    <span>FRIDAY, APRIL 10, 2026</span>' +
@@ -64,6 +95,15 @@ var AmaravatiHeader = (function () {
         '  <h1 class="masthead__title"><a href="' + base + 'index.html" style="color:inherit;text-decoration:none;">The Amaravati Record</a></h1>' +
         '  <p class="masthead__tagline">&ldquo;Independent reporting on the making of a capital&rdquo; &mdash; Est. 2026</p>' +
         '</header>';
+
+      // Bind toggle
+      var btn = mastheadEl.querySelector('.theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          var current = getTheme();
+          setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+      }
     }
 
     // ── Nav ──
@@ -109,5 +149,5 @@ var AmaravatiHeader = (function () {
     }
   }
 
-  return { render: render };
+  return { render: render, setTheme: setTheme, getTheme: getTheme };
 })();

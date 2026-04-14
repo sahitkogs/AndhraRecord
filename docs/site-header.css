@@ -6,8 +6,85 @@
    Uses !important to override any inline styles.
    ================================================================ */
 
+/* ---- Dark mode override (manual toggle) ---- */
+html[data-theme="dark"] {
+  --paper: #1a1815 !important;
+  --paper-tinted: #242018 !important;
+  --ink: #e8e4dd !important;
+  --ink-mid: #a8a49d !important;
+  --ink-light: #706c65 !important;
+  --rule: #706c65 !important;
+  --rule-mid: #504c45 !important;
+  --rule-light: #3a3630 !important;
+  --red: #d4605a !important;
+  --green: #6aaa6a !important;
+  --blue: #6a9ad4 !important;
+  --amber: #d4a44a !important;
+  --red-bg: #3a2220 !important;
+  --green-bg: #203020 !important;
+  --blue-bg: #1a2a3a !important;
+  --amber-bg: #3a3020 !important;
+}
+
+html[data-theme="light"] {
+  --paper: #faf8f4 !important;
+  --paper-tinted: #f0ece4 !important;
+  --ink: #1a1715 !important;
+  --ink-mid: #4a4540 !important;
+  --ink-light: #8a8580 !important;
+  --rule: #1a1715 !important;
+  --rule-mid: #9a9590 !important;
+  --rule-light: #d4cfc8 !important;
+  --red: #8b1a1a !important;
+  --green: #2d5f2d !important;
+  --blue: #1a3a5f !important;
+  --amber: #8b6914 !important;
+  --red-bg: #f0ddd8 !important;
+  --green-bg: #dce8dc !important;
+  --blue-bg: #d8e0ea !important;
+  --amber-bg: #ede4d0 !important;
+}
+
+html[data-theme="dark"] body {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+}
+
+html[data-theme="light"] body {
+  background: var(--paper) !important;
+  color: var(--ink) !important;
+}
+
+html[data-theme="dark"] .ticker {
+  background: var(--paper-tinted) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--rule-light) !important;
+}
+
+/* ---- Theme toggle button ---- */
+.theme-toggle {
+  position: absolute !important;
+  top: 12px !important;
+  right: 0 !important;
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  line-height: 1 !important;
+  padding: 4px !important;
+  color: var(--ink-mid) !important;
+  transition: transform 0.3s ease, opacity 0.3s ease !important;
+  z-index: 10 !important;
+}
+
+.theme-toggle:hover {
+  color: var(--ink) !important;
+  transform: rotate(30deg) !important;
+}
+
 /* ---- Masthead ---- */
 .masthead {
+  position: relative !important;
   text-align: center !important;
   border-top: 3px solid var(--rule) !important;
   border-bottom: none !important;

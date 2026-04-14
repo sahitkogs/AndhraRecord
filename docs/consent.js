@@ -1,5 +1,5 @@
 /* ================================================================
-   The Amaravati Record — Cookie Consent + GA4 Integration
+   Andhra Record — Cookie Consent + GA4 Integration
    ----------------------------------------------------------------
    Purpose: show a minimal consent banner, honor Do Not Track and
             Global Privacy Control automatically, and load Google
@@ -199,7 +199,7 @@
       '<div class="ar-consent__inner">',
       '  <p>',
       '    <strong>Analytics cookies &mdash; your choice.</strong> ',
-      '    The Amaravati Record uses Google Analytics 4 to understand how readers find our work, ',
+      '    Andhra Record uses Google Analytics 4 to understand how readers find our work, ',
       '    with IP anonymization enabled. No cookies are set unless you accept. ',
       '    See the <a href="' + (location.pathname.indexOf('/pages/') !== -1 ? '' : (location.pathname.indexOf('/reports/') !== -1 ? '../pages/' : 'pages/')) + 'cookies.html">cookie notice</a> or <a href="' + (location.pathname.indexOf('/pages/') !== -1 ? '' : (location.pathname.indexOf('/reports/') !== -1 ? '../pages/' : 'pages/')) + 'privacy.html">privacy policy</a> for details.',
       '  </p>',

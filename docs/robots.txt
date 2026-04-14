@@ -1,5 +1,5 @@
 # The Amaravati Record — robots.txt
-# https://sahitkogs.github.io/TheAmaravatiRecord/
+# https://sahitkogs.github.io/AndhraRecord/
 
 # All user agents are welcome to crawl the entire site.
 # Everything published here is openly licensed (see /licenses.html).
@@ -7,7 +7,7 @@ User-agent: *
 Allow: /
 
 # Sitemap for polite crawlers
-Sitemap: https://sahitkogs.github.io/TheAmaravatiRecord/sitemap.xml
+Sitemap: https://sahitkogs.github.io/AndhraRecord/sitemap.xml
 
 # We have no hostile or anti-crawl posture. Republishing and indexing
 # are how public-interest journalism becomes useful. Please crawl at
@@ -17,5 +17,5 @@ Sitemap: https://sahitkogs.github.io/TheAmaravatiRecord/sitemap.xml
 # If you are an AI training crawler and you wish to respect publisher
 # preferences, please read the AI disclosure and licence pages to
 # understand how our content may be reused:
-#   https://sahitkogs.github.io/TheAmaravatiRecord/ai-disclosure.html
-#   https://sahitkogs.github.io/TheAmaravatiRecord/licenses.html
+#   https://sahitkogs.github.io/AndhraRecord/ai-disclosure.html
+#   https://sahitkogs.github.io/AndhraRecord/licenses.html

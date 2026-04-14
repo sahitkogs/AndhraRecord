@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Amaravati Record</title>
-  <meta name="description" content="Independent data journalism on Amaravati. Choose English or Telugu.">
-  <link rel="canonical" href="https://sahitkogs.github.io/TheAmaravatiRecord/">
+  <title>Andhra Record</title>
+  <meta name="description" content="Independent data journalism on Andhra Pradesh. Choose English or Telugu.">
+  <link rel="canonical" href="https://sahitkogs.github.io/AndhraRecord/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Playfair+Display:wght@700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
   <script>
-    var LANG_KEY = 'amaravati_lang';
+    var LANG_KEY = 'andhra_lang';
     var saved = null;
     try { saved = localStorage.getItem(LANG_KEY); } catch(e) {}
     if (saved === 'en' || saved === 'te') {
@@ -115,8 +115,8 @@
 <body>
   <div class="picker">
     <hr class="picker__rule">
-    <div class="picker__title-en">The Amaravati Record</div>
-    <div class="picker__title-te">ది అమరావతి రికార్డ్</div>
+    <div class="picker__title-en">Andhra Record</div>
+    <div class="picker__title-te">ఆంధ్ర రికార్డ్</div>
     <hr class="picker__rule2">
     <div class="picker__prompt">Choose your language</div>
     <div class="picker__prompt-te">భాష ఎంచుకోండి</div>
@@ -130,7 +130,7 @@
   </div>
   <script>
     function chooseLang(lang) {
-      try { localStorage.setItem('amaravati_lang', lang); } catch(e) {}
+      try { localStorage.setItem('andhra_lang', lang); } catch(e) {}
       location.replace(lang + '/index.html');
     }
   </script>

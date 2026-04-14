@@ -1,12 +1,12 @@
 # The Amaravati Record — Security Contact
-# https://sahitkogs.github.io/TheAmaravatiRecord/
+# https://sahitkogs.github.io/AndhraRecord/
 
 Contact: mailto:sahit.koganti@gmail.com
-Contact: https://sahitkogs.github.io/TheAmaravatiRecord/contact.html
+Contact: https://sahitkogs.github.io/AndhraRecord/contact.html
 Expires: 2027-04-10T00:00:00.000Z
 Preferred-Languages: en
-Canonical: https://sahitkogs.github.io/TheAmaravatiRecord/.well-known/security.txt
-Policy: https://sahitkogs.github.io/TheAmaravatiRecord/contact.html
+Canonical: https://sahitkogs.github.io/AndhraRecord/.well-known/security.txt
+Policy: https://sahitkogs.github.io/AndhraRecord/contact.html
 
 # If you have discovered a vulnerability in this site or its underlying
 # repository, please email the address above. Good-faith security research

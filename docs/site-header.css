@@ -18,6 +18,12 @@ html[lang="te"] .masthead__title,
 html[lang="te"] .masthead__tagline {
   font-family: 'Hind Guntur', 'Playfair Display', Georgia, serif !important;
   line-height: 1.3 !important;
+  overflow: visible !important;
+  padding-right: 8px !important;
+}
+
+html[lang="te"] .masthead__title {
+  font-size: clamp(36px, 8vw, 72px) !important;
 }
 
 html[lang="te"] .masthead__meta,
@@ -55,6 +61,16 @@ html[lang="te"] .story__headline,
 html[lang="te"] .sidebar__headline,
 html[lang="te"] .feature__headline {
   line-height: 1.3 !important;
+}
+
+/* Telugu drop cap: disable the Latin drop-cap styling — Telugu conjuncts
+   have unpredictable widths and line-heights that break float layout */
+html[lang="te"] .drop-cap::first-letter {
+  float: none !important;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  padding-right: 0 !important;
+  padding-top: 0 !important;
 }
 
 html[lang="te"] .byline,

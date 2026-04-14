@@ -1564,21 +1564,46 @@ if (activeBackend === 'webllm' && !('gpu' in navigator)) {
   refreshBackendUI();
 }
 
-// Preload WebLLM on page load (silent, in background)
+// Preload WebLLM on page load
+// Desktop: always preload (silent, in background) so chat is instant.
+// Mobile first visit: preload to cache model weights, then mark done.
+// Mobile repeat visits: skip preload entirely — load on chatbot open.
+var WEBLLM_CACHED_KEY = 'amaravati_webllm_cached';
+var webllmCachedOnce = false;
+try { webllmCachedOnce = localStorage.getItem(WEBLLM_CACHED_KEY) === '1'; } catch(e) {}
+
 if (activeBackend === 'webllm' && CHATBOT_WEBLLM_MODELS.length > 0) {
-  ensureWebLLMEngine(webllmSelectedModel, true).then(function() {
-    modelReady = true;
-    setInputEnabled(true);
-    refreshBackendUI();
-    var sysMsgs = messagesEl.querySelectorAll('.chatbot-msg.system');
-    for (var i = 0; i < sysMsgs.length; i++) {
-      if (sysMsgs[i].textContent.indexOf('Preparing') !== -1) {
-        sysMsgs[i].textContent = 'Assistant ready.';
+  if (!isMobile) {
+    // Desktop: preload immediately
+    ensureWebLLMEngine(webllmSelectedModel, true).then(function() {
+      modelReady = true;
+      setInputEnabled(true);
+      refreshBackendUI();
+      var sysMsgs = messagesEl.querySelectorAll('.chatbot-msg.system');
+      for (var i = 0; i < sysMsgs.length; i++) {
+        if (sysMsgs[i].textContent.indexOf('Preparing') !== -1) {
+          sysMsgs[i].textContent = 'Assistant ready.';
+        }
       }
-    }
-  }).catch(function(err) {
-    console.warn('[chatbot] WebLLM preload failed:', err.message);
-  });
+    }).catch(function(err) {
+      console.warn('[chatbot] WebLLM preload failed:', err.message);
+    });
+  } else if (!webllmCachedOnce) {
+    // Mobile first visit: download model in background to populate cache
+    ensureWebLLMEngine(webllmSelectedModel, true).then(function() {
+      try { localStorage.setItem(WEBLLM_CACHED_KEY, '1'); } catch(e) {}
+      // Tear down the engine to free GPU memory — will reload on chat open
+      webllmEngine = null;
+      webllmCurrentModel = null;
+      webllmLoading = false;
+      console.info('[chatbot] Mobile: model cached for next use');
+    }).catch(function(err) {
+      console.warn('[chatbot] Mobile WebLLM cache-prefetch failed:', err.message);
+    });
+  } else {
+    // Mobile repeat visit: do nothing — load on chatbot open
+    console.info('[chatbot] Mobile: model cached, will load when chatbot opens');
+  }
 }
 
 </script>

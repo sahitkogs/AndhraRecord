@@ -215,10 +215,21 @@ Every page on the site includes an AI chatbot widget powered by [chatbot-in-html
 | **Theme** | Broadsheet — cream/ink palette, serif fonts, dark-red accent, dark-mode aware |
 | **Mobile** | Full-width chat window, bubble stays visible when open |
 | **Persistence** | Conversation carries across all pages (shared localStorage) |
-| **Preloading** | Model downloads on page load (background), ready by the time user opens chat |
 | **Thinking dots** | Pulsing animation shown before first streaming token |
 | **Suggestions** | Page-specific chips re-appear after every response |
 | **Backend toggle** | Users can switch between Local (WebLLM) and Cloud |
+
+### WebLLM loading strategy
+
+WebLLM model loading is handled differently on desktop and mobile to avoid slowing down page loads on phones:
+
+| | Desktop | Mobile (first visit) | Mobile (repeat visits) |
+|-|---------|---------------------|----------------------|
+| **On page load** | Preload engine in background | Download model to cache in background | Do nothing |
+| **On chatbot open** | Instant (already loaded) | Engine initializes from cache | Engine initializes from cache |
+| **GPU memory** | Allocated on page load | Freed after caching, re-allocated on chat open | Allocated only on chat open |
+
+Mobile is detected via `matchMedia('(max-width: 600px)')`. First-visit status is tracked in localStorage (`{prefix}_webllm_cached`). After the first visit downloads and caches the model weights, the engine is torn down to free GPU memory. On all subsequent visits, nothing happens until the user taps the chat bubble — then the engine loads from the browser's Cache API (fast, no network).
 
 ### Updating the chatbot
 

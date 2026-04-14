@@ -99,8 +99,8 @@ body {{ font-family: var(--font-body); font-size: 15px; line-height: 1.6; color:
 /* Masthead */
 .masthead {{ text-align: center; border-top: 3px solid var(--rule); padding: 10px 0; border-bottom: 3px solid var(--rule); margin-bottom: 16px; }}
 .masthead__meta {{ font-family: var(--font-sans); font-size: 9px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-mid); display: flex; justify-content: space-between; padding-bottom: 6px; }}
-.masthead__title {{ font-family: var(--font-display); font-size: clamp(32px, 6vw, 48px); font-weight: 900; line-height: 1; padding: 6px 0; border-top: 1px solid var(--rule); }}
-.masthead__tagline {{ font-family: var(--font-display); font-style: italic; font-size: 13px; color: var(--ink-mid); padding: 4px 0; }}
+.masthead__title {{ font-family: var(--font-display); font-size: clamp(48px, 8vw, 72px); font-weight: 900; line-height: 1; letter-spacing: -1px; padding: 6px 0; border-top: 1px solid var(--rule); }}
+.masthead__tagline {{ font-family: var(--font-display); font-style: italic; font-size: 12px; color: var(--ink-mid); padding: 4px 0 10px; border-bottom: 3px solid var(--rule); }}
 
 /* Tabs */
 .tab-bar {{ display: flex; border-bottom: 2px solid var(--rule); overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; }}
@@ -259,12 +259,12 @@ tr:hover td {{ background: var(--paper-tinted); }}
 <div class="sticky-header">
 <header class="masthead">
   <div class="masthead__meta">
-    <span>DATA ROOM</span>
-    <span>AMARAVATI CAPITAL REGION</span>
-    <span>{stats['total_plots']:,} PLOTS &middot; {num_villages} VILLAGES</span>
+    <span>VOL. I &middot; NO. 001</span>
+    <span>FRIDAY, APRIL 10, 2026</span>
+    <span>FOUNDING EDITION &middot; AMARAVATI, A.P.</span>
   </div>
   <h1 class="masthead__title"><a href="../index.html" style="color:inherit;text-decoration:none;">The Amaravati Record</a></h1>
-  <p class="masthead__tagline">Behind the numbers &mdash; explore the caste distribution of land beneficiaries</p>
+  <p class="masthead__tagline">&ldquo;Independent reporting on the making of a capital&rdquo; &mdash; Est. 2026</p>
 </header>
 
 <!-- TABS -->

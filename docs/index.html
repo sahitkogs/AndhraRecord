@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Amaravati Record</title>
+  <meta name="description" content="Independent data journalism on Amaravati. Choose English or Telugu.">
+  <link rel="canonical" href="https://sahitkogs.github.io/TheAmaravatiRecord/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;700&family=Playfair+Display:wght@700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+  <script>
+    var LANG_KEY = 'amaravati_lang';
+    var saved = null;
+    try { saved = localStorage.getItem(LANG_KEY); } catch(e) {}
+    if (saved === 'en' || saved === 'te') {
+      location.replace(saved + '/index.html');
+    }
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: #faf8f4;
+      color: #1a1715;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .picker {
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+    .picker__rule {
+      border: none;
+      border-top: 3px solid #1a1715;
+      margin-bottom: 20px;
+    }
+    .picker__title-en {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 7vw, 48px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 6px;
+    }
+    .picker__title-te {
+      font-family: 'Noto Sans Telugu', sans-serif;
+      font-size: clamp(22px, 5.5vw, 36px);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #4a4540;
+      margin-bottom: 20px;
+    }
+    .picker__rule2 {
+      border: none;
+      border-top: 1px solid #9a9590;
+      margin-bottom: 20px;
+    }
+    .picker__prompt {
+      font-size: 15px;
+      color: #4a4540;
+      margin-bottom: 6px;
+    }
+    .picker__prompt-te {
+      font-family: 'Noto Sans Telugu', sans-serif;
+      font-size: 14px;
+      color: #8a8580;
+      margin-bottom: 24px;
+    }
+    .picker__buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .picker__btn {
+      flex: 1;
+      max-width: 180px;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: 2px solid #1a1715;
+      background: none;
+      color: #1a1715;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .picker__btn:hover {
+      background: #1a1715;
+      color: #faf8f4;
+    }
+    .picker__btn--te {
+      font-family: 'Noto Sans Telugu', sans-serif;
+      font-size: 17px;
+    }
+    .picker__note {
+      font-size: 11px;
+      color: #8a8580;
+      line-height: 1.5;
+    }
+    .picker__note-te {
+      font-family: 'Noto Sans Telugu', sans-serif;
+    }
+    .picker__rule3 {
+      border: none;
+      border-top: 3px solid #1a1715;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="picker">
+    <hr class="picker__rule">
+    <div class="picker__title-en">The Amaravati Record</div>
+    <div class="picker__title-te">ది అమరావతి రికార్డ్</div>
+    <hr class="picker__rule2">
+    <div class="picker__prompt">Choose your language</div>
+    <div class="picker__prompt-te">భాష ఎంచుకోండి</div>
+    <div class="picker__buttons">
+      <button class="picker__btn" onclick="chooseLang('en')">English</button>
+      <button class="picker__btn picker__btn--te" onclick="chooseLang('te')">తెలుగు</button>
+    </div>
+    <div class="picker__note">You can change this later from any page.</div>
+    <div class="picker__note picker__note-te">ఏ పేజీ నుండైనా మీరు దీన్ని మార్చుకోవచ్చు.</div>
+    <hr class="picker__rule3">
+  </div>
+  <script>
+    function chooseLang(lang) {
+      try { localStorage.setItem('amaravati_lang', lang); } catch(e) {}
+      location.replace(lang + '/index.html');
+    }
+  </script>
+</body>
+</html>

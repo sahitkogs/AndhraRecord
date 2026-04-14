@@ -135,7 +135,7 @@ var AndhraRecord = (function () {
     var mastheadEl = document.getElementById('site-masthead');
     if (mastheadEl) {
       var icon = theme === 'dark' ? '\u2600' : '\u263D';
-      var logoSrc = base + 'logo.svg';
+      var logoSrc = base + 'logo.svg?v=2';
 
       mastheadEl.innerHTML =
         '<header class="site-bar">' +

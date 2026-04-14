@@ -129,6 +129,12 @@ html[data-theme="dark"] .site-bar {
   border-bottom-color: #333 !important;
 }
 
+/* Force consistent top spacing on all page wrappers */
+.broadsheet,
+.container {
+  padding-top: 2px !important;
+}
+
 /* ================================================================
    SITE BAR — CNN-style logo + nav + utilities
    ================================================================ */

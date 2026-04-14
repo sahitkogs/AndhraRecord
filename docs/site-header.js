@@ -31,11 +31,25 @@ var AmaravatiHeader = (function () {
     return '';
   }
 
+  // Inject site-header.css to enforce identical styling everywhere
+  function injectCSS(base) {
+    var href = base + 'site-header.css';
+    if (!document.querySelector('link[href="' + href + '"]')) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = href;
+      document.head.appendChild(link);
+    }
+  }
+
   function render(opts) {
     opts = opts || {};
     var page = opts.page || '';          // e.g. 'about', 'reports', 'index'
     var base = getBase();                // '' from root, '../' from subfolders
     var pagesBase = base + 'pages/';
+
+    // Inject shared header CSS
+    injectCSS(base);
 
     // ── Masthead ──
     var mastheadEl = document.getElementById('site-masthead');

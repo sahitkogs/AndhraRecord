@@ -1,0 +1,121 @@
+/* ================================================================
+   The Amaravati Record — Shared Header Styles
+   ----------------------------------------------------------------
+   Ensures the masthead, nav, and footer look identical on every
+   page, including reports with inline CSS. Loaded by site-header.js.
+   Uses !important to override any inline styles.
+   ================================================================ */
+
+/* ---- Masthead ---- */
+.masthead {
+  text-align: center !important;
+  border-top: 3px solid var(--rule) !important;
+  border-bottom: none !important;
+  padding: 10px 0 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.masthead__meta {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  font-family: var(--font-sans) !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+  color: var(--ink-mid) !important;
+  padding-bottom: 6px !important;
+  gap: 8px !important;
+  white-space: normal !important;
+}
+
+.masthead__title {
+  font-family: var(--font-display) !important;
+  font-size: clamp(42px, 9vw, 84px) !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+  letter-spacing: -1.5px !important;
+  padding: 6px 0 !important;
+  border-top: 1px solid var(--rule) !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  text-overflow: clip !important;
+}
+
+.masthead__title a {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+.masthead__tagline {
+  display: block !important;
+  font-family: var(--font-display) !important;
+  font-style: italic !important;
+  font-size: 13px !important;
+  color: var(--ink-mid) !important;
+  padding: 4px 0 10px !important;
+  border-bottom: 3px solid var(--rule) !important;
+}
+
+/* ---- Nav ---- */
+.nav {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 2px !important;
+  padding: 10px 0 !important;
+  border-bottom: 1px solid var(--rule-light) !important;
+  margin-bottom: 12px !important;
+}
+
+.nav a {
+  padding: 6px 16px !important;
+  color: var(--ink) !important;
+  text-decoration: none !important;
+  border-right: 1px solid var(--rule-light) !important;
+}
+.nav a:last-child { border-right: none !important; }
+.nav a:hover { background: var(--paper-tinted) !important; }
+.nav a.is-current { color: var(--red) !important; }
+
+/* ---- Footer ---- */
+.colophon {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+  gap: 8px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 9px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  color: var(--ink-light) !important;
+  border-top: 3px solid var(--rule) !important;
+  padding-top: 12px !important;
+}
+.colophon a { color: var(--ink-light) !important; }
+.colophon a:hover { color: var(--ink) !important; }
+
+/* ---- Mobile (matches styles.css breakpoint) ---- */
+@media (max-width: 880px) {
+  .masthead__meta {
+    font-size: 8px !important;
+    letter-spacing: 1px !important;
+  }
+  .masthead__meta span:nth-child(3) {
+    display: none !important;
+  }
+
+  .nav {
+    font-size: 10px !important;
+    letter-spacing: 1.2px !important;
+    padding: 8px 0 !important;
+  }
+  .nav a { padding: 5px 10px !important; }
+}

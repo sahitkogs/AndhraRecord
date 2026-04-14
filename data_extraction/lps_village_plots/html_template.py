@@ -261,6 +261,7 @@ tr:hover td {{ background: var(--paper-tinted); }}
 <!-- STICKY HEADER (masthead + tabs) -->
 <div class="sticky-header">
 <div id="site-masthead"></div>
+<div id="site-nav"></div>
 <script>AmaravatiHeader.render({{ page: '' }});</script>
 </header>
 

@@ -86,11 +86,11 @@ var AmaravatiHeader = (function () {
       var icon = theme === 'dark' ? '\u2600' : '\u263D';
       mastheadEl.innerHTML =
         '<header class="masthead">' +
-        '  <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">' + icon + '</button>' +
         '  <div class="masthead__meta">' +
         '    <span>VOL. I &middot; NO. 001</span>' +
         '    <span>FRIDAY, APRIL 10, 2026</span>' +
         '    <span>FOUNDING EDITION &middot; AMARAVATI, A.P.</span>' +
+        '    <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">' + icon + '</button>' +
         '  </div>' +
         '  <h1 class="masthead__title"><a href="' + base + 'index.html" style="color:inherit;text-decoration:none;">The Amaravati Record</a></h1>' +
         '  <p class="masthead__tagline">&ldquo;Independent reporting on the making of a capital&rdquo; &mdash; Est. 2026</p>' +

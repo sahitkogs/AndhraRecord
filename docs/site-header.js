@@ -22,6 +22,12 @@ var AndhraRecord = (function () {
   var STRINGS = {
     en: {
       home: 'Home', reports: 'Reports', about: 'About', support: 'Support',
+      ticker: [
+        'LAND POOLING DATA: KAMMA COMMUNITY HOLDS 57.4% OF 47,993 ALLOCATED PLOTS ACROSS 26 VILLAGES',
+        'NEXT LARGEST GROUPS: KAPU 13.0% AND REDDY 5.0% &mdash; FULL BREAKDOWN IN THE DASHBOARD',
+        'CAPITAL TRACKER NOW MONITORING 20 CONSTRUCTION SITES ACROSS THE KRISHNA&ndash;GUNTUR CORRIDOR',
+        'SURNAME DIRECTORY EXPANDS TO 15,000+ ENTRIES ACROSS 50+ CASTE CATEGORIES'
+      ],
       footer1: 'ANDHRA RECORD &middot; EST. 2026',
       privacy: 'Privacy', cookies: 'Cookies', terms: 'Terms',
       editorial: 'Editorial', corrections: 'Corrections', ai: 'AI',
@@ -32,6 +38,12 @@ var AndhraRecord = (function () {
     },
     te: {
       home: '\u0C39\u0C4B\u0C2E\u0C4D', reports: '\u0C28\u0C3F\u0C35\u0C47\u0C26\u0C3F\u0C15\u0C32\u0C41', about: '\u0C17\u0C41\u0C30\u0C3F\u0C02\u0C1A\u0C3F', support: '\u0C2E\u0C26\u0C4D\u0C26\u0C24\u0C41',
+      ticker: [
+        '\u0C2D\u0C42 \u0C38\u0C2E\u0C40\u0C15\u0C30\u0C23 \u0C21\u0C47\u0C1F\u0C3E: 26 \u0C17\u0C4D\u0C30\u0C3E\u0C2E\u0C3E\u0C32\u0C32\u0C4B 47,993 \u0C15\u0C47\u0C1F\u0C3E\u0C2F\u0C3F\u0C02\u0C2A\u0C41 \u0C2A\u0C4D\u0C32\u0C3E\u0C1F\u0C4D\u0C32\u0C32\u0C4B 57.4% \u0C15\u0C2E\u0C4D\u0C2E \u0C15\u0C41\u0C32\u0C3E\u0C28\u0C3F\u0C15\u0C3F',
+        '\u0C24\u0C26\u0C41\u0C2A\u0C30\u0C3F \u0C2A\u0C46\u0C26\u0C4D\u0C26 \u0C38\u0C2E\u0C42\u0C39\u0C3E\u0C32\u0C41: \u0C15\u0C3E\u0C2A\u0C41 13.0% \u0C2E\u0C30\u0C3F\u0C2F\u0C41 \u0C30\u0C46\u0C21\u0C4D\u0C21\u0C3F 5.0% &mdash; \u0C2A\u0C42\u0C30\u0C4D\u0C24\u0C3F \u0C35\u0C3F\u0C35\u0C30\u0C3E\u0C32\u0C41 \u0C21\u0C3E\u0C37\u0C4D\u200C\u0C2C\u0C4B\u0C30\u0C4D\u0C21\u0C4D\u200C\u0C32\u0C4B',
+        '\u0C15\u0C4D\u0C2F\u0C3E\u0C2A\u0C3F\u0C1F\u0C32\u0C4D \u0C1F\u0C4D\u0C30\u0C3E\u0C15\u0C30\u0C4D: \u0C15\u0C43\u0C37\u0C4D\u0C23\u0C3E&ndash;\u0C17\u0C41\u0C02\u0C1F\u0C42\u0C30\u0C41 \u0C15\u0C3E\u0C30\u0C3F\u0C21\u0C3E\u0C30\u0C4D\u200C\u0C32\u0C4B 20 \u0C28\u0C3F\u0C30\u0C4D\u0C2E\u0C3E\u0C23 \u0C2A\u0C4D\u0C30\u0C26\u0C47\u0C36\u0C3E\u0C32 \u0C2A\u0C30\u0C4D\u0C2F\u0C35\u0C47\u0C15\u0C4D\u0C37\u0C23',
+        '\u0C07\u0C02\u0C1F\u0C3F\u0C2A\u0C47\u0C30\u0C4D\u0C32 \u0C38\u0C02\u0C15\u0C32\u0C28\u0C02: 50+ \u0C15\u0C41\u0C32 \u0C35\u0C30\u0C4D\u0C17\u0C3E\u0C32\u0C32\u0C4B 15,000+ \u0C07\u0C02\u0C1F\u0C3F\u0C2A\u0C47\u0C30\u0C4D\u0C32\u0C41'
+      ],
       footer1: '\u0C06\u0C02\u0C27\u0C4D\u0C30 \u0C30\u0C3F\u0C15\u0C3E\u0C30\u0C4D\u0C21\u0C4D &middot; \u0C38\u0C4D\u0C25\u0C3E\u0C2A\u0C28 2026',
       privacy: '\u0C17\u0C4B\u0C2A\u0C4D\u0C2F\u0C24', cookies: '\u0C15\u0C41\u0C15\u0C40\u0C32\u0C41', terms: '\u0C28\u0C3F\u0C2C\u0C02\u0C27\u0C28\u0C32\u0C41',
       editorial: '\u0C38\u0C02\u0C2A\u0C3E\u0C26\u0C15\u0C40\u0C2F\u0C02', corrections: '\u0C38\u0C35\u0C30\u0C23\u0C32\u0C41', ai: 'AI',
@@ -154,6 +166,19 @@ var AndhraRecord = (function () {
         '  </div>' +
         '</header>';
 
+      // Render ticker inside masthead (so it's part of the sticky block)
+      var tickerItems = s.ticker;
+      var tickerHTML = '<div class="ticker" aria-label="Headlines"><div class="ticker__track">';
+      for (var t = 0; t < tickerItems.length; t++) {
+        tickerHTML += '<span class="ticker__item">' + tickerItems[t] + '</span><span class="ticker__sep">&#9670;</span>';
+      }
+      // Duplicate for seamless loop
+      for (var t2 = 0; t2 < tickerItems.length; t2++) {
+        tickerHTML += '<span class="ticker__item">' + tickerItems[t2] + '</span><span class="ticker__sep">&#9670;</span>';
+      }
+      tickerHTML += '</div></div>';
+      mastheadEl.innerHTML += tickerHTML;
+
       // Bind toggles
       var themeBtns = mastheadEl.querySelectorAll('.theme-toggle');
       for (var b = 0; b < themeBtns.length; b++) {
@@ -164,25 +189,6 @@ var AndhraRecord = (function () {
       var langBtns = mastheadEl.querySelectorAll('.lang-toggle');
       for (var l = 0; l < langBtns.length; l++) {
         langBtns[l].addEventListener('click', switchLang);
-      }
-    }
-
-    // ── Sticky ticker: set top dynamically based on header height ──
-    // Deferred because ticker HTML appears after the render() call in the page
-    if (mastheadEl) {
-      var stickyMasthead = mastheadEl;
-      function setTickerSticky() {
-        var ticker = document.querySelector('.ticker');
-        if (ticker) {
-          ticker.style.top = stickyMasthead.offsetHeight + 'px';
-        }
-      }
-      // Try immediately, then again after DOM is ready
-      setTickerSticky();
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setTickerSticky);
-      } else {
-        setTimeout(setTickerSticky, 0);
       }
     }
 

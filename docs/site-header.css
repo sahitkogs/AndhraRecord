@@ -138,11 +138,6 @@ html[data-theme="dark"] .site-bar {
   padding-top: 2px !important;
 }
 
-.ticker {
-  position: sticky !important;
-  z-index: 999 !important;
-  /* top is set dynamically by JS based on header height */
-}
 
 /* Force consistent top spacing on all page wrappers */
 .broadsheet,

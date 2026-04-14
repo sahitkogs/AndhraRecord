@@ -5,9 +5,11 @@
    then call: AmaravatiHeader.render({ page: 'about' })
 
    The script detects its own depth (pages/, reports/, or root)
-   and sets link prefixes automatically. It also injects
-   site-header.css to ensure consistent masthead styling even on
-   pages with inline CSS (like reports).
+   and sets link prefixes automatically.
+
+   This is a pure HTML template — each page controls its own
+   masthead CSS (via styles.css or inline styles). This script
+   only ensures the content (text, links) is identical everywhere.
    ================================================================ */
 
 var AmaravatiHeader = (function () {
@@ -29,26 +31,11 @@ var AmaravatiHeader = (function () {
     return '';
   }
 
-  // Inject site-header.css if not already present
-  function injectCSS(base) {
-    var cssHref = base + 'site-header.css';
-    var existing = document.querySelector('link[href="' + cssHref + '"]');
-    if (!existing) {
-      var link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = cssHref;
-      document.head.appendChild(link);
-    }
-  }
-
   function render(opts) {
     opts = opts || {};
     var page = opts.page || '';          // e.g. 'about', 'reports', 'index'
     var base = getBase();                // '' from root, '../' from subfolders
     var pagesBase = base + 'pages/';
-
-    // Inject shared CSS
-    injectCSS(base);
 
     // ── Masthead ──
     var mastheadEl = document.getElementById('site-masthead');
@@ -60,7 +47,7 @@ var AmaravatiHeader = (function () {
         '    <span>FRIDAY, APRIL 10, 2026</span>' +
         '    <span>FOUNDING EDITION &middot; AMARAVATI, A.P.</span>' +
         '  </div>' +
-        '  <h1 class="masthead__title"><a href="' + base + 'index.html">The Amaravati Record</a></h1>' +
+        '  <h1 class="masthead__title"><a href="' + base + 'index.html" style="color:inherit;text-decoration:none;">The Amaravati Record</a></h1>' +
         '  <p class="masthead__tagline">&ldquo;Independent reporting on the making of a capital&rdquo; &mdash; Est. 2026</p>' +
         '</header>';
     }

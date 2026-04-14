@@ -253,6 +253,7 @@ tr:hover td {{ background: var(--paper-tinted); }}
   .tab-content {{ display: block !important; }}
 }}
 </style>
+<link rel="stylesheet" href="../site-header.css">
 <script src="../site-header.js"></script>
 </head>
 <body>

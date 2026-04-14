@@ -285,6 +285,47 @@ def build_page(name: str) -> None:
     print(f"  BUILT {dst.name} ({len(html):,} bytes)")
 
 
+def build_telugu_page(name: str) -> None:
+    """Read docs/te/{name}.src.html, inject chatbot, write docs/te/{name}.html."""
+    te_dir = DOCS_DIR / "te"
+    if name == "index":
+        page_dir = te_dir
+    else:
+        page_dir = te_dir / "pages"
+    src = page_dir / f"{name}.src.html"
+    dst = page_dir / f"{name}.html"
+
+    if not src.exists():
+        return  # Telugu page not yet translated — skip silently
+
+    cfg = PAGES.get(name)
+    if not cfg:
+        return
+
+    html = src.read_text(encoding="utf-8")
+
+    system_prompt = (
+        "You are the reader assistant for The Amaravati Record (ది అమరావతి రికార్డ్), "
+        "an independent data-journalism publication. You are on the Telugu version of the "
+        f'"{cfg["title"]}" page. Respond in Telugu. Use formal, Sanskritized Telugu. '
+        "Keep English for acronyms (APCRDA, LPS, GIS) and use Arabic numerals for data."
+    )
+
+    html = inject_chatbot(
+        html,
+        assistant_name="రికార్డ్‌ను అడగండి",
+        system_prompt=system_prompt,
+        welcome_message="ఈ పేజీ గురించి మీకు ఏవైనా ప్రశ్నలు ఉన్నాయా?",
+        suggestions=cfg.get("suggestions", []),
+        default_backend="webllm",
+        custom_css=THEME_NEWSPAPER,
+        storage_prefix="amaravati",
+    )
+
+    dst.write_text(html, encoding="utf-8")
+    print(f"  BUILT te/{name}.html ({len(html):,} bytes)")
+
+
 def main():
     print("Building The Amaravati Record site pages...")
     if len(sys.argv) > 1:
@@ -292,9 +333,13 @@ def main():
         for name in sys.argv[1:]:
             build_page(name)
     else:
-        # Build all
+        # Build all English pages
         for name in PAGES:
             build_page(name)
+        # Build available Telugu pages
+        print("Building Telugu pages...")
+        for name in PAGES:
+            build_telugu_page(name)
     print("Done.")
 
 

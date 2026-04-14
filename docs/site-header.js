@@ -16,9 +16,7 @@
   var THEME_KEY = 'amaravati_theme';
   var saved = null;
   try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
-  if (saved === 'dark' || saved === 'light') {
-    document.documentElement.setAttribute('data-theme', saved);
-  }
+  document.documentElement.setAttribute('data-theme', (saved === 'dark' || saved === 'light') ? saved : 'light');
 })();
 
 var AmaravatiHeader = (function () {
@@ -30,8 +28,8 @@ var AmaravatiHeader = (function () {
     var saved = null;
     try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
     if (saved === 'dark' || saved === 'light') return saved;
-    // Fall back to system preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    // Default to light mode regardless of system preference
+    return 'light';
   }
 
   function setTheme(theme) {

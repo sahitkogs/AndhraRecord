@@ -23,7 +23,9 @@ html[lang="te"] .masthead__tagline {
 }
 
 html[lang="te"] .masthead__title {
-  font-size: clamp(36px, 8vw, 72px) !important;
+  font-size: clamp(32px, 7vw, 64px) !important;
+  padding-right: 16px !important;
+  word-break: keep-all !important;
 }
 
 html[lang="te"] .masthead__meta,
@@ -65,12 +67,15 @@ html[lang="te"] .feature__headline {
 
 /* Telugu drop cap: disable the Latin drop-cap styling — Telugu conjuncts
    have unpredictable widths and line-heights that break float layout */
-html[lang="te"] .drop-cap::first-letter {
+html[lang="te"] .drop-cap::first-letter,
+html[lang="te"] p.drop-cap::first-letter {
   float: none !important;
-  font-size: inherit !important;
+  font-size: 1em !important;
+  font-weight: inherit !important;
   line-height: inherit !important;
-  padding-right: 0 !important;
-  padding-top: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: inherit !important;
 }
 
 html[lang="te"] .byline,

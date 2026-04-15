@@ -301,7 +301,7 @@ html[data-theme="dark"] .mobile-menu a {
 @media (max-width: 880px) {
   .burger { display: block !important; }
   .site-bar__nav { display: none !important; }
-  .site-bar__logo svg { height: 22px !important; }
+  .site-bar__logo svg { height: 26px !important; }
 
   .lead__headline, .feature__headline, .story__headline { font-size: 22px !important; }
   .lead__deck, .feature__deck, .sidebar__headline { font-size: 18px !important; }

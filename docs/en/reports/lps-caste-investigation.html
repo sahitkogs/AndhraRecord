@@ -703,68 +703,41 @@
           <p class="sidebar__body">This analysis assigns caste using AI-assisted per-name classification backed by a 15,056-surname reference database. Less than 1% of names could not be classified. Some surnames are shared across communities. The AI model uses the full name, village context, and surname references to make its determination. The figures should be read as strong indicators of a trend, not precise census data.</p>
         </article>
 
-    <!-- ===== SECONDARY STORIES ===== -->
-    <div class="stories-row">
-
-      <article class="story">
-        <div class="category">VILLAGE BREAKDOWN</div>
-        <h3 class="story__headline">Pattern Holds Across All 25 Villages Without Exception</h3>
-        <p class="byline">BY DATA DESK &ensp;|&ensp; VILLAGE-WISE ANALYSIS</p>
-        <p class="story__body">From Nowlur (9,021 plots) to Undavalli (377 plots), every village in the Amaravati capital region shows a similar pattern of caste distribution. Nowlur, the largest village by plot count, mirrors the overall Kamma-dominant pattern. Smaller villages like Velagapudi and Mandadam show comparable ratios. No village departs meaningfully from the aggregate finding, suggesting the pattern is systemic rather than localised to any particular area.</p>
-      </article>
-
-      <article class="story">
-        <div class="category">COMMERCIAL PLOTS</div>
-        <h3 class="story__headline">Valuable Commercial Land Follows the Same Distribution</h3>
-        <p class="byline">BY DATA DESK &ensp;|&ensp; ZONE ANALYSIS</p>
-        <p class="story__body">Commercial plots &mdash; land zoned for shops, offices, and business activity, and typically more valuable than residential plots &mdash; show a caste distribution nearly identical to residential land. This means the concentration is not limited to lower-value residential allotments. The most commercially valuable land in the new capital also follows the same pattern of allocation.</p>
-      </article>
-
-      <article class="story">
-        <div class="category">THE NUMBERS</div>
-        <h3 class="story__headline">About 1,131 Acres of Capital Land Covered in This Analysis</h3>
-        <p class="byline">BY DATA DESK &ensp;|&ensp; AREA ANALYSIS</p>
-        <p class="story__body">The 47,993 plots analysed cover approximately 778 acres of land (33.9 million square feet). When measured by total land area rather than plot count, the caste distribution remains largely consistent with the plot-count figures, meaning the Kamma community's share is not inflated by receiving many small plots &mdash; the plots themselves are of comparable size across communities.</p>
-      </article>
-
-    </div>
 
     <!-- ===== LOWER FOLD ===== -->
     <div class="lower-fold-flat">
 
-      <!-- HOW THE DATA WAS PROCESSED -->
-      <div class="letters">
-        <div class="letters__super">DATA SOURCE &amp; PROCESS</div>
-        <h3 class="letters__title">How This Investigation Was Conducted</h3>
-
-        <div class="letter">
-          <div class="letter__from">STEP 1 &mdash; DATA COLLECTION</div>
-          <p class="letter__body">The raw data was scraped from the APCRDA Land Pooling Scheme portal (<code>gis.apcrda.org/lps/index.html</code>), an official government website that publishes details of every plot allocated under the Amaravati capital city plan. The portal is publicly accessible and requires no special permissions. The scraping captured 95,645 plot records with fields including plot code, village name, zone type, plot area, and farmer/landowner names.</p>
-        </div>
-
-        <div class="letter">
-          <div class="letter__from">STEP 2 &mdash; DATA CLEANING</div>
-          <p class="letter__body">Duplicate records were removed (the portal's data export contained ~25,000 duplicate rows due to pagination overlap, verified against the source API). Government and institutional entries (APCRDA allocations, AIS officers' plots, company-owned plots) were filtered out, leaving 47,993 unique individually-owned plots for analysis. Plots with no farmer name were excluded. Village name spelling variations (e.g. "Nowluru" vs "Nowlur") were normalised.</p>
-        </div>
-
-        <div class="letter">
-          <div class="letter__from">STEP 3 &mdash; SURNAME EXTRACTION</div>
-          <p class="letter__body">In Telugu naming convention, the first word of a person's name is typically their surname (family name). For each beneficiary, the surname was extracted from their name as listed in the government records. Common prefixes and first names appearing in the surname position were identified and handled. For plots with multiple owners, each name was processed individually.</p>
-        </div>
-
-        <div class="letter">
-          <div class="letter__from">STEP 4 &mdash; CASTE CLASSIFICATION</div>
-          <p class="letter__body">A reference database of 15,056 Telugu surnames was compiled from 19 community and election data sources, covering 33 caste categories. Each of the 30,444 unique beneficiary names was then classified using Google's Gemini 2.5 Flash AI model. The model was given the full name, village, and any matching surname references as supporting context &mdash; not as authoritative truth &mdash; and asked to identify the most specific caste community. Thinking mode was enabled so the model could reason through ambiguous cases. Over 99% of names were classified into 50+ specific caste communities, including previously invisible groups like Padmasali, Mudiraj, and Gouda.</p>
-        </div>
-
-        <div class="letter">
-          <div class="letter__from">STEP 5 &mdash; PLOT-LEVEL ASSIGNMENT</div>
-          <p class="letter__body">For plots with a single owner, the owner's caste became the plot's caste. For plots with multiple owners, the majority caste among the co-owners was assigned to the plot. In cases of a tie, the plot was marked "Mixed". Less than 1% of names could not be classified and were marked "Unknown".</p>
-        </div>
-      </div>
-
     </div>
     </div><!-- end .main-content -->
+
+        <article class="sidebar__article">
+          <div class="category">VILLAGE BREAKDOWN</div>
+          <h3 class="sidebar__headline">Pattern Holds Across All 25 Villages</h3>
+          <p class="sidebar__body">From Nowlur (9,021 plots) to Undavalli (377 plots), every village shows a similar caste distribution. No village departs meaningfully from the aggregate finding — the pattern is systemic, not localised.</p>
+        </article>
+
+        <article class="sidebar__article">
+          <div class="category">COMMERCIAL PLOTS</div>
+          <h3 class="sidebar__headline">Commercial Land Follows the Same Distribution</h3>
+          <p class="sidebar__body">Commercial plots — more valuable land for shops and businesses — show a caste distribution nearly identical to residential land. The concentration is not limited to lower-value allotments.</p>
+        </article>
+
+        <article class="sidebar__article">
+          <div class="category">THE NUMBERS</div>
+          <h3 class="sidebar__headline">778 Acres of Capital Land Analysed</h3>
+          <p class="sidebar__body">The 47,993 plots cover ~778 acres. When measured by area rather than plot count, the distribution is consistent — plots are of comparable size across communities.</p>
+        </article>
+
+        <div class="sidebar__widget">
+          <div class="widget__label">HOW THIS WAS DONE</div>
+          <div class="widget__body">
+            <p><strong>1. Collection</strong> &mdash; 95,645 plot records scraped from the official APCRDA portal.</p>
+            <p><strong>2. Cleaning</strong> &mdash; Duplicates removed, govt/corporate plots filtered out &rarr; 47,993 individual plots.</p>
+            <p><strong>3. Surnames</strong> &mdash; First word of each name extracted as surname per Telugu naming convention.</p>
+            <p><strong>4. Classification</strong> &mdash; 15,056 surname references + Gemini 2.5 Flash AI. 99%+ classified into 50+ communities.</p>
+            <p><strong>5. Assignment</strong> &mdash; Single owner &rarr; owner's caste. Multiple owners &rarr; majority caste. Ties &rarr; "Mixed".</p>
+          </div>
+        </div>
 
       <!-- KEY FACTS (in sidebar) -->
       <div class="sidebar__widget">

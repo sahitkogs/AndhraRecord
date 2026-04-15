@@ -51,26 +51,27 @@
     .badge--advisory { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber); }
     .badge--response { background: transparent; color: var(--red); border: 1px solid var(--red); }
     .byline { font-family: var(--font-sans); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-light); margin-bottom: 14px; }
-    .front-page { display: grid; grid-template-columns: 1fr 300px; border-bottom: 1px solid var(--rule-light); margin-bottom: 8px; padding-bottom: 8px; }
-    .lead { padding-right: 16px; border-right: 1px solid var(--rule-light); }
-    .lead__headline { font-family: var(--font-display); font-size: 24px; font-weight: 900; line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 6px; }
-    .lead__deck { font-family: var(--font-display); font-size: 16px; font-weight: 400; line-height: 1.4; color: var(--ink-mid); margin-bottom: 4px; }
-    .lead__body { line-height: 1.5; }
-    .lead__body p { margin-bottom: 6px; }
-    .drop-cap::first-letter { float: left; font-family: var(--font-display); font-size: 2em; line-height: 0.82; font-weight: 900; padding-right: 6px; padding-top: 4px; }
-    .inset-box { float: right; width: 260px; margin: 0 0 8px 12px; padding: 10px; border: 1.5px solid var(--rule); }
-    .inset-box__title { font-family: var(--font-sans); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-    .inset-box__detail { font-size: 14px; line-height: 1.45; color: var(--ink-mid); }
-    .progress-bar { margin: 8px 0 4px; height: 10px; background: var(--paper); border: 1px solid var(--rule); }
+    .front-page { display: grid; grid-template-columns: 1fr 300px; }
+    .main-content { padding-right: 16px; border-right: 1px solid var(--rule-light); min-width: 0; }
+    .lead { }
+    .lead__headline { font-family: var(--font-display); font-size: clamp(28px, 5vw, 40px); font-weight: 900; line-height: 1.05; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .lead__deck { font-family: var(--font-display); font-size: 16px; font-weight: 400; line-height: 1.4; color: var(--ink-mid); margin-bottom: 6px; }
+    .lead__body { line-height: 1.65; }
+    .lead__body p { margin-bottom: 12px; }
+    .drop-cap::first-letter { float: left; font-family: var(--font-display); font-size: 4.2em; line-height: 0.82; font-weight: 900; padding-right: 6px; padding-top: 4px; }
+    .inset-box { float: right; width: 210px; margin: 0 0 16px 20px; padding: 14px; border: 1.5px solid var(--rule); }
+    .inset-box__title { font-family: var(--font-sans); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .inset-box__detail { font-size: 12.5px; line-height: 1.5; color: var(--ink-mid); }
+    .progress-bar { margin: 10px 0 6px; height: 10px; background: var(--paper); border: 1px solid var(--rule); }
     .progress-bar__fill { height: 100%; background: repeating-linear-gradient(-45deg, var(--ink) 0px, var(--ink) 3px, transparent 3px, transparent 6px); }
-    .progress-bar__label { display: flex; justify-content: space-between; font-family: var(--font-sans); font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-mid); }
-    .pull-quote { font-family: var(--font-display); font-style: italic; font-size: 16px; line-height: 1.4; border-top: 2px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 8px 0; margin: 8px 0; clear: right; }
-    .column-text { column-count: 2; column-gap: 16px; column-rule: 1px solid var(--rule-light); }
-    .column-text p { margin-bottom: 6px; }
-    .sidebar { padding-left: 16px; }
-    .sidebar__widget { border: 1px solid var(--rule-light); padding: 10px; margin-bottom: 8px; }
-    .widget__label { font-family: var(--font-sans); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-mid); margin-bottom: 6px; }
-    .widget__body { font-size: 14px; line-height: 1.45; }
+    .progress-bar__label { display: flex; justify-content: space-between; font-family: var(--font-sans); font-size: 8.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-mid); }
+    .pull-quote { font-family: var(--font-display); font-style: italic; font-size: 16px; line-height: 1.45; border-top: 2px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 14px 0; margin: 20px 0; clear: right; }
+    .column-text { column-count: 2; column-gap: 24px; column-rule: 1px solid var(--rule-light); }
+    .column-text p { margin-bottom: 12px; }
+    .sidebar { padding-left: 24px; }
+    .sidebar__widget { border: 1px solid var(--rule-light); padding: 14px; margin-bottom: 16px; }
+    .widget__label { font-family: var(--font-sans); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--ink-mid); margin-bottom: 10px; }
+    .widget__body { font-size: 13px; line-height: 1.5; }
     .agents-table { width: 100%; font-size: 12px; border-collapse: collapse; }
     .agents-table td { padding: 3px 0; vertical-align: top; }
     .agents-table td:first-child { white-space: nowrap; padding-right: 8px; }
@@ -79,17 +80,18 @@
     .dot--active { background: var(--green); }
     .dot--busy { background: var(--amber); }
     .dot--idle { background: var(--ink-light); }
-    .sidebar__article { padding-top: 8px; margin-top: 8px; border-top: 1px solid var(--rule-light); }
+    .sidebar__article { padding-top: 16px; margin-top: 16px; border-top: 1px solid var(--rule-light); }
     .sidebar__article .category { margin-bottom: 4px; }
     .sidebar__headline { font-family: var(--font-display); font-size: 17px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
     .sidebar__body { font-size: 13px; line-height: 1.55; }
-    .stories-row { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--rule-light); margin-bottom: 8px; padding-bottom: 8px; }
+    .stories-row { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--rule-light); margin-bottom: 20px; padding-bottom: 20px; }
     .story { padding: 0 20px; border-left: 1px solid var(--rule-light); }
     .story:first-child { padding-left: 0; border-left: none; }
     .story:last-child { padding-right: 0; }
     .story__headline { font-family: var(--font-display); font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 6px; }
     .story__body { font-size: 13.5px; line-height: 1.55; }
-    .lower-fold { display: grid; grid-template-columns: 1fr 320px; border-top: 3px solid var(--rule); padding-top: 8px; margin-bottom: 8px; }
+    .lower-fold { display: grid; grid-template-columns: 1fr 320px; border-top: 3px solid var(--rule); padding-top: 20px; margin-bottom: 20px; }
+    .lower-fold-flat { border-top: 2px solid var(--rule); padding-top: 8px; margin-bottom: 8px; }
     .letters { padding-right: 24px; border-right: 1px solid var(--rule-light); }
     .letters__super { font-family: var(--font-sans); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 2.5px; color: var(--ink-mid); margin-bottom: 4px; }
     .letters__title { font-family: var(--font-display); font-style: italic; font-size: 20px; font-weight: 700; border-bottom: 1.5px solid var(--rule); padding-bottom: 12px; margin-bottom: 16px; }
@@ -117,7 +119,8 @@
 
       /* Lead story */
       .front-page { grid-template-columns: 1fr; }
-      .lead { padding-right: 0; border-right: none; border-bottom: 1px solid var(--rule-light); padding-bottom: 20px; margin-bottom: 20px; }
+      .main-content { padding-right: 0; border-right: none; }
+      .lead { border-bottom: 1px solid var(--rule-light); padding-bottom: 10px; margin-bottom: 10px; }
       .lead__deck { font-size: 18px; }
       .lead__body { font-size: 17px; }
 
@@ -589,6 +592,7 @@
 
     <!-- ===== FRONT PAGE ===== -->
     <main class="front-page">
+      <div class="main-content">
 
       <!-- LEAD STORY -->
       <article class="lead">
@@ -699,11 +703,8 @@
           <p class="sidebar__body">This analysis assigns caste using AI-assisted per-name classification backed by a 15,056-surname reference database. Less than 1% of names could not be classified. Some surnames are shared across communities. The AI model uses the full name, village context, and surname references to make its determination. The figures should be read as strong indicators of a trend, not precise census data.</p>
         </article>
 
-      </aside>
-    </main>
-
     <!-- ===== SECONDARY STORIES ===== -->
-    <section class="stories-row">
+    <div class="stories-row">
 
       <article class="story">
         <div class="category">VILLAGE BREAKDOWN</div>
@@ -726,10 +727,10 @@
         <p class="story__body">The 47,993 plots analysed cover approximately 778 acres of land (33.9 million square feet). When measured by total land area rather than plot count, the caste distribution remains largely consistent with the plot-count figures, meaning the Kamma community's share is not inflated by receiving many small plots &mdash; the plots themselves are of comparable size across communities.</p>
       </article>
 
-    </section>
+    </div>
 
     <!-- ===== LOWER FOLD ===== -->
-    <section class="lower-fold">
+    <div class="lower-fold-flat">
 
       <!-- HOW THE DATA WAS PROCESSED -->
       <div class="letters">
@@ -762,8 +763,8 @@
         </div>
       </div>
 
-      <!-- DISPATCH BOARD -->
-      <aside class="dispatch-board">
+      <!-- KEY FACTS -->
+      <div class="key-facts">
         <h3 class="dispatch-board__title">&#9670; KEY FACTS &#9670;</h3>
 
         <div class="dispatch-card">
@@ -785,9 +786,13 @@
           <div class="dispatch-card__label dispatch-card__label--recovery">INTERACTIVE REPORT</div>
           <p class="dispatch-card__body">A full interactive report with searchable data tables and Plotly charts is available as a companion file: <code>lps-caste-dashboard.html</code>. Open it in any web browser to explore village-wise and zone-wise breakdowns, or search for individual names.</p>
         </div>
-      </aside>
+      </div>
 
-    </section>
+    </div>
+    </div><!-- end .main-content -->
+
+      </aside>
+    </main>
 
     <!-- ===== COLOPHON ===== -->
     <footer class="colophon">

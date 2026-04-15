@@ -86,8 +86,13 @@ html[data-theme="dark"] .mobile-menu a {
   color: var(--ink) !important;
 }
 
-/* ---- Consistent top spacing ---- */
-.broadsheet, .container { padding-top: 2px !important; }
+/* ---- Consistent layout on all page wrappers ---- */
+.broadsheet, .container {
+  padding-top: 2px !important;
+  max-width: 1300px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+}
 
 /* ================================================================
    STICKY HEADER

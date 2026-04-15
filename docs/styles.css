@@ -76,9 +76,9 @@ code {
 }
 
 .broadsheet {
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 2px 40px 40px;
+  padding: 2px 24px 40px;
 }
 
 /* ================================================================
@@ -243,7 +243,7 @@ code {
    ================================================================ */
 .front-page {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 360px;
   border-bottom: 1px solid var(--rule-light);
   margin-bottom: 24px;
   padding-bottom: 24px;
@@ -251,7 +251,7 @@ code {
 
 /* LEAD */
 .lead {
-  padding-right: 28px;
+  padding-right: 20px;
   border-right: 1px solid var(--rule-light);
   min-width: 0;
 }
@@ -449,7 +449,7 @@ code {
   padding-bottom: 24px;
 }
 
-.story { padding: 0 20px; border-left: 1px solid var(--rule-light); min-width: 0; }
+.story { padding: 0 16px; border-left: 1px solid var(--rule-light); min-width: 0; }
 .story:first-child { padding-left: 0; border-left: none; }
 .story:last-child { padding-right: 0; }
 
@@ -472,14 +472,14 @@ code {
    ================================================================ */
 .lower-fold {
   display: grid;
-  grid-template-columns: 1fr 320px;
+  grid-template-columns: 1fr 360px;
   border-top: 3px solid var(--rule);
   padding-top: 24px;
   margin-bottom: 24px;
 }
 
 .letters {
-  padding-right: 28px;
+  padding-right: 20px;
   border-right: 1px solid var(--rule-light);
   min-width: 0;
 }

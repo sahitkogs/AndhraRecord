@@ -16,7 +16,10 @@ from pathlib import Path
 from chatbot_in_html import inject_chatbot
 from chatbot_in_html.themes import THEME_NEWSPAPER
 
-REPORTS_DIR = Path(__file__).parent / "docs" / "en" / "reports"
+REPORTS_DIRS = [
+    Path(__file__).parent / "docs" / "en" / "reports",
+    Path(__file__).parent / "docs" / "te" / "reports",
+]
 
 REPORTS = {
     "lps-caste-dashboard.html": {
@@ -28,8 +31,8 @@ REPORTS = {
             "Krishna-Guntur corridor. Key finding: Kamma community holds 57.4% of plots, "
             "followed by Kapu (13.0%) and Reddy (5.0%). Classification uses a 5,548-surname "
             "ground truth corpus + Gemini 2.5 Flash per-name classifier (99.6% rate). "
-            "The report has tabs: Overview, Plot Map, Village Breakdown, Data Sources & Process, "
-            "Search Raw Data. PII is masked. Answer concisely using markdown. "
+            "The report has tabs: Overview (investigation narrative), Numbers (statistics), Plot Map, "
+            "Village Breakdown, Data Sources & Process, Search Raw Data. PII is masked. Answer concisely using markdown. "
             "Do not invent numbers — use only what is in the report data."
         ),
         "welcome_message": "Ask me anything about this report. I can see the section you are currently viewing.",
@@ -38,24 +41,6 @@ REPORTS = {
             "Which villages have the most plots?",
             "Explain the methodology",
             "What are the confidence levels?",
-        ],
-    },
-    "lps-caste-investigation.html": {
-        "assistant_name": "Ask The Record",
-        "system_prompt": (
-            "You are the reader assistant for Andhra Record, embedded in the "
-            "Broadsheet Investigation report. This narrative investigation covers the "
-            "finding that 57.4% of 47,993 APCRDA Land Pooling Scheme plots are held by "
-            "the Kamma community across 26 villages. The report is written in broadsheet "
-            "newspaper format with a lead story, sidebar analysis, pull quotes, and a "
-            "dispatch board. Answer concisely using markdown. Do not invent numbers."
-        ),
-        "welcome_message": "Ask me about this investigation. I can help explain the findings and methodology.",
-        "suggestions": [
-            "What is the main finding?",
-            "How were the names classified?",
-            "What is the Kamma percentage?",
-            "Where does the data come from?",
         ],
     },
 }
@@ -135,9 +120,9 @@ def strip_old_chatbot(html: str) -> str:
     return html
 
 
-def refresh_report(filename: str) -> None:
+def refresh_report(filename: str, reports_dir: Path) -> None:
     """Strip old chatbot and re-inject with current library."""
-    filepath = REPORTS_DIR / filename
+    filepath = reports_dir / filename
     if not filepath.exists():
         print(f"  SKIP {filename} — not found")
         return
@@ -173,8 +158,10 @@ def refresh_report(filename: str) -> None:
 
 def main():
     print("Refreshing report chatbots...")
-    for filename in REPORTS:
-        refresh_report(filename)
+    for reports_dir in REPORTS_DIRS:
+        print(f"\n  Directory: {reports_dir}")
+        for filename in REPORTS:
+            refresh_report(filename, reports_dir)
     print("Done.")
 
 

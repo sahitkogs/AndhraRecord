@@ -234,11 +234,6 @@ html[data-theme="dark"] .mobile-menu a {
   color: #a8a49d !important;
   margin-top: 40px !important;
   padding: 32px 40px 20px !important;
-  /* Break out of .broadsheet container to go full-width */
-  margin-left: -24px !important;
-  margin-right: -24px !important;
-  padding-left: 40px !important;
-  padding-right: 40px !important;
 }
 .site-footer__grid {
   display: grid !important;

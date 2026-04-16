@@ -209,6 +209,7 @@ html[data-theme="dark"] .mobile-menu a {
    TICKER
    ================================================================ */
 .ticker {
+  display: none !important;
   background: var(--ink) !important; color: var(--paper) !important;
   padding: 6px 0 !important; font-family: var(--font-sans) !important;
   font-size: 12px !important; font-weight: 600 !important;

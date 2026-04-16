@@ -199,6 +199,7 @@ tr:hover td {{ background: var(--paper-tinted); }}
 
 .progress-bar {{ height: 10px; background: var(--rule-light); border-radius: 2px; overflow: hidden; margin: 6px 0; }}
 .progress-bar span {{ display: block; height: 100%; border-radius: 2px; }}
+.progress-bar__label {{ display: flex; justify-content: space-between; font-family: var(--font-sans); font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--ink-mid); margin-top: 4px; }}
 
 .pull-quote {{ font-family: var(--font-display); font-size: 20px; font-style: italic; line-height: 1.4; border-top: 2px solid var(--rule); border-bottom: 2px solid var(--rule); padding: 14px 0; margin: 20px 0; color: var(--ink-mid); text-align: center; }}
 

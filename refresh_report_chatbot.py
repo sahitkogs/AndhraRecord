@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Strip old chatbot from report HTML files and re-inject with current library.
 
-The report files (lps-caste-dashboard.html, lps-caste-investigation.html) have
+The report file (lps-caste-dashboard.html) has
 an old version of the chatbot baked in with hardcoded cyan colors, old model
 lists, and missing features. This script strips the old chatbot CSS/HTML/JS
 and re-injects using the current chatbot-in-html library with the newspaper theme.

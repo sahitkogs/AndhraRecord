@@ -23,8 +23,7 @@
 │   │   ├── index.html / index.src.html
 │   │   ├── pages/                 # Secondary pages (about, reports, legal, etc.)
 │   │   └── reports/               # Published investigations
-│   │       ├── lps-caste-dashboard.html
-│   │       └── lps-caste-investigation.html
+│   │       └── lps-caste-dashboard.html
 │   └── te/                        # Telugu content
 │       ├── index.html / index.src.html
 │       └── pages/                 # Translated pages (about, reports)

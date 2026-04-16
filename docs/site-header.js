@@ -28,7 +28,7 @@ var AndhraRecord = (function () {
       footerCols: [
         { title: 'Reports', links: [
           { label: 'Caste Dashboard', page: 'reports/lps-caste-dashboard.html', isReport: true },
-          { label: 'Investigation', page: 'reports/lps-caste-investigation.html', isReport: true },
+          { label: 'Investigation', page: 'reports/lps-caste-dashboard.html', isReport: true },
           { label: 'Capital Tracker', href: 'https://sahitkogs.github.io/amaravati-tracker-staging/', external: true }
         ]},
         { title: 'About', links: [
@@ -63,7 +63,7 @@ var AndhraRecord = (function () {
       footerCols: [
         { title: '\u0C28\u0C3F\u0C35\u0C47\u0C26\u0C3F\u0C15\u0C32\u0C41', links: [
           { label: '\u0C15\u0C41\u0C32 \u0C21\u0C3E\u0C37\u0C4D\u200C\u0C2C\u0C4B\u0C30\u0C4D\u0C21\u0C4D', page: 'reports/lps-caste-dashboard.html', isReport: true },
-          { label: '\u0C2A\u0C30\u0C3F\u0C36\u0C4B\u0C27\u0C28', page: 'reports/lps-caste-investigation.html', isReport: true },
+          { label: '\u0C2A\u0C30\u0C3F\u0C36\u0C4B\u0C27\u0C28', page: 'reports/lps-caste-dashboard.html', isReport: true },
           { label: '\u0C15\u0C4D\u0C2F\u0C3E\u0C2A\u0C3F\u0C1F\u0C32\u0C4D \u0C1F\u0C4D\u0C30\u0C3E\u0C15\u0C30\u0C4D', href: 'https://sahitkogs.github.io/amaravati-tracker-staging/', external: true }
         ]},
         { title: '\u0C17\u0C41\u0C30\u0C3F\u0C02\u0C1A\u0C3F', links: [

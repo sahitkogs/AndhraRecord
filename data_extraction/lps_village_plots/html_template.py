@@ -183,8 +183,8 @@ tr:hover td {{ background: var(--paper-tinted); }}
 .badge--amber {{ background: var(--amber-bg); color: var(--amber); }}
 .byline {{ font-family: var(--font-sans); font-size: 11px; color: var(--ink-mid); margin-top: 6px; }}
 
-#tab-overview .front-page {{ border-bottom: 3px solid var(--rule); padding-bottom: 20px; margin-bottom: 20px; }}
-#tab-overview .main-content {{ display: grid; grid-template-columns: 1fr 300px; gap: 30px; }}
+#tab-overview .front-page {{ display: grid; grid-template-columns: 1fr 300px; border-bottom: 3px solid var(--rule); padding-bottom: 20px; margin-bottom: 20px; }}
+#tab-overview .main-content {{ padding-right: 16px; border-right: 1px solid var(--rule-light); min-width: 0; }}
 
 .lead__headline {{ font-family: var(--font-display); font-size: clamp(28px, 4vw, 44px); font-weight: 900; line-height: 1.08; letter-spacing: -0.5px; margin-bottom: 10px; }}
 .lead__deck {{ font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--ink-mid); margin-bottom: 14px; border-left: 3px solid var(--rule); padding-left: 14px; }}
@@ -320,7 +320,8 @@ tr:hover td {{ background: var(--paper-tinted); }}
   .pagination span {{ font-size: 14px; }}
 
   /* Investigation narrative */
-  #tab-overview .main-content {{ grid-template-columns: 1fr; gap: 16px; }}
+  #tab-overview .front-page {{ grid-template-columns: 1fr; }}
+  #tab-overview .main-content {{ padding-right: 0; border-right: none; }}
   #tab-overview .sidebar {{ border-left: none; padding-left: 0; border-top: 2px solid var(--rule); padding-top: 16px; }}
   .lead__headline {{ font-size: 26px; }}
   .lead__deck {{ font-size: 16px; }}
